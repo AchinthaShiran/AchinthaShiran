@@ -15,8 +15,6 @@ import { player } from '@/engine/playerState';
 import { clickTarget, world } from '@/game/actions';
 import { useSettings } from '@/state/settings';
 import { useUi } from '@/state/ui';
-import { useProgress } from '@/state/progress';
-import { Model } from './Model';
 
 const MAX_DOTS = 260;
 const SPACING = 1.3;
@@ -126,28 +124,11 @@ function ClickMarker() {
   return <mesh ref={ref} geometry={geo} material={material} visible={false} />;
 }
 
-/** Idea Seed collectibles (optional, plan §10). */
-function Seeds() {
-  const collected = useProgress((s) => s.seeds);
-  return (
-    <>
-      {world.seeds
-        .filter((s) => !collected.includes(s.id))
-        .map((s) => (
-          <group key={s.id} position={[s.x, s.y, s.z]}>
-            <Model id="ideaSeed" />
-          </group>
-        ))}
-    </>
-  );
-}
-
 export function Guide() {
   return (
     <>
       <GuideTrail />
       <ClickMarker />
-      <Seeds />
     </>
   );
 }

@@ -8,13 +8,10 @@ import {
   getProjectTopic,
   getRole,
   getSageTopic,
-  getSeed,
   getSkill,
-  ideaSeeds,
   profile,
 } from '@/content';
 import { GAME_INFO } from '@/game/paint/config';
-import { useProgress } from '@/state/progress';
 import type { PanelRef } from '@/world/types';
 import { zones } from '@/world/zones';
 import {
@@ -52,43 +49,6 @@ export interface PanelView {
   eyebrow: string;
   title: string;
   body: (nav: Nav) => ReactNode;
-}
-
-function SeedsCollection({ nav }: { nav: Nav }) {
-  const collected = useProgress((s) => s.seeds);
-  return (
-    <>
-      <p>
-        Optional little discoveries hidden around the world - {collected.length} of {ideaSeeds.length} found.
-        Nothing important is hidden behind them.
-      </p>
-      <div className="grid-2">
-        {ideaSeeds.map((s) => {
-          const found = collected.includes(s.id);
-          return (
-            <div key={s.id} className={`card seed-card ${found ? '' : 'seed-card--locked'}`}>
-              <h3>{found ? s.title : '???'}</h3>
-              {found ? (
-                nav ? (
-                  <button
-                    type="button"
-                    className="chip chip--link"
-                    onClick={() => nav({ kind: 'seed', id: s.id })}
-                  >
-                    Read
-                  </button>
-                ) : (
-                  <p>{s.fact}</p>
-                )
-              ) : (
-                <p className="muted">Still hidden somewhere…</p>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </>
-  );
 }
 
 const view = (eyebrow: string, title: string, body: (nav: Nav) => ReactNode): PanelView => ({
@@ -192,27 +152,6 @@ export function describePanel(ref: PanelRef): PanelView {
       return view('Telescope', 'Online profiles', () => <Profiles />);
     case 'cv':
       return view('Notice board', 'Curriculum vitae', () => <CvDetails />);
-    case 'seeds':
-      return view('Bonus discoveries', 'Idea Seeds', (nav) => <SeedsCollection nav={nav} />);
-    case 'seed': {
-      const seed = getSeed(ref.id);
-      return seed
-        ? view('Idea Seed found!', seed.title, (nav) => (
-            <>
-              <p className="lead">{seed.fact}</p>
-              {nav && (
-                <button
-                  type="button"
-                  className="btn btn--small btn--ghost"
-                  onClick={() => nav({ kind: 'seeds' })}
-                >
-                  View all Idea Seeds
-                </button>
-              )}
-            </>
-          ))
-        : missing;
-    }
     case 'zone': {
       const zone = zones.find((z) => z.id === ref.id);
       return zone ? view(zone.section, zone.name, () => <p className="lead">{zone.description}</p>) : missing;

@@ -8,7 +8,6 @@ import {
   getProjectTopic,
   getRole,
   getSageTopic,
-  getSeed,
   getSkill,
   organizations,
   projects,
@@ -16,7 +15,6 @@ import {
   roles,
   skills,
   awards,
-  ideaSeeds,
 } from '@/content';
 import { placeHuntSpots } from '@/game/paint/huntTargets';
 import { buildWorld, segmentWalkable } from './build';
@@ -47,8 +45,6 @@ function panelTargetExists(p: PanelRef): boolean {
       return !!getMentoring(p.id);
     case 'contact-channel':
       return !!getContact(p.id);
-    case 'seed':
-      return !!getSeed(p.id);
     default:
       return true;
   }
@@ -89,11 +85,6 @@ describe('world layout', () => {
       return world.nav.findPath(homeHub, lm.navNodeId) === null;
     });
     expect(unreachable.map((l) => l.id)).toEqual([]);
-  });
-
-  it('places every seed on walkable ground', () => {
-    const bad = world.seeds.filter((s) => world.collision.groundAt(s.x, s.z, s.y + 0.1) === null);
-    expect(bad.map((s) => s.id)).toEqual([]);
   });
 
   it('has globally unique landmark ids', () => {
@@ -139,10 +130,6 @@ describe('content → world mapping', () => {
     roles.forEach((r) => expect(has('role', r.id), r.id).toBe(true));
     skills.forEach((s) => expect(has('skill', s.id), s.id).toBe(true));
     awards.forEach((a) => expect(has('award', a.id), a.id).toBe(true));
-  });
-
-  it('places every idea seed exactly once', () => {
-    expect(world.seeds.map((s) => s.id).sort()).toEqual(ideaSeeds.map((s) => s.id).sort());
   });
 
   it('only links panels to existing content', () => {

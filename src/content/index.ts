@@ -6,7 +6,6 @@ import { mentoring } from './mentoring';
 import { profile } from './profile';
 import { projects } from './projects';
 import { sageTopics } from './sage';
-import { ideaSeeds } from './seeds';
 import { skillCategories, skills } from './skills';
 import type {
   Award,
@@ -26,7 +25,6 @@ export {
   contacts,
   cv,
   education,
-  ideaSeeds,
   mentoring,
   organizations,
   profile,
@@ -54,7 +52,6 @@ export const getAward = (id: Id): Award | undefined => awardById.get(id);
 export const getOrganization = (id: Id) => orgById.get(id);
 export const getSageTopic = (id: Id) => sageTopics.find((t) => t.id === id);
 export const getMentoring = (id: Id) => mentoring.find((m) => m.id === id);
-export const getSeed = (id: Id) => ideaSeeds.find((s) => s.id === id);
 export const getContact = (kind: ContactKind) => contacts.find((c) => c.id === kind);
 export const getSkillCategory = (id: Skill['categoryId']) => skillCategories.find((c) => c.id === id);
 

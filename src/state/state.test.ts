@@ -35,14 +35,11 @@ describe('ui store', () => {
 });
 
 describe('progress store', () => {
-  it('records visits and seeds once', () => {
+  it('records visits once', () => {
     const p = useProgress.getState();
     p.reset();
     expect(useProgress.getState().visit('home')).toBe(true);
     expect(useProgress.getState().visit('home')).toBe(false);
-    expect(useProgress.getState().collectSeed('seed-alfred')).toBe(true);
-    expect(useProgress.getState().collectSeed('seed-alfred')).toBe(false);
-    expect(useProgress.getState().seeds).toEqual(['seed-alfred']);
   });
 });
 

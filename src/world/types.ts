@@ -45,8 +45,6 @@ export type PanelRef =
   | { kind: 'contact-channel'; id: ContactKind }
   | { kind: 'profiles' }
   | { kind: 'cv' }
-  | { kind: 'seeds' }
-  | { kind: 'seed'; id: string }
   | { kind: 'zone'; id: ZoneId }
   | { kind: 'controls' }
   | { kind: 'paint-challenges' }
@@ -116,12 +114,6 @@ export interface ZonePalette {
   readonly accent: string;
 }
 
-export interface SeedPlacement {
-  readonly id: string;
-  readonly at: Polar;
-  readonly level?: number;
-}
-
 export interface ZoneDef {
   readonly id: ZoneId;
   readonly name: string;
@@ -146,7 +138,6 @@ export interface ZoneDef {
   readonly hub?: { readonly x: number; readonly z: number };
   readonly features?: readonly ZoneFeature[];
   readonly tiers?: readonly TierDef[];
-  readonly seeds?: readonly SeedPlacement[];
   /** Panel shown for the zone itself (map "Read" action / landmark hub). */
   readonly overviewPanel: PanelRef;
   /** Landmark the guide targets for this zone. */

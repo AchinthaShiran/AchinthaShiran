@@ -8,7 +8,6 @@ import {
   formatYears,
   getProject,
   getProjectTopic,
-  ideaSeeds,
   organizations,
   projects,
   projectsByCategory,
@@ -26,13 +25,11 @@ function expectUniqueIds(items: readonly { id: string }[]) {
 
 describe('content integrity', () => {
   it('has unique ids per collection', () => {
-    [projects, roles, skills, awards, organizations, sageTopics, ideaSeeds, skillCategories].forEach(
-      expectUniqueIds,
-    );
+    [projects, roles, skills, awards, organizations, sageTopics, skillCategories].forEach(expectUniqueIds);
   });
 
   it('uses kebab-case ids', () => {
-    const all = [...projects, ...roles, ...skills, ...awards, ...organizations, ...ideaSeeds];
+    const all = [...projects, ...roles, ...skills, ...awards, ...organizations];
     for (const item of all) expect(item.id).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
   });
 
