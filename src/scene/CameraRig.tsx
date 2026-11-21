@@ -2,9 +2,11 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Vector3 } from 'three';
 import { readIntent } from '@/engine/input';
+import { aimCamera, lookStep } from '@/engine/look';
 import { angleDelta, clamp, damp } from '@/engine/math';
 import { autoWalk, camera as camState, player } from '@/engine/playerState';
 import { world } from '@/game/actions';
+import { useGameStats } from '@/state/paint';
 import { useSettings } from '@/state/settings';
 import { useUi } from '@/state/ui';
 
@@ -17,7 +19,14 @@ const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 
 /** Third-person follow camera with drag-to-orbit, wheel/pinch zoom and a short intro fly-in. */
 export function CameraRig() {
   const { camera, gl } = useThree();
-  const view = useRef({ pitch: 0.42, effPitch: 0.42, dist: 13, targetDist: 13, lastDrag: -10 });
+  const view = useRef({
+    pitch: 0.42,
+    effPitch: 0.42,
+    aimPitch: 0.08,
+    dist: 13,
+    targetDist: 13,
+    lastDrag: -10,
+  });
   const intro = useRef({ t: 0 });
   const target = useRef(new Vector3());
   const desired = useRef(new Vector3());
@@ -77,12 +86,25 @@ export function CameraRig() {
         MAX_DIST,
       );
     };
+    // GTA-style look: with the mouse captured, raw movement turns the camera (no dragging needed).
+    const onLockedMove = (e: MouseEvent) => {
+      if (!camState.locked) return;
+      const v = view.current;
+      const aiming = useGameStats.getState().mode;
+      const next = lookStep(camState.yaw, aiming ? v.aimPitch : v.pitch, e.movementX, e.movementY, aiming);
+      camState.yaw = next.yaw;
+      if (aiming) v.aimPitch = next.pitch;
+      else v.pitch = next.pitch;
+      v.lastDrag = performance.now();
+    };
+    document.addEventListener('mousemove', onLockedMove);
     el.addEventListener('pointerdown', onDown);
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
     window.addEventListener('pointercancel', onUp);
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => {
+      document.removeEventListener('mousemove', onLockedMove);
       el.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
@@ -100,8 +122,31 @@ export function CameraRig() {
     // Gentle auto-follow: when moving forward without recent drags, swing behind the player.
     const intent = readIntent();
     const forwardish = intent.y > 0.3 || autoWalk.points.length > 0;
-    if (ui.phase === 'play' && forwardish && player.speed > 1 && performance.now() - v.lastDrag > 1500) {
+    if (
+      ui.phase === 'play' &&
+      !camState.locked &&
+      forwardish &&
+      player.speed > 1 &&
+      performance.now() - v.lastDrag > 1500
+    ) {
       camState.yaw += angleDelta(camState.yaw, player.yaw + Math.PI) * damp(0.9, dt);
+    }
+
+    // Paint mode with the mouse captured: over-the-shoulder aim camera; the centre crosshair is where shots go.
+    if (camState.locked && ui.phase === 'play' && useGameStats.getState().mode) {
+      const aim = aimCamera({ x: player.x, y: player.y + 1.6, z: player.z }, camState.yaw, v.aimPitch);
+      desired.current.set(aim.position.x, aim.position.y, aim.position.z);
+      const floor = world.collision.topAt(desired.current.x, desired.current.z);
+      if (floor !== null) desired.current.y = Math.max(desired.current.y, floor + 0.6);
+      camera.position.lerp(desired.current, reduced ? 1 : damp(14, dt));
+      lookAt.current.set(
+        camera.position.x + aim.forward.x * 40,
+        camera.position.y + aim.forward.y * 40,
+        camera.position.z + aim.forward.z * 40,
+      );
+      camera.lookAt(lookAt.current);
+      v.dist = v.targetDist;
+      return;
     }
 
     target.current.set(player.x, player.y + 1.5, player.z);
