@@ -2,7 +2,7 @@
 
 <img src="assets-readme/hero.svg" alt="Pixel-art platformer: a tiny developer runs, jumps over bugs, collects coins and defeats a boss bug called PRODUCTION" width="100%" />
 
-### 🌍 [Step into my interactive 3D world](https://achinthashiran.github.io/AchinthaShiran/)
+### 🌍 [Check Out My Portfolio](https://achinthashiran.github.io/AchinthaShiran/)
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Explore_my_world-7c5cff?style=for-the-badge)](https://achinthashiran.github.io/AchinthaShiran/)
 [![Google Play](https://img.shields.io/badge/Google_Play-My_apps-3ddc84?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/dev?id=6821467528489170264)
