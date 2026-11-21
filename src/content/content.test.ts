@@ -3,6 +3,7 @@ import {
   awards,
   contacts,
   currentRole,
+  formatDuration,
   formatPeriod,
   formatYears,
   getProject,
@@ -89,6 +90,14 @@ describe('content integrity', () => {
 describe('content helpers', () => {
   it('finds the current role', () => {
     expect(currentRole().title).toBe('Associate Technical Lead');
+  });
+
+  it('formats whole-month durations and leaves ongoing roles open', () => {
+    expect(formatDuration('2022-10', '2024-08')).toBe('1 year 10 months');
+    expect(formatDuration('2024-08', '2026-02')).toBe('1 year 6 months');
+    expect(formatDuration('2023-01', '2024-01')).toBe('1 year');
+    expect(formatDuration('2024-01', '2024-02')).toBe('1 month');
+    expect(formatDuration('2026-03', null)).toBeNull();
   });
 
   it('formats periods and years', () => {

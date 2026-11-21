@@ -12,6 +12,7 @@ import {
   currentRole,
   cv,
   education,
+  formatDuration,
   formatPeriod,
   formatYears,
   getContact,
@@ -271,10 +272,37 @@ export function OrganizationDetails({ id, nav }: { id: string; nav: Nav }) {
       <CareerTimeline nav={nav} />
       {rolesForOrganization(id).length > 0 && (
         <p className="muted">
-          Currently {currentRole().title}. The plaques along the plaza walk through each role.
+          Currently {currentRole().title}.{nav ? ' The plaques along the plaza walk through each role.' : ''}
         </p>
       )}
     </>
+  );
+}
+
+/** Where a role sits in the progression at its organization, derived from the dates. */
+function CareerStep({ role, nav }: { role: Role; nav: Nav }) {
+  const org = getOrganization(role.organizationId);
+  const steps = rolesForOrganization(role.organizationId).sort((a, b) => a.start.localeCompare(b.start));
+  const index = steps.findIndex((r) => r.id === role.id);
+  if (index < 0 || steps.length < 2) return null;
+  const previous = steps[index - 1];
+  const next = steps[index + 1];
+  const duration = formatDuration(role.start, role.end);
+  return (
+    <Section title="Career step">
+      <p style={{ margin: '0 0 8px' }}>
+        Step {index + 1} of {steps.length} at {org?.shortName ?? 'the organization'}
+        {duration ? ` · ${duration}` : next ? '' : ' · current role'}
+      </p>
+      {nav && (
+        <div className="chips">
+          {previous && (
+            <NavChip label={`Before: ${previous.title}`} to={{ kind: 'role', id: previous.id }} nav={nav} />
+          )}
+          {next && <NavChip label={`Next: ${next.title}`} to={{ kind: 'role', id: next.id }} nav={nav} />}
+        </div>
+      )}
+    </Section>
   );
 }
 
@@ -305,15 +333,12 @@ export function RoleDetails({ role, nav }: { role: Role; nav: Nav }) {
         </Section>
       )}
       {role.technologies.length > 0 && <TechChips ids={role.technologies} nav={nav} />}
-      {role.responsibilities.length === 0 && role.projectIds.length === 0 && (
-        <p className="note">
-          Part of the career progression at {org?.shortName ?? 'the organization'}. Role-specific details will
-          be added here.
-        </p>
+      <CareerStep role={role} nav={nav} />
+      {nav && (
+        <div className="actions">
+          <NavChip label="Full career timeline" to={{ kind: 'career-timeline' }} nav={nav} />
+        </div>
       )}
-      <div className="actions">
-        <NavChip label="Full career timeline" to={{ kind: 'career-timeline' }} nav={nav} />
-      </div>
     </>
   );
 }
@@ -403,23 +428,30 @@ export function ProjectDetails({
   project,
   nav,
   extra,
+  hideHeader = false,
 }: {
   project: Project;
   nav: Nav;
   /** Extra content from the host (e.g. world actions); never rendered in Classic mode. */
   extra?: ReactNode;
+  /** Skip the badges and tagline (the host already shows them). */
+  hideHeader?: boolean;
 }) {
   const org = project.organizationId ? getOrganization(project.organizationId) : undefined;
   const recognitions = awardsForProject(project.id);
   const linkedRoles = rolesForProject(project.id);
   return (
     <>
-      <p>
-        {org && <span className="badge">{org.name}</span>}{' '}
-        {project.category === 'personal' && <span className="badge badge--coral">Personal project</span>}{' '}
-        <span className="badge badge--sun">{project.role}</span>
-      </p>
-      <p className="lead">{project.tagline}</p>
+      {!hideHeader && (
+        <>
+          <p>
+            {org && <span className="badge">{org.name}</span>}{' '}
+            {project.category === 'personal' && <span className="badge badge--coral">Personal project</span>}{' '}
+            <span className="badge badge--sun">{project.role}</span>
+          </p>
+          <p className="lead">{project.tagline}</p>
+        </>
+      )}
       {project.problem && (
         <Section title="The need">
           <p>{project.problem}</p>
@@ -579,6 +611,39 @@ const PROJECT_GROUPS: { category: ProjectCategory; title: string }[] = [
   { category: 'personal', title: 'Personal projects' },
 ];
 
+/** Classic-mode project card: name, tagline, role and main technologies, expanding to the full details. */
+function ProjectCard({ project, open }: { project: Project; open: boolean }) {
+  const org = project.organizationId ? getOrganization(project.organizationId) : undefined;
+  const tech = project.technologies
+    .map((id) => getSkill(id)?.name)
+    .filter((n): n is string => !!n)
+    .slice(0, 5);
+  return (
+    <details className="project" open={open}>
+      <summary>
+        <span className="project__main">
+          <span className="project__name">{project.name}</span>
+          <span className="project__tagline">{project.tagline}</span>
+          <span className="project__meta">
+            {org && <span className="badge">{org.shortName}</span>}
+            {project.category === 'personal' && <span className="badge badge--coral">Personal project</span>}
+            <span className="badge badge--sun">{project.role}</span>
+            {tech.map((n) => (
+              <span key={n} className="chip">
+                {n}
+              </span>
+            ))}
+          </span>
+        </span>
+        <span className="project__chevron" aria-hidden="true" />
+      </summary>
+      <div className="project__body">
+        <ProjectDetails project={project} nav={undefined} hideHeader />
+      </div>
+    </details>
+  );
+}
+
 /** Projects grouped by category; pass `category` to show a single group. */
 export function ProjectList({ nav, category }: { nav: Nav; category?: ProjectCategory }) {
   return (
@@ -589,7 +654,7 @@ export function ProjectList({ nav, category }: { nav: Nav; category?: ProjectCat
         return (
           <div key={group.category}>
             {!category && <h3 className="section-title">{group.title}</h3>}
-            {list.map((p) =>
+            {list.map((p, i) =>
               nav ? (
                 <button
                   key={p.id}
@@ -603,10 +668,7 @@ export function ProjectList({ nav, category }: { nav: Nav; category?: ProjectCat
                   </p>
                 </button>
               ) : (
-                <article key={p.id} className="card">
-                  <h3>{p.name}</h3>
-                  <ProjectDetails project={p} nav={undefined} />
-                </article>
+                <ProjectCard key={p.id} project={p} open={i === 0} />
               ),
             )}
           </div>
@@ -625,32 +687,34 @@ export function SkillsOverview({ nav }: { nav: Nav }) {
         Technologies from the resume and from personal projects, grouped by area. Each one links to the
         projects where it appears.
       </p>
-      {skillCategories.map((c) => {
-        const list = skillsInCategory(c.id);
-        if (list.length === 0) return null;
-        return (
-          <div key={c.id} className="card">
-            <h3>
-              <span
-                className="chip__dot"
-                style={{ background: c.color, display: 'inline-block', marginRight: 8 }}
-              />
-              {c.name}
-            </h3>
-            <div className="chips">
-              {list.map((s) => (
-                <NavChip
-                  key={s.id}
-                  label={s.name}
-                  to={{ kind: 'skill', id: s.id }}
-                  nav={nav}
-                  color={c.color}
+      <div className="grid-cards">
+        {skillCategories.map((c) => {
+          const list = skillsInCategory(c.id);
+          if (list.length === 0) return null;
+          return (
+            <div key={c.id} className="card">
+              <h3>
+                <span
+                  className="chip__dot"
+                  style={{ background: c.color, display: 'inline-block', marginRight: 8 }}
                 />
-              ))}
+                {c.name}
+              </h3>
+              <div className="chips">
+                {list.map((s) => (
+                  <NavChip
+                    key={s.id}
+                    label={s.name}
+                    to={{ kind: 'skill', id: s.id }}
+                    nav={nav}
+                    color={c.color}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </>
   );
 }
@@ -975,18 +1039,20 @@ export function ContactList({ closing = true }: { closing?: boolean }) {
 export function ContactChannelDetails({ id }: { id: ContactKind }) {
   const channel = getContact(id);
   if (!channel || (channel.href === null && channel.id !== 'linkedin')) {
+    const email = getContact('email');
     return (
-      <p className="note">
-        This profile link hasn't been published yet. Please reach out by email in the meantime.
-      </p>
+      <>
+        <p>The best way to reach Achintha is by email.</p>
+        {email && <ContactRow channel={email} />}
+      </>
     );
   }
   return (
     <>
       <ContactRow channel={channel} />
       {channel.href === null && (
-        <p className="note">
-          Search for “{channel.display}” on {channel.label}. A direct link will be added soon.
+        <p className="muted">
+          Find Achintha on {channel.label} as “{channel.display}”.
         </p>
       )}
       <p className="muted">{profile.closingMessage}</p>
@@ -1004,9 +1070,6 @@ export function Profiles() {
       {profiles.map((c) => (
         <ContactRow key={c.id} channel={c} />
       ))}
-      {profiles.every((c) => c.href === null) && (
-        <p className="note">More verified profile links will appear here once published.</p>
-      )}
     </>
   );
 }
@@ -1031,11 +1094,15 @@ export function CvDetails() {
       </>
     );
   }
+  const email = getContact('email');
   return (
-    <p className="note">
-      The CV download will be available here soon. In the meantime, everything on the CV is in this world — or
-      reach out by email.
-    </p>
+    <>
+      <p>
+        The CV's contents are all in this world: experience, projects, skills, education, awards and
+        mentoring. For a copy of the CV, email Achintha.
+      </p>
+      {email && <ContactRow channel={email} />}
+    </>
   );
 }
 
