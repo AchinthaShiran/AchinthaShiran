@@ -108,6 +108,21 @@ export function formatPeriod(start: YearMonth, end: YearMonth | null): string {
   return `${formatYearMonth(start)} – ${end ? formatYearMonth(end) : 'Present'}`;
 }
 
+/** Whole-month duration between two year-months, e.g. "1 year 10 months". Null for an ongoing role. */
+export function formatDuration(start: YearMonth, end: YearMonth | null): string | null {
+  if (end === null) return null;
+  const [sy, sm] = start.split('-').map(Number);
+  const [ey, em] = end.split('-').map(Number);
+  const months = (ey! - sy!) * 12 + (em! - sm!);
+  if (months <= 0) return null;
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  const plural = (n: number, unit: string) => `${n} ${unit}${n === 1 ? '' : 's'}`;
+  return [years > 0 ? plural(years, 'year') : null, rest > 0 ? plural(rest, 'month') : null]
+    .filter(Boolean)
+    .join(' ');
+}
+
 export function formatYears(years: readonly number[]): string {
   return [...years].sort((a, b) => b - a).join(' and ');
 }
