@@ -78,14 +78,6 @@ export interface DecorItem {
   readonly scale: number;
 }
 
-export interface SeedRuntime {
-  readonly id: string;
-  readonly zoneId: ZoneId;
-  readonly x: number;
-  readonly y: number;
-  readonly z: number;
-}
-
 export interface NavEdge {
   readonly a: NavNode;
   readonly b: NavNode;
@@ -103,7 +95,6 @@ export interface World {
   readonly ramps: readonly StripRuntime[];
   readonly tiers: readonly TierRuntime[];
   readonly decor: readonly DecorItem[];
-  readonly seeds: readonly SeedRuntime[];
   readonly navEdges: readonly NavEdge[];
   readonly collision: CollisionWorld;
   readonly nav: NavGraph;
@@ -484,7 +475,6 @@ export function buildWorld(
     const river = def.features?.find((f) => f.kind === 'river');
     const pier = def.features?.find((f) => f.kind === 'pier');
     const placed: { x: number; z: number; r: number }[] = [];
-    const seedsHere = (def.seeds ?? []).map((s) => toWorld(zone, polarToLocal(s.at)));
 
     for (const [kind, count] of Object.entries(def.decor) as [DecorKind, number][]) {
       const solid = kind in decorObstacleKinds;
@@ -520,7 +510,6 @@ export function buildWorld(
         }
         if (pier && pier.kind === 'pier' && Math.abs(((a - pier.a + 540) % 360) - 180) < 12) continue;
         if (placed.some((p) => Math.hypot(p.x - x, p.z - z) < p.r + itemR)) continue;
-        if (seedsHere.some((s) => Math.hypot(s.x - x, s.z - z) < 1.6)) continue;
         const scale = 0.8 + rng() * 0.5;
         const seed = Math.floor(rng() * 1000);
         decor.push({ kind, zoneId: zone.id, seed, x, y: zone.y, z, yaw: rng() * Math.PI * 2, scale });
@@ -536,15 +525,7 @@ export function buildWorld(
     }
   }
 
-  // 6. Seeds
-  const seeds: SeedRuntime[] = zones.flatMap((zone) =>
-    (zone.def.seeds ?? []).map((s) => {
-      const { x, z } = toWorld(zone, polarToLocal(s.at));
-      return { id: s.id, zoneId: zone.id, x, z, y: zone.y + (s.level ?? 0) };
-    }),
-  );
-
-  // 7. Queries
+  // 6. Queries
   const landmarkMap = new Map(landmarks.map((l) => [l.id, l]));
   const interactables = landmarks.filter((l) => l.panel !== null);
 
@@ -595,7 +576,6 @@ export function buildWorld(
     ramps,
     tiers,
     decor,
-    seeds,
     navEdges,
     collision,
     nav,

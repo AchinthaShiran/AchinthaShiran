@@ -106,7 +106,7 @@ import {
   paintGun,
   paintTarget,
 } from './models/arena';
-import { ideaSeed, placeholder, signpostPost } from './models/props';
+import { placeholder, signpostPost } from './models/props';
 import type { Footprint, ModelEntry, ModelProps } from './types';
 import type { Object3D } from 'three';
 
@@ -261,7 +261,6 @@ export const manifest = {
   paintBarrel: proc(paintBarrel, circle(0.6), 1.2),
 
   // Collectibles & fallbacks
-  ideaSeed: proc(ideaSeed, null, 1.6),
   placeholder: proc(placeholder, circle(0.6), 1),
 } satisfies Record<string, ModelEntry>;
 

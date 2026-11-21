@@ -80,7 +80,6 @@ const home: ZoneDef = {
     { id: 'home-windmill', name: 'Windmill', model: 'windmill', at: { a: 288, r: 14 } },
     { id: 'home-signpost', name: 'Signpost', model: 'signpostPost', at: { a: 200, r: 4.6 }, scale: 1.4 },
   ],
-  seeds: [{ id: 'seed-game-dev', at: { a: 135, r: 16.4 } }],
   overviewPanel: { kind: 'about' },
   primaryLandmark: 'home-avatar',
 };
@@ -118,7 +117,6 @@ const education: ZoneDef = {
     },
     { id: 'edu-books', name: 'Books', model: 'bookStack', at: { a: 95, r: 7.5 } },
   ],
-  seeds: [{ id: 'seed-first-class', at: { a: 285, r: 7.5 } }],
   overviewPanel: { kind: 'education' },
   primaryLandmark: 'edu-university',
 };
@@ -163,7 +161,6 @@ const career: ZoneDef = {
     { id: 'career-street-tree-1', name: 'Tree', model: 'streetTree', at: { a: 112, r: 16 } },
     { id: 'career-street-tree-2', name: 'Tree', model: 'streetTree', at: { a: 160, r: 16 } },
   ],
-  seeds: [{ id: 'seed-summit', at: { a: 200, r: 12.5 } }],
   overviewPanel: { kind: 'career-timeline' },
   primaryLandmark: 'career-org-sysco-labs',
 };
@@ -243,7 +240,6 @@ const lab: ZoneDef = {
     { id: 'lab-tube-2', name: 'Energy Tube', model: 'energyTube', at: { a: 236, r: 17 } },
     { id: 'lab-tube-3', name: 'Energy Tube', model: 'energyTube', at: { a: 348, r: 17.5 } },
   ],
-  seeds: [{ id: 'seed-agents', at: { a: 30, r: 16 } }],
   overviewPanel: { kind: 'sage', id: 'core' },
   primaryLandmark: 'lab-core',
   projects: ['sage'],
@@ -293,7 +289,6 @@ const park: ZoneDef = {
     { id: 'park-bench-1', name: 'Bench', model: 'bench', at: { a: 235, r: 8.8 } },
     { id: 'park-bench-2', name: 'Bench', model: 'bench', at: { a: 290, r: 8.8 } },
   ],
-  seeds: [{ id: 'seed-alfred', at: { a: 330, r: 18 } }],
   overviewPanel: { kind: 'projects' },
   primaryLandmark: 'park-kiosk',
 };
@@ -412,7 +407,6 @@ const peak: ZoneDef = {
       level: 5.4,
     },
   ],
-  seeds: [{ id: 'seed-journey', at: { a: 150, r: 3.4 }, level: 5.4 }],
   overviewPanel: { kind: 'awards' },
   primaryLandmark: 'peak-castle',
 };
@@ -479,7 +473,6 @@ const mentorship: ZoneDef = {
       at: { a: 160, r: 10.3 },
     },
   ],
-  seeds: [{ id: 'seed-bootcamp', at: { a: 200, r: 8.5 } }],
   overviewPanel: { kind: 'mentoring-overview' },
   primaryLandmark: 'mentor-pavilion',
 };
@@ -628,7 +621,6 @@ const tala: ZoneDef = {
       at: { a: 120, r: 14.5 },
     },
   ],
-  seeds: [{ id: 'seed-tala', at: { a: 220, r: 15.5 } }],
   overviewPanel: { kind: 'project', id: 'tala' },
   primaryLandmark: 'tala-terminal',
   projects: ['tala'],
@@ -708,7 +700,6 @@ const skillup: ZoneDef = {
       at: { a: 358, r: 14 },
     },
   ],
-  seeds: [{ id: 'seed-skillup', at: { a: 210, r: 14.5 } }],
   overviewPanel: { kind: 'project', id: 'skill-up' },
   primaryLandmark: 'skillup-hall',
   projects: ['skill-up'],
@@ -804,7 +795,6 @@ const myspend: ZoneDef = {
       at: { a: 195, r: 14.5 },
     },
   ],
-  seeds: [{ id: 'seed-myspend', at: { a: 108, r: 14.4 } }],
   overviewPanel: { kind: 'project', id: 'myspend' },
   primaryLandmark: 'myspend-piggy',
   projects: ['myspend'],
@@ -889,7 +879,6 @@ const unity: ZoneDef = {
       at: { a: 355, r: 14 },
     },
   ],
-  seeds: [{ id: 'seed-openai-unity', at: { a: 70, r: 14.5 } }],
   overviewPanel: { kind: 'project', id: 'openai-unity' },
   primaryLandmark: 'unity-package',
   projects: ['openai-unity'],

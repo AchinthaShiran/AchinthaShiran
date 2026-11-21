@@ -172,9 +172,3 @@ export interface SageTopic {
   readonly summary: string;
   readonly points: readonly string[];
 }
-
-export interface IdeaSeed {
-  readonly id: Id;
-  readonly title: string;
-  readonly fact: string;
-}

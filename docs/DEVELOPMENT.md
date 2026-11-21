@@ -86,7 +86,7 @@ Tests check that every cross-reference resolves.
 | Add a personal project               | See "Adding a personal project" below                                                                |
 | Add a skill                          | [`skills.ts`](../src/content/skills.ts) - Skill Forest adds a crystal in its category                |
 | Add an award                         | [`awards.ts`](../src/content/awards.ts) - Achievement Peak adds a trophy                             |
-| Mentoring, education, Idea Seeds     | `mentoring.ts`, `education.ts`, `seeds.ts`                                                           |
+| Mentoring, education                 | `mentoring.ts`, `education.ts`                                                                       |
 | LinkedIn / GitHub links              | [`contact.ts`](../src/content/contact.ts) - set `href`                                               |
 
 **Enable the CV download.** Put the PDF at `public/cv/Achintha_Bandara_CV.pdf`, then set
@@ -138,7 +138,7 @@ world (004).
 3. Models come from [`makers.ts`](../src/assets/models/makers.ts) and the [manifest](../src/assets/manifest.ts) - reuse
    one or add new ones.
 4. Project Park adds a gateway automatically (it has four slots; add more in `parkLandmarks()`), and the Explore
-   menu and Classic page list the project. Add an idea seed in `seeds.ts` and place it on the island.
+   menu and Classic page list the project.
 
 `npm test` checks that every topic has a station, every project has an island and everything is reachable.
 

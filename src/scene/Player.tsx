@@ -10,7 +10,6 @@ import { consumeJump, hasMoveInput, readIntent } from '@/engine/input';
 import { angleDelta, damp } from '@/engine/math';
 import { autoWalk, camera, cancelAutoWalk, player, teleport } from '@/engine/playerState';
 import { world } from '@/game/actions';
-import { getSeed } from '@/content';
 import { useProgress } from '@/state/progress';
 import { isUiBlocking, useUi } from '@/state/ui';
 
@@ -195,7 +194,7 @@ export function Player() {
       }
     }
 
-    // 6. World awareness (zone, nearby, seeds, guide) - throttled
+    // 6. World awareness (zone, nearby, guide) - throttled
     anim.current.lastProbe += dt;
     if (anim.current.lastProbe < 0.12) return;
     anim.current.lastProbe = 0;
@@ -222,19 +221,6 @@ export function Player() {
       ui.setNearby(best);
       const group = best ? (world.landmark(best)?.def.group ?? null) : null;
       if (group || !ui.panels.length) ui.setHighlightGroup(group);
-    }
-
-    const progress = useProgress.getState();
-    for (const seed of world.seeds) {
-      if (progress.seeds.includes(seed.id)) continue;
-      if (Math.hypot(seed.x - player.x, seed.z - player.z) < 1.4 && Math.abs(seed.y - player.y) < 2) {
-        progress.collectSeed(seed.id);
-        playSfx('collect');
-        ui.showToast(
-          `Idea Seed found: ${getSeed(seed.id)?.title ?? 'Discovery'} (${progress.seeds.length + 1}/${world.seeds.length})`,
-        );
-        ui.openPanel({ kind: 'seed', id: seed.id });
-      }
     }
 
     const dest = ui.destination;

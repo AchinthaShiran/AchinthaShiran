@@ -1,6 +1,5 @@
-import { assetUrl, cv, ideaSeeds } from '@/content';
+import { assetUrl, cv } from '@/content';
 import { guideTo, travelToLandmark, world } from '@/game/actions';
-import { useProgress } from '@/state/progress';
 import { useUi } from '@/state/ui';
 import { personalSections, type Section, sections } from '@/world/sections';
 import type { PanelRef } from '@/world/types';
@@ -50,7 +49,6 @@ function SectionCard({ s, open }: { s: Section; open: (panel: PanelRef) => void 
 
 /** Conventional section navigation (plan §11): read instantly, get guided, or travel. */
 export function QuickNav() {
-  const seeds = useProgress((s) => s.seeds.length);
   const close = () => useUi.getState().setOverlay(null);
   const open = useUi((s) => s.openPanel);
   return (
@@ -88,13 +86,6 @@ export function QuickNav() {
               onClick={() => open({ kind: 'projects', category: 'personal' })}
             >
               <Icon name="star" /> All personal projects
-            </button>
-            <button
-              type="button"
-              className="btn btn--small btn--ghost"
-              onClick={() => open({ kind: 'seeds' })}
-            >
-              <Icon name="seed" /> Idea Seeds {seeds}/{ideaSeeds.length}
             </button>
             <button
               type="button"
