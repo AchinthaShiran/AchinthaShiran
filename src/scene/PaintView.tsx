@@ -18,7 +18,7 @@ import { getModel, type ModelKey } from '@/assets/manifest';
 import { camera as camState } from '@/engine/playerState';
 import { world } from '@/game/actions';
 import { MAX_BALLS, MAX_SPLATS, SPLAT_COLORS } from '@/game/paint/config';
-import { shootRay, sim, tickPaint } from '@/game/paint/controller';
+import { centerRay, fireCenter, sim, tickPaint } from '@/game/paint/controller';
 import { useGameStats } from '@/state/paint';
 import { useSettings } from '@/state/settings';
 import { isUiBlocking } from '@/state/ui';
@@ -201,20 +201,21 @@ export function PaintView() {
     const ndc = new Vector2();
     const onUp = (e: PointerEvent) => {
       if (!useGameStats.getState().mode || e.button !== 0 || camState.dragging || isUiBlocking()) return;
-      const rect = el.getBoundingClientRect();
-      // Mouse captured: shoot where the centre crosshair points; otherwise where the cursor is.
-      if (camState.locked) ndc.set(0, 0);
-      else
-        ndc.set(
-          ((e.clientX - rect.left) / rect.width) * 2 - 1,
-          -((e.clientY - rect.top) / rect.height) * 2 + 1,
-        );
-      raycaster.setFromCamera(ndc, camera);
+      fireCenter(); // always where the centre crosshair points
+    };
+    centerRay.get = () => {
+      raycaster.setFromCamera(ndc.set(0, 0), camera);
       const { origin, direction } = raycaster.ray;
-      shootRay({ x: origin.x, y: origin.y, z: origin.z }, { x: direction.x, y: direction.y, z: direction.z });
+      return {
+        origin: { x: origin.x, y: origin.y, z: origin.z },
+        dir: { x: direction.x, y: direction.y, z: direction.z },
+      };
     };
     el.addEventListener('pointerup', onUp);
-    return () => el.removeEventListener('pointerup', onUp);
+    return () => {
+      centerRay.get = null;
+      el.removeEventListener('pointerup', onUp);
+    };
   }, [camera, gl]);
 
   useFrame(({ clock }, rawDt) => {

@@ -1,3 +1,4 @@
+import { isTouch } from '@/engine/device';
 import { getBadge } from '@/game/paint/badges';
 import { GAME_INFO, METER_MAX } from '@/game/paint/config';
 import { startGame, stopGame, togglePaintMode } from '@/game/paint/controller';
@@ -160,7 +161,14 @@ export function PaintHud() {
     <>
       {mode && !hud && (
         <button type="button" className="paint-badge" onClick={togglePaintMode}>
-          <Icon name="paint" /> Paint mode - click or tap to shoot · <kbd>F</kbd> to put the gun away
+          <Icon name="paint" />{' '}
+          {isTouch() ? (
+            'Paint gun ready · tap to shoot'
+          ) : (
+            <>
+              Paint mode - click to shoot · <kbd>F</kbd> to put the gun away
+            </>
+          )}
         </button>
       )}
       {hud && <GameHudCard hud={hud} />}

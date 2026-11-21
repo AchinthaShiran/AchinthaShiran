@@ -3,6 +3,7 @@
  * Everything here is optional play: nothing in the portfolio depends on it.
  */
 import { playSfx } from '@/audio/sfx';
+import { isTouch } from '@/engine/device';
 import { camera as cameraState, player, requestTeleport } from '@/engine/playerState';
 import type { Vec3 } from '@/engine/math';
 import { interactWith, world } from '@/game/actions';
@@ -169,7 +170,13 @@ export function setPaintMode(on: boolean): void {
   if (stats().mode === on) return;
   stats().setMode(on);
   if (on) {
-    useUi.getState().showToast('Paintball gun ready: click or tap to shoot. Press F to put it away.');
+    useUi
+      .getState()
+      .showToast(
+        isTouch()
+          ? 'Paintball gun ready: tap the fire button to shoot.'
+          : 'Paintball gun ready: click to shoot. Press F to put it away.',
+      );
   } else {
     sim.stopGame('aborted');
     stats().setHud(null);
@@ -199,6 +206,15 @@ export function startGame(id: GameId): boolean {
 }
 
 export const stopGame = (): void => sim.stopGame('aborted');
+
+/** Set by the scene: returns the camera ray through the screen centre (crosshair). */
+export const centerRay: { get: (() => { origin: Vec3; dir: Vec3 }) | null } = { get: null };
+
+/** On-screen fire button: shoots where the crosshair (screen centre) points. */
+export function fireCenter(): void {
+  const r = centerRay.get?.();
+  if (r) shootRay(r.origin, r.dir);
+}
 
 /** Fires toward the point a camera ray hits (targets and bots first, then the world). */
 export function shootRay(origin: Vec3, dir: Vec3): void {

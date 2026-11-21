@@ -22,7 +22,7 @@ export function CameraRig() {
   const view = useRef({
     pitch: 0.42,
     effPitch: 0.42,
-    aimPitch: 0.08,
+    aimPitch: 0.16,
     dist: 13,
     targetDist: 13,
     lastDrag: -10,
@@ -64,7 +64,20 @@ export function CameraRig() {
       if (!down || down.id !== e.pointerId) return;
       const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y);
       if (moved > 4) camState.dragging = true;
-      if (camState.dragging) {
+      if (camState.dragging && useGameStats.getState().mode) {
+        // Gun out: dragging aims the over-the-shoulder camera (the character turns with it).
+        const next = lookStep(
+          camState.yaw,
+          view.current.aimPitch,
+          e.clientX - prev.x,
+          e.clientY - prev.y,
+          true,
+          0.005,
+        );
+        camState.yaw = next.yaw;
+        view.current.aimPitch = next.pitch;
+        view.current.lastDrag = performance.now();
+      } else if (camState.dragging) {
         camState.yaw -= (e.clientX - prev.x) * 0.006;
         view.current.pitch = clamp(view.current.pitch + (e.clientY - prev.y) * 0.004, 0.12, 1.25);
         view.current.lastDrag = performance.now();
@@ -125,6 +138,7 @@ export function CameraRig() {
     if (
       ui.phase === 'play' &&
       !camState.locked &&
+      !useGameStats.getState().mode &&
       forwardish &&
       player.speed > 1 &&
       performance.now() - v.lastDrag > 1500
@@ -132,8 +146,8 @@ export function CameraRig() {
       camState.yaw += angleDelta(camState.yaw, player.yaw + Math.PI) * damp(0.9, dt);
     }
 
-    // Paint mode with the mouse captured: over-the-shoulder aim camera; the centre crosshair is where shots go.
-    if (camState.locked && ui.phase === 'play' && useGameStats.getState().mode) {
+    // Paint mode: over-the-shoulder aim camera; the centre crosshair is where shots go.
+    if (ui.phase === 'play' && useGameStats.getState().mode) {
       const aim = aimCamera({ x: player.x, y: player.y + 1.6, z: player.z }, camState.yaw, v.aimPitch);
       desired.current.set(aim.position.x, aim.position.y, aim.position.z);
       const floor = world.collision.topAt(desired.current.x, desired.current.z);
