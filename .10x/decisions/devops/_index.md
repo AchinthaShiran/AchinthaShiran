@@ -1,3 +1,3 @@
-# DevOps — Index
+# DevOps - Index
 
 Active features: [wonderland](wonderland.md)

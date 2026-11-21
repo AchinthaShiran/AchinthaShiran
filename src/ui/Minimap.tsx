@@ -131,7 +131,7 @@ export function Minimap() {
       type="button"
       className="minimap"
       onClick={() => toggle('map')}
-      aria-label="Minimap — open world map"
+      aria-label="Minimap - open world map"
     >
       <canvas ref={canvas} aria-hidden="true" />
       <span className="minimap__n">N</span>

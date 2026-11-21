@@ -1,4 +1,4 @@
-# SRE — wonderland
+# SRE - wonderland
 
 - **SLO (informal):** Pages availability is GitHub's (~99.9%). Content must always be reachable: Classic mode
   works without WebGL and is the automatic fallback.

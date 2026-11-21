@@ -72,7 +72,7 @@ export function QuickNav() {
           {personalSections.length > 0 && (
             <>
               <h3 className="section-title" style={{ marginTop: 20 }}>
-                Personal projects — Makers&apos; Row
+                Personal projects - Makers&apos; Row
               </h3>
               <div className="menu-grid">
                 {personalSections.map((s) => (

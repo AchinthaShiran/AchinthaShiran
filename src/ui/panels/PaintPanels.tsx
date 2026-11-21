@@ -81,7 +81,7 @@ export function PaintHelp() {
   return (
     <>
       <p className="lead">
-        Grab the paintball marker and splat the world. It is entirely optional — exploring and reading never
+        Grab the paintball marker and splat the world. It is entirely optional - exploring and reading never
         need it.
       </p>
       <div className="actions">
@@ -97,7 +97,7 @@ export function PaintHelp() {
         <h3>Controls</h3>
         <ul className="list">
           <li>
-            <kbd>F</kbd> or the paint button — equip or put away the gun
+            <kbd>F</kbd> or the paint button - equip or put away the gun
           </li>
           <li>Click or tap to shoot where you point; the ball arcs with gravity</li>
           <li>Shoot an exhibit or sign to open it (not during a game)</li>
@@ -112,7 +112,7 @@ export function PaintHelp() {
         <ul className="list">
           {(Object.keys(GAME_INFO) as GameId[]).map((id) => (
             <li key={id}>
-              <strong>{GAME_INFO[id].title}</strong> — {GAME_INFO[id].blurb}
+              <strong>{GAME_INFO[id].title}</strong> - {GAME_INFO[id].blurb}
             </li>
           ))}
         </ul>
@@ -141,7 +141,7 @@ export function PaintChallenges() {
   return (
     <>
       <p className="lead">
-        Optional mini games and challenges. Best scores and badges are saved in this browser only — there are
+        Optional mini games and challenges. Best scores and badges are saved in this browser only - there are
         no online leaderboards.
       </p>
       <Section title="Mini games">

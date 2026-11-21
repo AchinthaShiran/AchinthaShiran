@@ -1,6 +1,6 @@
 /**
  * Paintball simulation (ADR-007): balls, targets, paint-bots and the three games. Plain data in, plain data
- * out — no rendering — so it is fully unit-testable. The scene mirrors `PaintSim` state each frame.
+ * out - no rendering - so it is fully unit-testable. The scene mirrors `PaintSim` state each frame.
  */
 import type { Vec3 } from '@/engine/math';
 import {

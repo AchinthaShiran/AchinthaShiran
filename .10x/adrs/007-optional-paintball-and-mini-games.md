@@ -22,8 +22,8 @@ personal bests + badges.
   hits an interactive landmark opens it when no game is running.
 - **Pure core** in `src/game/paint/`: ballistics (aim march against the collision world, launch velocity with
   gravity compensation, segment–sphere hits), badge rules and game config are dependency-free and unit-tested.
-- **Runtime** (`runtime.ts`): mutable per-frame simulation — paint balls, splat decals, targets, paint-bots and
-  game controllers — driven by one scene component. React state is only a throttled snapshot (Zustand store).
+- **Runtime** (`runtime.ts`): mutable per-frame simulation - paint balls, splat decals, targets, paint-bots and
+  game controllers - driven by one scene component. React state is only a throttled snapshot (Zustand store).
 - **World**: new zone `arena` ("Splat Arena") east of Home, linked only to Home. Hunt targets are placed
   automatically, one per other zone, with the same rejection rules as decor (off paths, landmarks and bridges).
 - **UI**: game HUD, countdown, results card, splat meter, hit overlay; panels for the challenge board, each game

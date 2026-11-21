@@ -1,4 +1,4 @@
-WONDERLAND — Interactive 3D Portfolio
+WONDERLAND - Interactive 3D Portfolio
 Product Description & Experience Specification
 1. Product Overview
 Product name: WONDERLAND
@@ -115,7 +115,7 @@ The interface should feel like a natural extension of the adventure world.
 - Minimal on-screen controls.
 Avoid making the interface look like a futuristic dashboard or a conventional corporate website.
 5. Main World and Zones
-5.1 Home Island — About Achintha
+5.1 Home Island - About Achintha
 Purpose: Introduce Achintha and provide the visitor's starting point.
 
 Environment:
@@ -153,14 +153,14 @@ About Me content:
 - Personal passion for game development.
 - Education summary.
 - CV download action.
-5.2 Career City — Professional Experience
+5.2 Career City - Professional Experience
 Purpose: Present Achintha's career progression, responsibilities, contributions, and technical leadership.
 
 Environment:
 
 A colorful miniature city with office buildings, roads, trees, a central plaza, small vehicles, and a career timeline monument. Sysco LABS Technologies is represented as the main organization, with separate floors or sections for each role.
 
-Career timeline — Sysco LABS Technologies
+Career timeline - Sysco LABS Technologies
 
 Present these roles in chronological order:
 1. Software Engineer
@@ -201,7 +201,7 @@ Experience detail content:
 - Responsibilities and contributions where supplied.
 - Relevant projects.
 - Technologies where supplied.
-5.3 Innovation Lab — Enterprise Agentic AI and Engineering
+5.3 Innovation Lab - Enterprise Agentic AI and Engineering
 Purpose: Showcase Achintha's work and expertise in enterprise Agentic AI, platform engineering, and software architecture.
 
 Environment:
@@ -210,7 +210,7 @@ A playful research campus with a central experimental reactor, small robots, com
 
 This should be one of the most distinctive islands because Enterprise Agentic AI is a major part of Achintha's professional identity.
 
-Core theme: SAGE — Sysco Agentic Ecosystem
+Core theme: SAGE - Sysco Agentic Ecosystem
 
 SAGE is the central platform for Agentic AI integrations across Sysco, supporting enterprise-wide adoption.
 
@@ -244,7 +244,7 @@ Innovation Lab landmarks and interactions:
 6. Cloud-Agnostic Gateway
    - Communicates that SAGE is cloud-agnostic.
 Each landmark should open a readable explanation with relevant details from the resume. Do not add unverified architecture diagrams, metrics, customer counts, performance claims, or capabilities.
-5.4 Project Park — Key Projects and Creations
+5.4 Project Park - Key Projects and Creations
 Purpose: Make the owner's projects the central showcase of practical engineering and creativity.
 
 Environment:
@@ -252,7 +252,7 @@ Environment:
 A colorful exhibition park with miniature buildings, themed platforms, sculptures, kiosks, and small dioramas. Every project is represented by a unique physical exhibit that reflects its purpose.
 
 The park should support a growing collection of projects without becoming cluttered.
-Project 1: SAGE — Sysco Agentic Ecosystem (Sysco LABS)
+Project 1: SAGE - Sysco Agentic Ecosystem (Sysco LABS)
 Exhibit concept: A miniature interconnected research campus with a central Agentic AI core and smaller agent stations connected around it.
 
 Project description:
@@ -339,7 +339,7 @@ Project detail panel must support:
 - Live application link, if available.
 - Source repository link, if public.
 Do not assume every project is public or that every project has a live demo or source repository. Hide unavailable fields rather than showing empty links.
-5.5 Skill Forest — Technical Skills
+5.5 Skill Forest - Technical Skills
 Purpose: Present Achintha's technical capabilities in a visual and understandable way.
 
 Environment:
@@ -361,12 +361,12 @@ Additional technologies listed under specific projects:
 - MongoDB.
 - PostgreSQL.
 Suggested skill categories and visual identities:
-- Frontend development — blue crystals: ReactJs.
-- Backend development — green crystals: SpringBoot, NodeJs, Python FastAPI.
-- Cloud — orange crystals: AWS Cloud, Google Cloud.
-- CI/CD and engineering tools — a distinct cluster: Jenkins.
-- Game development — yellow crystals: Unity.
-- Databases — a distinct cluster: MongoDB, PostgreSQL.
+- Frontend development - blue crystals: ReactJs.
+- Backend development - green crystals: SpringBoot, NodeJs, Python FastAPI.
+- Cloud - orange crystals: AWS Cloud, Google Cloud.
+- CI/CD and engineering tools - a distinct cluster: Jenkins.
+- Game development - yellow crystals: Unity.
+- Databases - a distinct cluster: MongoDB, PostgreSQL.
 Interactions:
 - Selecting a crystal opens its skill details.
 - Related crystals are highlighted together.
@@ -376,7 +376,7 @@ Interactions:
 Do not assign arbitrary proficiency percentages or misleading skill ratings. Demonstrate capabilities through the listed experience and projects.
 
 Do not add technologies that are not present in the resume unless Achintha later confirms them.
-5.6 Achievement Peak — Awards and Recognition
+5.6 Achievement Peak - Awards and Recognition
 Purpose: Highlight Achintha's professional achievements and recognitions.
 
 Environment:
@@ -409,7 +409,7 @@ Interactions:
 - Include an image or supporting link where available.
 - The summit provides a visual summary of the milestones.
 Use accurate award titles and descriptions. Do not imply that an individual award was personally received if the resume associates it with a project or organization. Clearly distinguish project recognition from individual recognition where the resume does not specify the recipient.
-5.7 Horizon Island — Contact and Social Links
+5.7 Horizon Island - Contact and Social Links
 Purpose: Give visitors a clear and memorable way to connect with Achintha.
 
 Environment:
@@ -429,7 +429,7 @@ All external links must be clearly labeled and open in an appropriate way. The e
 Include a short closing message such as:
 
 “Thanks for exploring my world. Have an idea, opportunity, or project in mind? Let's connect.”
-6. Education Island or Landmark — Academic Background
+6. Education Island or Landmark - Academic Background
 Education is an important part of the resume and must be visible in the world.
 
 It can be represented as a small university campus or a landmark connected to Home Island or Career City. It does not need to become an eighth major island.
@@ -675,7 +675,7 @@ The following requirements are essential:
 3. All seven portfolio zones must have distinct visual identities.
 4. Career City must accurately show the three Sysco LABS roles and dates.
 5. SAGE must receive a prominent showcase because Enterprise Agentic AI is central to the owner's current role.
-6. The three key projects in the resume — SAGE, Excellence Hub, and TA Portal — must be represented.
+6. The three key projects in the resume - SAGE, Excellence Hub, and TA Portal - must be represented.
 7. Visitors must be able to explore freely.
 8. Important objects must have discoverable, understandable interactions.
 9. Projects must receive a strong visual showcase and detailed information panels.
@@ -722,6 +722,6 @@ Its visual charm should make people want to explore. Its content should make the
 
 The guiding principle:
 
-“Make it feel like a small adventure game that happens to be a portfolio — not a portfolio that happens to be 3D.”
+“Make it feel like a small adventure game that happens to be a portfolio - not a portfolio that happens to be 3D.”
 Source of Portfolio Facts
-The personal and professional details in this document are based on the one-page resume supplied by Achintha Bandara. Where the resume did not provide a detail — such as exact LinkedIn/GitHub URLs, project demo links, project screenshots, or role-specific responsibilities for earlier positions — the document deliberately leaves it configurable rather than inventing information.
+The personal and professional details in this document are based on the one-page resume supplied by Achintha Bandara. Where the resume did not provide a detail - such as exact LinkedIn/GitHub URLs, project demo links, project screenshots, or role-specific responsibilities for earlier positions - the document deliberately leaves it configurable rather than inventing information.

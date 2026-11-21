@@ -1,4 +1,4 @@
-# SDE — paintball (what was built)
+# SDE - paintball (what was built)
 
 See ADR-007 (paintball, mini games, arena) and ADR-008 (mouse look).
 

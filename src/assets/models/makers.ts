@@ -1,6 +1,6 @@
 /**
  * Models for the personal project islands ("Makers' Row", ADR-005). Each landmark visualizes one feature
- * described in the project's public sources — nothing is decoration without a meaning.
+ * described in the project's public sources - nothing is decoration without a meaning.
  */
 import type { Object3D } from 'three';
 import { animate, box, cone, cylinder, group, ico, octa, torus } from '../builders';
@@ -55,7 +55,7 @@ export function islandSign(props: ModelProps): Object3D {
 
 /* ------------------------------------------------------------------ TALA Workshop */
 
-/** TALA Terminal: chat in plain language — a terminal typing out lines, with two chat bubbles. */
+/** TALA Terminal: chat in plain language - a terminal typing out lines, with two chat bubbles. */
 export function talaTerminal(): Object3D {
   const widths = [1.6, 2.2, 1.2, 1.9, 0.9];
   const lines = widths.map((w, i) =>
@@ -101,7 +101,7 @@ export function talaTerminal(): Object3D {
   });
 }
 
-/** Pack Library: shelves of rolled YAML scrolls — one logical tool per scroll. */
+/** Pack Library: shelves of rolled YAML scrolls - one logical tool per scroll. */
 export function packShelf(): Object3D {
   const colors = [TEAL, palette.sunshine, palette.coral, palette.lavender, palette.sky, palette.meadow];
   const scrolls = [0, 1, 2].flatMap((row) =>
@@ -165,7 +165,7 @@ export function approvalGate(): Object3D {
   });
 }
 
-/** Local Brain: the model runs on your own machine — a glowing core under a glass dome. */
+/** Local Brain: the model runs on your own machine - a glowing core under a glass dome. */
 export function localBrain(): Object3D {
   const core = ico(0.7, glowMat(TEAL, 1.1, { unique: true }), { p: [0, 2.2, 0] }, 1);
   const rings = [0, 1].map((i) =>
@@ -197,7 +197,7 @@ export function localBrain(): Object3D {
   });
 }
 
-/** Cross-platform Dock: three pads — Windows, macOS and Linux — wired to one core. */
+/** Cross-platform Dock: three pads - Windows, macOS and Linux - wired to one core. */
 export function platformDock(): Object3D {
   const colors = [palette.sky, palette.lavender, palette.sunshine];
   const labels = ['Windows', 'macOS', 'Linux'];
@@ -296,7 +296,7 @@ export function learningHall(): Object3D {
   return animate(g, (t) => (bellPivot.rotation.z = Math.sin(t * 2.2) * 0.35));
 }
 
-/** Study-plan board: tasks complete one by one — a personalized plan in action. */
+/** Study-plan board: tasks complete one by one - a personalized plan in action. */
 export function planDesk(): Object3D {
   const todo = mat(palette.white);
   const done = glowMat(GREEN, 0.8);
@@ -369,7 +369,7 @@ export function roadmapTrail(): Object3D {
   });
 }
 
-/** Resource library: books, a video screen and links — curated, in one place. */
+/** Resource library: books, a video screen and links - curated, in one place. */
 export function resourceLibrary(): Object3D {
   const colors = [palette.coral, palette.sky, palette.sunshine, palette.meadow, palette.lavender];
   const books = [0, 1, 2].flatMap((row) =>
@@ -764,7 +764,7 @@ export function gitPortal(): Object3D {
   );
 }
 
-/** Chatty NPC: a game character with a speech bubble — Chat Completions in a game. */
+/** Chatty NPC: a game character with a speech bubble - Chat Completions in a game. */
 export function npcTalker(): Object3D {
   const cap = group(
     [

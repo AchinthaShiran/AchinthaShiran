@@ -1,4 +1,4 @@
-# DevOps — wonderland
+# DevOps - wonderland
 
 - **Pipeline:** `.github/workflows/ci.yml`. On PR: format check, lint, typecheck, test, build. On `main`: same
   then `upload-pages-artifact` → `deploy-pages` (environment `github-pages`).

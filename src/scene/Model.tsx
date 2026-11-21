@@ -69,7 +69,7 @@ class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean
 
 const EMPTY: ModelProps = {};
 
-/** Render any manifest model by key — procedural or glTF (ADR-002). */
+/** Render any manifest model by key - procedural or glTF (ADR-002). */
 export function Model({ id, props = EMPTY }: { id: ModelKey; props?: ModelProps }) {
   const entry = getModel(id);
   if (entry.source.kind === 'gltf') {

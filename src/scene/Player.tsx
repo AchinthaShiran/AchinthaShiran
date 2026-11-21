@@ -195,7 +195,7 @@ export function Player() {
       }
     }
 
-    // 6. World awareness (zone, nearby, seeds, guide) — throttled
+    // 6. World awareness (zone, nearby, seeds, guide) - throttled
     anim.current.lastProbe += dt;
     if (anim.current.lastProbe < 0.12) return;
     anim.current.lastProbe = 0;

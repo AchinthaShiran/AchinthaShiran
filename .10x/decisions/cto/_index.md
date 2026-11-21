@@ -1,4 +1,4 @@
-# CTO — Index
+# CTO - Index
 
 Principles: static site, zero backend, open-source tooling, content as code.
 

@@ -33,7 +33,7 @@ export function useControlList(): { controls: Control[]; note: string | null } {
         : { keys: ['Drag'], label: 'look · click ground to walk' },
       { keys: ['E'], label: 'interact' },
       { keys: ['M'], label: 'map' },
-      { keys: ['F'], label: 'paintball gun (optional) — click to shoot' },
+      { keys: ['F'], label: 'paintball gun (optional) - click to shoot' },
     ],
     note: captured ? 'Click the world to capture the mouse. Esc releases it.' : null,
   };

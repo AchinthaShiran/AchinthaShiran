@@ -1,4 +1,4 @@
-# Product Manager — wonderland
+# Product Manager - wonderland
 
 ## Users
 Recruiters/hiring managers (need facts fast), engineering peers (SAGE depth), curious visitors (exploration).

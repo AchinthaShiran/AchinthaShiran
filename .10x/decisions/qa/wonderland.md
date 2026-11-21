@@ -1,4 +1,4 @@
-# QA — wonderland
+# QA - wonderland
 
 ## Strategy
 - **Unit (Vitest, CI):** content integrity, collision, nav/A*, world invariants (reachability of every interactable
@@ -10,8 +10,8 @@
 - **Quality gates:** `npm run check` + format check in CI must pass before deploy.
 
 ## Bugs found & fixed during verification
-1. Classic mode falsely reported "3D world stopped" — R3F forces context loss on unmount. Fixed (ignore when canvas detached).
-2. Camera could sit inside buildings after travel — added occlusion pull-in.
+1. Classic mode falsely reported "3D world stopped" - R3F forces context loss on unmount. Fixed (ignore when canvas detached).
+2. Camera could sit inside buildings after travel - added occlusion pull-in.
 3. Home not marked visited on spawn; world-map label overlap; panel covered HUD buttons; mobile top bar overlap;
    signpost blocked the spawn view; PCFSoftShadowMap deprecation warning. All fixed.
 

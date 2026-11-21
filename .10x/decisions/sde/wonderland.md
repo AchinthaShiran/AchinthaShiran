@@ -1,4 +1,4 @@
-# SDE — wonderland (what was built)
+# SDE - wonderland (what was built)
 
 ## Delivered (T1–T12)
 - **Content** (`src/content`): profile, experience (3 Sysco LABS roles, exact dates), 3 projects, 10 skills in
@@ -22,7 +22,7 @@
 - **Delivery**: CI (format, lint, typecheck, test, build) + Pages deploy, build-time CSP, README.
 
 ## Deviations from plan
-- Rapier replaced by custom collision (ADR-003) — decided in design, before coding.
+- Rapier replaced by custom collision (ADR-003) - decided in design, before coding.
 - Project Park second exhibit row (> 6 projects) is laid out but not yet exercised by tests (only 3 projects).
 
 ## Tech debt

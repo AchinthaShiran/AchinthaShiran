@@ -1,4 +1,4 @@
-# DBA — wonderland
+# DBA - wonderland
 
 No database. Data model = typed content modules (ADR-001):
 - Entities: Organization, Role, Project, Skill/SkillCategory, Award, Education, MentoringActivity, ContactChannel,

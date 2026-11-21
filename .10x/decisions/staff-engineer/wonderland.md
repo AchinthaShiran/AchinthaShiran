@@ -1,4 +1,4 @@
-# Staff Engineer — wonderland
+# Staff Engineer - wonderland
 
 - Naming: camelCase TS modules, PascalCase components, kebab-case string ids.
 - Per-frame code: no allocations in hot loops (reuse vectors), no React state updates per frame.

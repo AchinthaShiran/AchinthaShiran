@@ -59,7 +59,7 @@ function SeedsCollection({ nav }: { nav: Nav }) {
   return (
     <>
       <p>
-        Optional little discoveries hidden around the world — {collected.length} of {ideaSeeds.length} found.
+        Optional little discoveries hidden around the world - {collected.length} of {ideaSeeds.length} found.
         Nothing important is hidden behind them.
       </p>
       <div className="grid-2">

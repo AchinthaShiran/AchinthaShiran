@@ -17,7 +17,7 @@ export interface ResultCard {
 }
 
 interface PaintState {
-  // Persisted (browser only; no online scores — plan §19)
+  // Persisted (browser only; no online scores - plan §19)
   bests: Record<'gallery' | 'arena', number>;
   badges: string[];
   found: string[];

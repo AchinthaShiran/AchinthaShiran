@@ -7,7 +7,7 @@ const WorldApp = lazy(() => import('./ui/WorldApp'));
 function Fallback() {
   return (
     <div className="loading" role="status">
-      Loading WONDERLAND…
+      Loading…
     </div>
   );
 }
