@@ -1,4 +1,4 @@
-import { type Group, type Object3D, Vector3 } from 'three';
+import { type Group, type Object3D } from 'three';
 import { animate, box, cone, cylinder, group, ico } from '../builders';
 import { glowMat } from '../materials';
 import { palette } from '../palette';
@@ -88,10 +88,10 @@ export function explorer(): Object3D {
   return buildCharacter(EXPLORER_COLORS, [pack, hat]).root;
 }
 
-/** Colours taken from the owner's reference portrait: brown spiky hair, white shirt, jeans, navy backpack. */
+/** Colours taken from the owner's reference portrait: dark hair, white shirt, jeans, navy backpack. */
 const OWNER = {
   skin: '#E9B991',
-  hair: '#8A5A3A',
+  hair: '#2A1D18',
   shirt: '#F6F4EE',
   jeans: '#4F79B8',
   belt: '#6B4423',
@@ -102,7 +102,7 @@ const OWNER = {
 } as const;
 
 /**
- * Achintha's avatar on Home Island, styled after the owner's reference portrait: spiky brown hair, a slight
+ * Achintha's avatar on Home Island, styled after the owner's reference portrait: short dark hair, a slight
  * smirk, a white button shirt with rolled sleeves, blue jeans with a brown belt, a navy backpack, arms crossed.
  */
 export function ownerAvatar(): Object3D {
@@ -132,15 +132,7 @@ export function ownerAvatar(): Object3D {
     [backpack, ...straps, ...shirtDetails],
   );
 
-  // Spiky hair, eyebrows and a smirk.
-  [-0.16, -0.08, 0, 0.08, 0.16].forEach((x, i) =>
-    parts.head.add(
-      cone(0.07, 0.2 + (i % 2) * 0.06, 4, c.hair, {
-        p: [x, 0.3, 0.04 + (i % 2) * 0.03],
-        r: [0.3, 0, -x * 2.2],
-      }),
-    ),
-  );
+  // Eyebrows and a smirk (the hair is the smooth short cut from the character base).
   parts.head.add(
     box(0.1, 0.025, 0.02, c.hair, { p: [-0.09, 0.1, 0.25], r: [0, 0, 0.14] }),
     box(0.1, 0.025, 0.02, c.hair, { p: [0.09, 0.1, 0.25], r: [0, 0, -0.14] }),
@@ -159,16 +151,15 @@ export function ownerAvatar(): Object3D {
       box(0.18, 0.05, 0.2, c.shirt, { p: [0, -0.29, 0] }),
     );
   }
-  // Arms crossed over the chest (left arm in front).
-  const down = new Vector3(0, -1, 0);
-  parts.armL.quaternion.setFromUnitVectors(down, new Vector3(0.78, -0.12, 0.62).normalize());
-  parts.armR.quaternion.setFromUnitVectors(down, new Vector3(-0.78, -0.12, 0.62).normalize());
-  parts.armL.position.z = 0.1;
-  parts.armR.position.set(parts.armR.position.x, parts.armR.position.y - 0.1, -0.02);
+  // Arms hang relaxed at his sides, angled slightly away from the backpack straps.
+  parts.armL.rotation.z = -0.07;
+  parts.armR.rotation.z = 0.07;
 
   parts.root.scale.setScalar(1.05);
   return animate(parts.root, (t) => {
     parts.body.position.y = Math.sin(t * 2) * 0.015;
+    parts.armL.rotation.x = Math.sin(t * 1.3) * 0.05;
+    parts.armR.rotation.x = -Math.sin(t * 1.3) * 0.05;
     parts.head.rotation.y = Math.sin(t * 0.7) * 0.18;
     parts.head.rotation.x = Math.sin(t * 0.5) * 0.03;
   });
