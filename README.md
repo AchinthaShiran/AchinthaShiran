@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets-readme/hero.svg" alt="Achintha Bandara - Welcome, Explorer" width="100%" />
+<img src="assets-readme/hero.svg" alt="A small platformer character running and jumping" width="100%" />
 
 ### 🌍 [Step into my interactive 3D world](https://achinthashiran.github.io/AchinthaShiran/)
 
@@ -22,12 +22,4 @@
 
 📱 More apps on my [**Google Play developer page**](https://play.google.com/store/apps/dev?id=6821467528489170264).
 
-## 🎮 My portfolio is a game
-
-A small low-poly world of floating islands: walk, run and jump around, follow the guide trails,
-check the minimap, and even grab a paintball gun for some target practice. Prefer reading? There is
-a classic page too.
-
-**[Step into the world →](https://achinthashiran.github.io/AchinthaShiran/)**
-
-<sub>Built with TypeScript, React Three Fiber and three.js. How it works: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).</sub>
+<sub>Portfolio built with TypeScript, React Three Fiber and three.js. How it works: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).</sub>
