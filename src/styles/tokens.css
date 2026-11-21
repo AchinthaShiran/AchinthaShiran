@@ -1,0 +1,41 @@
+:root {
+  /* Plan §4 palette */
+  --meadow: #80cfa9;
+  --sky: #75bdeb;
+  --sunshine: #ffd27d;
+  --coral: #f5a6a6;
+  --lavender: #b9a1e8;
+  --cream: #f4e8c9;
+
+  --ink: #2f2a40;
+  --ink-soft: #5a5470;
+  --paper: #fbf5e6;
+  --paper-2: #f4e8c9;
+  --paper-edge: #e3d3ad;
+  --wood: #b98353;
+  --wood-dark: #8a5a3b;
+  --focus: #3d7bd9;
+  --accent: #e8766b;
+  --accent-ink: #8f3a33;
+  --success: #3f8f55;
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --shadow: 0 6px 20px rgb(60 40 20 / 18%), 0 2px 4px rgb(60 40 20 / 12%);
+  --shadow-lg: 0 18px 48px rgb(40 30 20 / 25%);
+
+  --font-display: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 220ms;
+  --hud-gap: 14px;
+  --panel-width: min(440px, 100vw - 28px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur: 0ms;
+  }
+}
