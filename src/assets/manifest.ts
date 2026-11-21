@@ -65,6 +65,35 @@ import {
   sculpture,
 } from './models/park';
 import { castle, flag, peakSign, trophy } from './models/peak';
+import {
+  approvalGate,
+  arcadeCabinet,
+  projectGateway,
+  budgetGauge,
+  coinStack,
+  companionBot,
+  entryChute,
+  functionMachine,
+  gitPortal,
+  islandSign,
+  learningHall,
+  localBrain,
+  marketStall,
+  npcTalker,
+  packageCube,
+  packShelf,
+  piggyBank,
+  planDesk,
+  platformDock,
+  progressTower,
+  recurringClock,
+  resourceLibrary,
+  roadmapTrail,
+  splitTable,
+  talaTerminal,
+  toolFunnel,
+  vault,
+} from './models/makers';
 import { ideaSeed, placeholder, signpostPost } from './models/props';
 import type { Footprint, ModelEntry, ModelProps } from './types';
 import type { Object3D } from 'three';
@@ -172,6 +201,40 @@ export const manifest = {
   bootcampDesk: proc(bootcampDesk, rect(2, 1.2), 2),
   podium: proc(podium, rect(1.6, 1.2), 2.2),
   qualitiesTotem: proc(qualitiesTotem, circle(0.9), 5.2),
+
+  // Makers' Row — personal project islands (ADR-005)
+  islandSign: proc(islandSign, rect(3.8, 0.3), 2.8),
+  // Tala Workshop
+  talaTerminal: proc(talaTerminal, rect(4.6, 2.9), 5.2),
+  packShelf: proc(packShelf, rect(3.8, 1.2), 4.8),
+  approvalGate: proc(approvalGate, rect(4.8, 1.0), 4.2),
+  localBrain: proc(localBrain, circle(1.9), 4),
+  platformDock: proc(platformDock, circle(2.6), 3.2),
+  toolFunnel: proc(toolFunnel, circle(1.8), 5.4),
+  // Skill Up Academy
+  learningHall: proc(learningHall, rect(6.4, 4.6), 8.4),
+  planDesk: proc(planDesk, rect(3.6, 2.0), 3.8),
+  roadmapTrail: proc(roadmapTrail, circle(2.6), 4.8),
+  resourceLibrary: proc(resourceLibrary, rect(3.4, 1.0), 4.4),
+  companionBot: proc(companionBot, circle(1.2), 4.4),
+  progressTower: proc(progressTower, rect(4.2, 1.4), 5),
+  // MySpend Market
+  piggyBank: proc(piggyBank, circle(2.7), 5.6),
+  entryChute: proc(entryChute, rect(4.6, 1.6), 3.8),
+  budgetGauge: proc(budgetGauge, circle(1.1), 4.8),
+  recurringClock: proc(recurringClock, circle(1.2), 5.8),
+  splitTable: proc(splitTable, circle(2.4), 3.2),
+  vault: proc(vault, rect(3.8, 1.4), 3.8),
+  marketStall: proc(marketStall, rect(2.6, 1.4), 3.2),
+  coinStack: proc(coinStack, circle(0.6), 1.2),
+  // Unity Arcade
+  packageCube: proc(packageCube, circle(2.5), 6.4),
+  gitPortal: proc(gitPortal, rect(3.4, 2.6), 3.8),
+  npcTalker: proc(npcTalker, circle(1.4), 4.4),
+  functionMachine: proc(functionMachine, rect(3.4, 2.0), 4.2),
+  arcadeCabinet: proc(arcadeCabinet, rect(1.5, 1.2), 3.2),
+  // Project Park gateways to the personal project islands
+  projectGateway: proc(projectGateway, rect(2.6, 0.9), 4.2),
 
   // Collectibles & fallbacks
   ideaSeed: proc(ideaSeed, null, 1.6),

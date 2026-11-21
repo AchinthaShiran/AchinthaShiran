@@ -29,17 +29,27 @@ Node 20 or newer is required.
 
 ## The world
 
-| Zone             | Purpose                                                                      |
-| ---------------- | ---------------------------------------------------------------------------- |
-| Home Island      | Welcome, About Me, interests, current role, growth timeline, mailbox         |
-| Career City      | One tower per organization, one floor and plaque per role, timeline monument |
-| Innovation Lab   | SAGE — Sysco Agentic Ecosystem, explained across six landmarks               |
-| Project Park     | One exhibit per project                                                      |
-| Skill Forest     | One crystal per skill, clustered and colour-coded by category                |
-| Achievement Peak | Trophies along a winding trail to the summit castle                          |
-| Horizon Island   | Contact: lighthouse, message in a bottle, phone booth, CV board, telescope   |
-| University Grove | Education                                                                    |
-| Mentor Pavilion  | Mentoring, leadership and professional qualities                             |
+| Zone             | Purpose                                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| Home Island      | Welcome, About Me, interests, current role, growth timeline, mailbox                           |
+| Career City      | One tower per organization, one floor and plaque per role, timeline monument                   |
+| Innovation Lab   | SAGE — Sysco Agentic Ecosystem, explained across six landmarks                                 |
+| Project Park     | Hub for every project: an exhibit per Sysco LABS project and a gateway to each personal island |
+| Tala Workshop    | Personal project Tala — a local AI assistant driven by YAML tool packs (Makers' Row)           |
+| Skill Up Academy | Personal project Skill Up — an AI study planner (Makers' Row)                                  |
+| MySpend Market   | Personal project MySpend — an Android expense tracker (Makers' Row)                            |
+| Unity Arcade     | Personal project OpenAI-Unity — a Unity package for the OpenAI API (Makers' Row)               |
+| Skill Forest     | One crystal per skill, clustered and colour-coded by category                                  |
+| Achievement Peak | Trophies along a winding trail to the summit castle                                            |
+| Horizon Island   | Contact: lighthouse, message in a bottle, phone booth, CV board, telescope                     |
+| University Grove | Education                                                                                      |
+| Mentor Pavilion  | Mentoring, leadership and professional qualities                                               |
+
+**How the projects connect.** The Innovation Lab (SAGE) is bridged to Career City (Sysco LABS) and to Project Park,
+forming the Sysco LABS district in the west. Project Park is the hub for every project: its exhibits cover the Sysco
+LABS work, and a gateway for each personal project opens it. Every project panel has a **Find it in the world**
+section with _Guide me_ and _Travel_ buttons to the island that explains it. The personal islands form Makers' Row
+along the south, linked to the Innovation Lab, Project Park and Horizon Island.
 
 **Finding your way.** Sandy paths connect every landmark. Signposts point to neighbouring islands, and each bridge
 head names its destination. The minimap shows the area around you; press `M` for the world map. **Guide me** lights
@@ -58,15 +68,16 @@ sound (off by default) and graphics quality.
 Every fact lives in [`src/content/`](src/content) as typed data. Unknown values are `null` and the UI hides them.
 Tests check that every cross-reference resolves.
 
-| To…                                  | Edit                                                                                 |
-| ------------------------------------ | ------------------------------------------------------------------------------------ |
-| Change bio, headline or welcome text | [`profile.ts`](src/content/profile.ts)                                               |
-| Add a role                           | [`experience.ts`](src/content/experience.ts) — Career City adds a floor and a plaque |
-| Add a project                        | [`projects.ts`](src/content/projects.ts) — Project Park adds an exhibit              |
-| Add a skill                          | [`skills.ts`](src/content/skills.ts) — Skill Forest adds a crystal in its category   |
-| Add an award                         | [`awards.ts`](src/content/awards.ts) — Achievement Peak adds a trophy                |
-| Mentoring, education, Idea Seeds     | `mentoring.ts`, `education.ts`, `seeds.ts`                                           |
-| LinkedIn / GitHub links              | [`contact.ts`](src/content/contact.ts) — set `href`                                  |
+| To…                                  | Edit                                                                                              |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Change bio, headline or welcome text | [`profile.ts`](src/content/profile.ts)                                                            |
+| Add a role                           | [`experience.ts`](src/content/experience.ts) — Career City adds a floor and a plaque              |
+| Add a corporate project              | [`projects.ts`](src/content/projects.ts) (`category: 'corporate'`) — Project Park adds an exhibit |
+| Add a personal project               | See "Adding a personal project" below                                                             |
+| Add a skill                          | [`skills.ts`](src/content/skills.ts) — Skill Forest adds a crystal in its category                |
+| Add an award                         | [`awards.ts`](src/content/awards.ts) — Achievement Peak adds a trophy                             |
+| Mentoring, education, Idea Seeds     | `mentoring.ts`, `education.ts`, `seeds.ts`                                                        |
+| LinkedIn / GitHub links              | [`contact.ts`](src/content/contact.ts) — set `href`                                               |
 
 **Enable the CV download.** Put the PDF at `public/cv/Achintha_Bandara_CV.pdf`, then set
 `cv.path = 'cv/Achintha_Bandara_CV.pdf'` in [`contact.ts`](src/content/contact.ts).
@@ -106,6 +117,20 @@ src/
 Design records live in [`.10x/`](.10x). The ADRs cover typed content (001), the data-driven world and asset
 manifest (002), custom 2.5D collision instead of a physics engine (003), and Classic mode with a lazy-loaded 3D
 world (004).
+
+**Adding a personal project** (ADR-005). Facts come from the project's public sources; unknown values stay empty.
+
+1. Add the project to [`projects.ts`](src/content/projects.ts) with `category: 'personal'`, its `topics` (one per
+   explainable feature) and public `links`. Leave `repoUrl` `null` for private repositories.
+2. Add a `ZoneDef` in [`zones.ts`](src/world/zones.ts): a central landmark opening `{ kind: 'project', id }`, one
+   station per topic opening `{ kind: 'project-topic', project, id }`, and `projects: [id]`. Set it as
+   `primaryLandmark`, then link it in `zoneLinks`.
+3. Models come from [`makers.ts`](src/assets/models/makers.ts) and the [manifest](src/assets/manifest.ts) — reuse
+   one or add new ones.
+4. Project Park adds a gateway automatically (it has four slots; add more in `parkLandmarks()`), and the Explore
+   menu and Classic page list the project. Add an idea seed in `seeds.ts` and place it on the island.
+
+`npm test` checks that every topic has a station, every project has an island and everything is reachable.
 
 **Adding an island.** Add a `ZoneDef` to [`src/world/zones.ts`](src/world/zones.ts), link it in `zoneLinks`, and
 optionally add a section in [`sections.ts`](src/world/sections.ts). Bridges, paths, nav graph, minimap and map

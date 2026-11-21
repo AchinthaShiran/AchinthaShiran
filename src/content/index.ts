@@ -8,7 +8,17 @@ import { projects } from './projects';
 import { sageTopics } from './sage';
 import { ideaSeeds } from './seeds';
 import { skillCategories, skills } from './skills';
-import type { Award, ContactKind, Id, Project, Role, Skill, YearMonth } from './types';
+import type {
+  Award,
+  ContactKind,
+  Id,
+  Project,
+  ProjectCategory,
+  ProjectTopic,
+  Role,
+  Skill,
+  YearMonth,
+} from './types';
 
 export * from './types';
 export {
@@ -48,6 +58,10 @@ export const getSeed = (id: Id) => ideaSeeds.find((s) => s.id === id);
 export const getContact = (kind: ContactKind) => contacts.find((c) => c.id === kind);
 export const getSkillCategory = (id: Skill['categoryId']) => skillCategories.find((c) => c.id === id);
 
+export const getProjectTopic = (projectId: Id, topicId: Id): ProjectTopic | undefined =>
+  projectById.get(projectId)?.topics.find((t) => t.id === topicId);
+export const projectsByCategory = (category: ProjectCategory): Project[] =>
+  projects.filter((p) => p.category === category);
 export const awardsForProject = (projectId: Id): Award[] => awards.filter((a) => a.projectId === projectId);
 export const projectsUsingSkill = (skillId: Id): Project[] =>
   projects.filter((p) => p.technologies.includes(skillId));

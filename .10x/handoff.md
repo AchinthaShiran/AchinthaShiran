@@ -1,9 +1,9 @@
-# Handoff
+﻿# Handoff
 
-**From:** SRE/DevOps (delivery complete). **To:** Owner / next iteration.
+**From:** SDE/QA (personal-islands implemented and verified). **To:** Owner / next iteration.
 
-- Runbook: [sre/wonderland.md](decisions/sre/wonderland.md). Deploy + rollback: [devops/wonderland.md](decisions/devops/wonderland.md).
-- To go live: create a GitHub repo, `git remote add origin …`, `git push -u origin main`, then Settings → Pages →
-  Source: GitHub Actions. The site appears at `https://<user>.github.io/<repo>/`.
-- Content updates: see README "Updating content". Run `npm test` before pushing.
-- Open owner inputs are listed in [status.md](status.md).
+- Branch `feat/personal-islands` is ready to merge into `main` (see status.md). Design: ADR-005, ADR-006.
+- New content to review: `src/content/projects.ts` (four personal projects, topics, links) and the skills added
+  from their repos. Facts come only from public sources.
+- To go live, see the earlier handoff: create a GitHub repo, push `main`, Settings -> Pages -> Source: GitHub Actions.
+- Open owner inputs are listed in status.md.

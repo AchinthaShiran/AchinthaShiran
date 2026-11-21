@@ -1,9 +1,22 @@
 import type { ModelKey } from '@/assets/manifest';
 import type { ModelProps } from '@/assets/types';
-import type { ContactKind } from '@/content';
+import type { ContactKind, ProjectCategory } from '@/content';
 
 export type ZoneId =
-  'home' | 'career' | 'lab' | 'park' | 'forest' | 'peak' | 'horizon' | 'education' | 'mentorship';
+  | 'home'
+  | 'career'
+  | 'lab'
+  | 'park'
+  | 'forest'
+  | 'peak'
+  | 'horizon'
+  | 'education'
+  | 'mentorship'
+  // Personal project islands ("Makers' Row", ADR-005)
+  | 'tala'
+  | 'skillup'
+  | 'myspend'
+  | 'unity';
 
 /** What a landmark opens. Rendered by the panel registry in `ui/panels`. */
 export type PanelRef =
@@ -16,8 +29,9 @@ export type PanelRef =
   | { kind: 'role'; id: string }
   | { kind: 'career-timeline' }
   | { kind: 'sage'; id: string }
-  | { kind: 'projects' }
+  | { kind: 'projects'; category?: ProjectCategory }
   | { kind: 'project'; id: string }
+  | { kind: 'project-topic'; project: string; id: string }
   | { kind: 'skills' }
   | { kind: 'skill'; id: string }
   | { kind: 'awards' }
@@ -133,6 +147,8 @@ export interface ZoneDef {
   readonly overviewPanel: PanelRef;
   /** Landmark the guide targets for this zone. */
   readonly primaryLandmark: string;
+  /** Projects explained on this island (their panels offer to guide or travel here). */
+  readonly projects?: readonly string[];
 }
 
 export interface ZoneLink {

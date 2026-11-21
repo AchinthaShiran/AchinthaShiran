@@ -8,7 +8,7 @@ import {
   awards,
   formatYears,
   organizations,
-  projects,
+  projectsByCategory,
   rolesForOrganization,
   skillCategories,
   skillsInCategory,
@@ -48,10 +48,24 @@ export function careerLandmarks(): LandmarkDef[] {
   return out;
 }
 
-/** Project Park: exhibits spread over the free arc between bridges (first row r=13.5, then r=18.5). */
-export function parkLandmarks(arcStart = 40, arcEnd = 240, perRow = 6): LandmarkDef[] {
-  const ordered = [...projects].sort((a, b) => Number(b.featured) - Number(a.featured));
-  return ordered.map((project, i) => {
+const GATEWAY_COLORS = ['#7FE7D9', '#FFD27D', '#F5A6A6', '#75BDEB', '#B9A1E8', '#80CFA9'];
+
+/** Gateway positions in the bridge-free gap on the park's east side: [compass angle, radius]. */
+const GATEWAY_SLOTS: readonly (readonly [number, number])[] = [
+  [75, 17],
+  [103, 17],
+  [75, 11.5],
+  [103, 11.5],
+];
+
+/**
+ * Project Park is the hub for every project (ADR-005):
+ * - one exhibit per corporate project on the west arc (first row r=13.5, then r=18.5);
+ * - one gateway per personal project, each opening that project and guiding visitors to its island.
+ */
+export function parkLandmarks(arcStart = 170, arcEnd = 330, perRow = 4): LandmarkDef[] {
+  const ordered = projectsByCategory('corporate').sort((a, b) => Number(b.featured) - Number(a.featured));
+  const exhibits = ordered.map((project, i): LandmarkDef => {
     const row = Math.floor(i / perRow);
     const inRow = Math.min(perRow, ordered.length - row * perRow);
     const k = i % perRow;
@@ -60,12 +74,33 @@ export function parkLandmarks(arcStart = 40, arcEnd = 240, perRow = 6): Landmark
     return {
       id: `park-exhibit-${project.id}`,
       name: project.shortName,
-      model: isModelKey(project.exhibitModel) ? project.exhibitModel : 'exhibitGeneric',
+      model:
+        project.exhibitModel !== null && isModelKey(project.exhibitModel)
+          ? project.exhibitModel
+          : 'exhibitGeneric',
       at: { a: angle, r: 13.5 + row * 5 },
       panel: { kind: 'project', id: project.id },
       hint: 'Inspect project',
     };
   });
+
+  const personal = projectsByCategory('personal');
+  if (personal.length > GATEWAY_SLOTS.length) {
+    throw new Error(`Project Park has ${GATEWAY_SLOTS.length} gateway slots; add more in parkLandmarks()`);
+  }
+  const gateways = personal.map((project, i): LandmarkDef => {
+    const [a, r] = GATEWAY_SLOTS[i]!;
+    return {
+      id: `park-gateway-${project.id}`,
+      name: `${project.shortName} — island gateway`,
+      model: 'projectGateway',
+      props: { label: project.shortName, color: GATEWAY_COLORS[i % GATEWAY_COLORS.length] },
+      at: { a, r },
+      panel: { kind: 'project', id: project.id },
+      hint: 'See the project and its island',
+    };
+  });
+  return [...exhibits, ...gateways];
 }
 
 /** Skill Forest: one crystal per skill, clustered by category along the free arc. */

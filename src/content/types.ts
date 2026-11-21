@@ -64,28 +64,50 @@ export interface ProjectMedia {
   readonly alt: string;
 }
 
+/** Corporate projects live in Project Park; personal projects each get their own island (ADR-005). */
+export type ProjectCategory = 'corporate' | 'personal';
+
+/** A labelled public link (store listing, website, article). Only public URLs belong here. */
+export interface ProjectLink {
+  readonly label: string;
+  readonly url: string;
+}
+
+/** One explainable feature of a project, shown by a station on the project's island. */
+export interface ProjectTopic {
+  readonly id: Id;
+  readonly title: string;
+  readonly summary: string;
+  readonly points: readonly string[];
+}
+
 /** Model keys for exhibits live in the asset manifest; kept as string to avoid a content→assets dependency. */
 export interface Project {
   readonly id: Id;
   readonly name: string;
   readonly shortName: string;
+  readonly category: ProjectCategory;
   readonly organizationId: Id | null;
   readonly tagline: string;
   readonly problem: string | null;
   readonly solution: string;
   readonly capabilities: readonly string[];
+  readonly topics: readonly ProjectTopic[];
   readonly role: string;
   readonly contributions: readonly string[];
   readonly technologies: readonly Id[];
   readonly media: readonly ProjectMedia[];
   readonly demoVideoUrl: string | null;
   readonly liveUrl: string | null;
+  /** Public repositories only. Private repositories stay `null`. */
   readonly repoUrl: string | null;
-  readonly exhibitModel: string;
+  readonly links: readonly ProjectLink[];
+  /** Project Park exhibit model (corporate projects); personal projects have their own island instead. */
+  readonly exhibitModel: string | null;
   readonly featured: boolean;
 }
 
-export type SkillCategoryId = 'frontend' | 'backend' | 'cloud' | 'cicd' | 'gamedev' | 'databases';
+export type SkillCategoryId = 'frontend' | 'backend' | 'ai' | 'cloud' | 'cicd' | 'gamedev' | 'databases';
 
 export interface SkillCategory {
   readonly id: SkillCategoryId;
@@ -98,8 +120,8 @@ export interface Skill {
   readonly id: Id;
   readonly name: string;
   readonly categoryId: SkillCategoryId;
-  /** Where the resume lists it: in the general skills list and/or under specific projects. */
-  readonly source: 'resume-skills' | 'project-listing';
+  /** Where it is listed: the resume skills, a resume project, or a personal project's public sources. */
+  readonly source: 'resume-skills' | 'project-listing' | 'personal-project';
 }
 
 export interface Award {

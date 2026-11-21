@@ -5,6 +5,7 @@ import {
   getMentoring,
   getOrganization,
   getProject,
+  getProjectTopic,
   getRole,
   getSageTopic,
   getSeed,
@@ -34,6 +35,7 @@ import {
   OrganizationDetails,
   Profiles,
   ProjectDetails,
+  ProjectTopicDetails,
   ProjectList,
   RoleDetails,
   SageTopicDetails,
@@ -43,6 +45,7 @@ import {
   Welcome,
 } from '../content/blocks';
 import { Controls } from './Controls';
+import { IslandActions } from './IslandActions';
 
 export interface PanelView {
   eyebrow: string;
@@ -128,12 +131,30 @@ export function describePanel(ref: PanelRef): PanelView {
         ? view('Innovation Lab · SAGE', topic.title, (nav) => <SageTopicDetails topic={topic} nav={nav} />)
         : missing;
     }
-    case 'projects':
-      return view('Project Park', 'Key projects', (nav) => <ProjectList nav={nav} />);
+    case 'projects': {
+      const personal = ref.category === 'personal';
+      const park = ref.category === 'corporate';
+      return view(
+        personal ? "Makers' Row" : park ? 'Project Park' : 'Projects',
+        personal ? 'Personal projects' : park ? 'Key projects' : 'All projects',
+        (nav) => <ProjectList nav={nav} category={ref.category} />,
+      );
+    }
     case 'project': {
       const project = getProject(ref.id);
       return project
-        ? view('Project', project.name, (nav) => <ProjectDetails project={project} nav={nav} />)
+        ? view(project.category === 'personal' ? 'Personal project' : 'Project', project.name, (nav) => (
+            <ProjectDetails project={project} nav={nav} extra={<IslandActions projectId={project.id} />} />
+          ))
+        : missing;
+    }
+    case 'project-topic': {
+      const project = getProject(ref.project);
+      const topic = getProjectTopic(ref.project, ref.id);
+      return project && topic
+        ? view(project.name, topic.title, (nav) => (
+            <ProjectTopicDetails project={project} topic={topic} nav={nav} />
+          ))
         : missing;
     }
     case 'skills':

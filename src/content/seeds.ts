@@ -40,4 +40,24 @@ export const ideaSeeds: readonly IdeaSeed[] = [
     title: 'Meet Alfred',
     fact: 'Excellence Hub integrates with a Smart AI Agent named "Alfred".',
   },
+  {
+    id: 'seed-tala',
+    title: 'Teach Tala',
+    fact: 'Tala learns new skills from a simple YAML file — no code needed — and asks before it changes anything.',
+  },
+  {
+    id: 'seed-skillup',
+    title: 'Study Smarter',
+    fact: 'Skill Up turns a learning goal into a personalized plan with a roadmap, resources and progress tracking.',
+  },
+  {
+    id: 'seed-myspend',
+    title: 'Pocket Privacy',
+    fact: 'MySpend keeps entries in an encrypted database on your phone, with no bank login and no ads.',
+  },
+  {
+    id: 'seed-openai-unity',
+    title: 'Chatty NPCs',
+    fact: 'OpenAI-Unity lets a Unity game talk to the OpenAI API, including function calls that return structured data.',
+  },
 ];

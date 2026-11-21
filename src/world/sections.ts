@@ -1,5 +1,6 @@
-import { cv } from '@/content';
+import { cv, projectsByCategory } from '@/content';
 import type { PanelRef, ZoneId } from './types';
+import { zones } from './zones';
 
 /** Conventional portfolio sections for quick navigation and Classic mode (plan §11). */
 export interface Section {
@@ -41,8 +42,8 @@ export const sections: readonly Section[] = [
     label: 'Key Projects',
     zoneId: 'park',
     landmarkId: 'park-kiosk',
-    panel: { kind: 'projects' },
-    description: 'SAGE, Excellence Hub and TA Portal.',
+    panel: { kind: 'projects', category: 'corporate' },
+    description: 'Corporate projects: SAGE, Excellence Hub and TA Portal.',
   },
   {
     id: 'skills',
@@ -93,3 +94,41 @@ export const sections: readonly Section[] = [
     description: 'Résumé download.',
   },
 ];
+
+/** Where a project lives in the world: the island that explains it, and the landmark to guide visitors to. */
+export interface ProjectIsland {
+  readonly zoneId: ZoneId;
+  readonly landmarkId: string;
+}
+
+/**
+ * Island for each project, from `ZoneDef.projects` (ADR-005). Project panels use it to offer "Guide me" and
+ * "Travel". Corporate projects without an island (Excellence Hub, TA Portal) simply have no entry.
+ */
+export const projectIslands: ReadonlyMap<string, ProjectIsland> = new Map(
+  zones.flatMap((zone) =>
+    (zone.projects ?? []).map((id): [string, ProjectIsland] => [
+      id,
+      { zoneId: zone.id, landmarkId: zone.primaryLandmark },
+    ]),
+  ),
+);
+
+/**
+ * One entry per personal project, derived from content + zone config. Projects without an island are skipped
+ * here and flagged by the world tests.
+ */
+export const personalSections: readonly Section[] = projectsByCategory('personal').flatMap((project) => {
+  const island = projectIslands.get(project.id);
+  if (!island) return [];
+  return [
+    {
+      id: project.id,
+      label: project.name,
+      zoneId: island.zoneId,
+      landmarkId: island.landmarkId,
+      panel: { kind: 'project', id: project.id } as PanelRef,
+      description: project.tagline,
+    },
+  ];
+});
