@@ -4,14 +4,18 @@
  */
 import { playSfx } from '@/audio/sfx';
 import type { Vec3 } from '@/engine/math';
-import { cancelAutoWalk, player, requestTeleport, setAutoWalk } from '@/engine/playerState';
+import { camera, cancelAutoWalk, player, requestTeleport, setAutoWalk } from '@/engine/playerState';
 import { segmentWalkable } from '@/world/build';
 import { getWorld } from '@/world/build';
+import { useGameStats } from '@/state/paint';
 import { useSettings } from '@/state/settings';
 import { type Destination, useUi } from '@/state/ui';
 import type { ZoneId } from '@/world/types';
 
 export const world = getWorld();
+
+/** Clicks are for looking/shooting while the mouse is captured (or was just captured by this very click). */
+const mouseCaptured = () => camera.locked || performance.now() - camera.lockIntentAt < 600;
 
 /** Click target marker for click-to-move (read by the scene). */
 export const clickTarget: { point: Vec3 | null; time: number } = { point: null, time: 0 };
@@ -38,6 +42,7 @@ const isNear = (landmarkId: string) => {
 
 /** Walk to a landmark via the nav graph and open it on arrival (click on a landmark). */
 export function walkToLandmark(landmarkId: string): void {
+  if (useGameStats.getState().mode || mouseCaptured()) return; // clicks shoot while the paintball gun is out (ADR-007)
   const lm = world.landmark(landmarkId);
   if (!lm?.navNodeId) return;
   if (isNear(landmarkId)) {
@@ -55,6 +60,7 @@ export function walkToLandmark(landmarkId: string): void {
 
 /** Click-to-move to an arbitrary ground point. */
 export function walkToPoint(point: Vec3): void {
+  if (useGameStats.getState().mode || mouseCaptured()) return;
   clickTarget.point = point;
   clickTarget.time = performance.now();
   if (segmentWalkable(world.collision, player, point)) {

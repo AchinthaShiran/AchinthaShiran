@@ -18,6 +18,7 @@ import {
   awards,
   ideaSeeds,
 } from '@/content';
+import { placeHuntSpots } from '@/game/paint/huntTargets';
 import { buildWorld, segmentWalkable } from './build';
 import { personalSections, projectIslands, sections } from './sections';
 import type { PanelRef } from './types';
@@ -255,5 +256,54 @@ describe('project connections', () => {
     };
     expect(dist('lab', 'park')).toBeLessThan(70);
     expect(dist('career', 'park')).toBeLessThan(70);
+  });
+});
+
+describe('paintball arena (ADR-007)', () => {
+  it('is a leaf island linked only to Home, so it never sits on a route', () => {
+    const touching = world.bridges.filter((b) => b.a === 'arena' || b.b === 'arena');
+    expect(touching).toHaveLength(1);
+    expect([touching[0]!.a, touching[0]!.b].sort()).toEqual(['arena', 'home']);
+  });
+
+  it('keeps every route to portfolio content off the arena', () => {
+    for (const lm of world.interactables) {
+      if (lm.zoneId === 'arena' || !lm.navNodeId) continue;
+      const path = world.nav.findPath(homeHub, lm.navNodeId);
+      expect(path, lm.id).not.toBeNull();
+      expect(
+        path!.some((n) => n.zoneId === 'arena'),
+        lm.id,
+      ).toBe(false);
+    }
+  });
+
+  it('offers a landmark for every game, the challenge board and the armory', () => {
+    const panels = world.interactables
+      .filter((l) => l.zoneId === 'arena')
+      .map((l) => JSON.stringify(l.panel));
+    for (const id of ['gallery', 'arena', 'hunt']) {
+      expect(panels).toContain(JSON.stringify({ kind: 'paint-game', id }));
+    }
+    expect(panels).toContain(JSON.stringify({ kind: 'paint-challenges' }));
+    expect(panels).toContain(JSON.stringify({ kind: 'paint-help' }));
+  });
+
+  it('places one hunt target per other island, on open walkable ground', () => {
+    const spots = placeHuntSpots(world);
+    const others = world.zones.filter((z) => z.id !== 'arena');
+    expect(spots.map((s) => s.zoneId).sort()).toEqual(others.map((z) => z.id).sort());
+    expect(new Set(spots.map((s) => s.id)).size).toBe(spots.length);
+    for (const s of spots) {
+      const zone = world.zone(s.zoneId as never);
+      expect(world.collision.groundAt(s.x, s.z, zone.y), s.id).not.toBeNull();
+      expect(world.collision.obstacleAt(s.x, zone.y + 1, s.z), s.id).toBe(false);
+      expect(s.y, s.id).toBeGreaterThan(zone.y + 0.5);
+      expect(world.zoneAt(s.x, s.z)?.id, s.id).toBe(s.zoneId);
+    }
+  });
+
+  it('places the same hunt targets every time', () => {
+    expect(placeHuntSpots(world)).toEqual(placeHuntSpots(world));
   });
 });

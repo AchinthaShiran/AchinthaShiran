@@ -3,8 +3,11 @@ import { profile } from '@/content';
 import { player } from '@/engine/playerState';
 import { camera as camState } from '@/engine/playerState';
 import { clearGuide, interactNearby, world } from '@/game/actions';
+import { togglePaintMode } from '@/game/paint/controller';
+import { useGameStats } from '@/state/paint';
 import { useSettings } from '@/state/settings';
 import { useUi } from '@/state/ui';
+import { ControlsStrip } from './ControlsHint';
 import { Icon, Logo } from './Icon';
 import { Minimap } from './Minimap';
 
@@ -113,26 +116,13 @@ function Tips() {
   const [show, setShow] = useState(true);
   useEffect(() => {
     if (phase !== 'play') return;
-    const t = window.setTimeout(() => setShow(false), 14000);
+    const t = window.setTimeout(() => setShow(false), 18000);
     return () => window.clearTimeout(t);
   }, [phase]);
   if (phase !== 'play' || !show) return null;
   return (
     <div className="tips" role="note">
-      <span>
-        <kbd>W</kbd>
-        <kbd>A</kbd>
-        <kbd>S</kbd>
-        <kbd>D</kbd> move
-      </span>
-      <span>Drag to look</span>
-      <span>Click ground to walk</span>
-      <span>
-        <kbd>E</kbd> interact
-      </span>
-      <span>
-        <kbd>M</kbd> map
-      </span>
+      <ControlsStrip compact />
       <button type="button" className="btn btn--small btn--ghost" onClick={() => setShow(false)}>
         Got it
       </button>
@@ -145,6 +135,7 @@ export function Hud() {
   const overlay = useUi((s) => s.overlay);
   const muted = useSettings((s) => s.muted);
   const setMuted = useSettings((s) => s.setMuted);
+  const paintMode = useGameStats((s) => s.mode);
   const toggle = useUi((s) => s.toggleOverlay);
   const zone = world.zone(zoneId);
   return (
@@ -188,6 +179,16 @@ export function Hud() {
           aria-label={muted ? 'Turn sound on' : 'Mute sound'}
         >
           <Icon name={muted ? 'soundOff' : 'soundOn'} />
+        </button>
+        <button
+          type="button"
+          className="icon-btn"
+          onClick={togglePaintMode}
+          aria-pressed={paintMode}
+          aria-label="Paintball gun (F)"
+          title="Paintball gun (F)"
+        >
+          <Icon name="paint" />
         </button>
         <button
           type="button"

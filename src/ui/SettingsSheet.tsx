@@ -1,3 +1,4 @@
+import { mouseLookSupported } from '@/game/mouseLook';
 import { useProgress } from '@/state/progress';
 import { type QualitySetting, useSettings } from '@/state/settings';
 import { useUi } from '@/state/ui';
@@ -56,6 +57,18 @@ export function SettingsSheet() {
             </span>
             <Switch checked={s.reducedMotion} onChange={s.setReducedMotion} label="Reduced motion" />
           </div>
+          {mouseLookSupported() && (
+            <div className="setting-row">
+              <span>
+                <strong>Mouse look</strong>
+                <br />
+                <small className="muted">
+                  Capture the mouse and look around by moving it. Esc releases it
+                </small>
+              </span>
+              <Switch checked={s.mouseLook} onChange={s.setMouseLook} label="Mouse look" />
+            </div>
+          )}
           <div className="setting-row">
             <span>
               <strong>Graphics quality</strong>

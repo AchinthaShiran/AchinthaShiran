@@ -16,7 +16,9 @@ export type ZoneId =
   | 'tala'
   | 'skillup'
   | 'myspend'
-  | 'unity';
+  | 'unity'
+  // Optional paintball arena (ADR-007)
+  | 'arena';
 
 /** What a landmark opens. Rendered by the panel registry in `ui/panels`. */
 export type PanelRef =
@@ -47,7 +49,10 @@ export type PanelRef =
   | { kind: 'seeds' }
   | { kind: 'seed'; id: string }
   | { kind: 'zone'; id: ZoneId }
-  | { kind: 'controls' };
+  | { kind: 'controls' }
+  | { kind: 'paint-challenges' }
+  | { kind: 'paint-game'; id: 'gallery' | 'arena' | 'hunt' }
+  | { kind: 'paint-help' };
 
 /** Polar placement in zone-local space: compass degrees (0 = north, 90 = east) and radius. */
 export interface Polar {

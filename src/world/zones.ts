@@ -911,6 +911,104 @@ const unity: ZoneDef = {
   projects: ['openai-unity'],
 };
 
+// ---------------------------------------------------------------------------------------------
+// Splat Arena (ADR-007): an optional island for the paintball mini games. Linked to Home only, so it never
+// sits on a route to portfolio content. Enemies exist only while its Bot Arena game is running.
+// ---------------------------------------------------------------------------------------------
+const arena: ZoneDef = {
+  id: 'arena',
+  name: 'Splat Arena',
+  section: 'Paintball challenges',
+  description:
+    'Optional play: a shooting gallery, a bot arena and a target hunt. Exploring the portfolio never needs it.',
+  kind: 'island',
+  center: [68, 8],
+  elevation: 0.8,
+  radius: 22,
+  palette: { top: '#F4CBBF', rim: '#E3A99C', rock: '#9A8AA6', accent: palette.coral },
+  glyph: '◎',
+  navRings: [9],
+  decorMinRadius: 17.5,
+  decor: { flower: 10, mushroom: 4, bush: 3 },
+  features: [{ kind: 'plaza', r: 7, color: '#FAE3DA' }],
+  landmarks: [
+    {
+      id: 'arena-board',
+      name: 'Challenge Board',
+      model: 'challengeBoard',
+      at: { a: 228, r: 12 },
+      panel: { kind: 'paint-challenges' },
+      hint: 'See challenges and badges',
+    },
+    {
+      id: 'arena-armory',
+      name: 'Paint Armory',
+      model: 'armory',
+      at: { a: 195, r: 13 },
+      panel: { kind: 'paint-help' },
+      hint: 'Get the paintball gun',
+    },
+    {
+      id: 'arena-hunt',
+      name: 'Target Hunt Desk',
+      model: 'huntDesk',
+      at: { a: 252, r: 12.5 },
+      panel: { kind: 'paint-game', id: 'hunt' },
+      hint: 'Start the island target hunt',
+    },
+    {
+      id: 'arena-gallery',
+      name: 'Shooting Gallery',
+      model: 'galleryBooth',
+      at: { a: 35, r: 14.5 },
+      panel: { kind: 'paint-game', id: 'gallery' },
+      hint: 'Play the shooting gallery',
+    },
+    {
+      id: 'arena-bots',
+      name: 'Bot Arena Gate',
+      model: 'botGate',
+      at: { a: 335, r: 14.5 },
+      panel: { kind: 'paint-game', id: 'arena' },
+      hint: 'Face the paint-bots',
+    },
+    {
+      id: 'arena-sign',
+      name: 'Splat Arena',
+      model: 'islandSign',
+      props: { label: 'SPLAT ARENA', color: palette.coral, ink: palette.white },
+      at: { a: 0, r: 17 },
+    },
+    { id: 'arena-cover-1', name: 'Cover', model: 'coverBlock', at: { a: 45, r: 7.5 } },
+    { id: 'arena-cover-2', name: 'Cover', model: 'coverBlock', at: { a: 135, r: 7.5 } },
+    { id: 'arena-cover-3', name: 'Cover', model: 'coverBlock', at: { a: 225, r: 7.5 } },
+    { id: 'arena-cover-4', name: 'Cover', model: 'coverBlock', at: { a: 315, r: 7.5 } },
+    {
+      id: 'arena-barrel-1',
+      name: 'Paint Barrel',
+      model: 'paintBarrel',
+      props: { color: palette.sky },
+      at: { a: 20, r: 12 },
+    },
+    {
+      id: 'arena-barrel-2',
+      name: 'Paint Barrel',
+      model: 'paintBarrel',
+      props: { color: palette.coral },
+      at: { a: 300, r: 17 },
+    },
+    {
+      id: 'arena-barrel-3',
+      name: 'Paint Barrel',
+      model: 'paintBarrel',
+      props: { color: palette.lavender },
+      at: { a: 215, r: 17 },
+    },
+  ],
+  overviewPanel: { kind: 'paint-challenges' },
+  primaryLandmark: 'arena-board',
+};
+
 export const zones: readonly ZoneDef[] = [
   home,
   education,
@@ -925,6 +1023,7 @@ export const zones: readonly ZoneDef[] = [
   skillup,
   myspend,
   unity,
+  arena,
 ];
 
 export const zoneLinks: readonly ZoneLink[] = [
@@ -946,4 +1045,6 @@ export const zoneLinks: readonly ZoneLink[] = [
   { a: 'skillup', b: 'horizon' },
   { a: 'horizon', b: 'unity' },
   { a: 'unity', b: 'myspend' },
+  // Optional paintball island: reachable only from Home, never on a route to portfolio content
+  { a: 'home', b: 'arena' },
 ];

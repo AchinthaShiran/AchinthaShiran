@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { profile } from '@/content';
+import { requestMouseLook } from '@/game/mouseLook';
 import { useSettings } from '@/state/settings';
 import { useUi } from '@/state/ui';
+import { ControlsStrip } from './ControlsHint';
 
 /** Short, skippable opening (plan §13). Returning visitors skip it automatically. */
 export function Intro({ onStart }: { onStart: () => void }) {
@@ -15,6 +17,7 @@ export function Intro({ onStart }: { onStart: () => void }) {
     useSettings.getState().markIntroSeen();
     useUi.getState().setPhase('play');
     onStart();
+    requestMouseLook();
   };
   const { intro } = profile;
   return (
@@ -27,6 +30,7 @@ export function Intro({ onStart }: { onStart: () => void }) {
         </h1>
         <p className="intro__headline">{intro.headline}</p>
         <p>{intro.cta}</p>
+        <ControlsStrip />
         <div className="intro__actions">
           <button ref={explore} type="button" className="btn btn--primary" onClick={start}>
             Explore My World

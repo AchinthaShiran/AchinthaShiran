@@ -25,7 +25,14 @@ export const player: PlayerState = {
 };
 
 /** Camera yaw is shared so movement is camera-relative and the minimap can show view direction. */
-export const camera = { yaw: 0, dragging: false };
+export const camera = {
+  yaw: 0,
+  dragging: false,
+  /** Pointer lock (GTA-style mouse look) is active. */
+  locked: false,
+  /** Timestamp of the last request to capture the mouse, so that click is not also a click-to-walk. */
+  lockIntentAt: -1e9,
+};
 
 /** Auto-walk waypoints (click-to-move / walk-to-landmark). Consumed by the Player loop. */
 export const autoWalk: { points: Vec3[]; onArrive: (() => void) | null } = { points: [], onArrive: null };

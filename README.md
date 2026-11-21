@@ -29,21 +29,22 @@ Node 20 or newer is required.
 
 ## The world
 
-| Zone             | Purpose                                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------------------- |
-| Home Island      | Welcome, About Me, interests, current role, growth timeline, mailbox                           |
-| Career City      | One tower per organization, one floor and plaque per role, timeline monument                   |
-| Innovation Lab   | SAGE — Sysco Agentic Ecosystem, explained across six landmarks                                 |
-| Project Park     | Hub for every project: an exhibit per Sysco LABS project and a gateway to each personal island |
-| Tala Workshop    | Personal project Tala — a local AI assistant driven by YAML tool packs (Makers' Row)           |
-| Skill Up Academy | Personal project Skill Up — an AI study planner (Makers' Row)                                  |
-| MySpend Market   | Personal project MySpend — an Android expense tracker (Makers' Row)                            |
-| Unity Arcade     | Personal project OpenAI-Unity — a Unity package for the OpenAI API (Makers' Row)               |
-| Skill Forest     | One crystal per skill, clustered and colour-coded by category                                  |
-| Achievement Peak | Trophies along a winding trail to the summit castle                                            |
-| Horizon Island   | Contact: lighthouse, message in a bottle, phone booth, CV board, telescope                     |
-| University Grove | Education                                                                                      |
-| Mentor Pavilion  | Mentoring, leadership and professional qualities                                               |
+| Zone             | Purpose                                                                                                   |
+| ---------------- | --------------------------------------------------------------------------------------------------------- |
+| Home Island      | Welcome, About Me, interests, current role, growth timeline, mailbox                                      |
+| Career City      | One tower per organization, one floor and plaque per role, timeline monument                              |
+| Innovation Lab   | SAGE — Sysco Agentic Ecosystem, explained across six landmarks                                            |
+| Project Park     | Hub for every project: an exhibit per Sysco LABS project and a gateway to each personal island            |
+| Tala Workshop    | Personal project Tala — a local AI assistant driven by YAML tool packs (Makers' Row)                      |
+| Skill Up Academy | Personal project Skill Up — an AI study planner (Makers' Row)                                             |
+| MySpend Market   | Personal project MySpend — an Android expense tracker (Makers' Row)                                       |
+| Unity Arcade     | Personal project OpenAI-Unity — a Unity package for the OpenAI API (Makers' Row)                          |
+| Skill Forest     | One crystal per skill, clustered and colour-coded by category                                             |
+| Achievement Peak | Trophies along a winding trail to the summit castle                                                       |
+| Horizon Island   | Contact: lighthouse, message in a bottle, phone booth, CV board, telescope                                |
+| University Grove | Education                                                                                                 |
+| Splat Arena      | Optional paintball play: shooting gallery, bot arena, target hunt, challenge badges (linked to Home only) |
+| Mentor Pavilion  | Mentoring, leadership and professional qualities                                                          |
 
 **How the projects connect.** The Innovation Lab (SAGE) is bridged to Career City (Sysco LABS) and to Project Park,
 forming the Sysco LABS district in the west. Project Park is the hub for every project: its exhibits cover the Sysco
@@ -55,9 +56,18 @@ along the south, linked to the Innovation Lab, Project Park and Horizon Island.
 head names its destination. The minimap shows the area around you; press `M` for the world map. **Guide me** lights
 a trail to any destination and shows a compass with the distance.
 
-**Controls.** `WASD`/arrows to move, `Shift` to run, `Space` to jump, `E` to interact, `M` for the map, `Esc` to
-close. Drag to look and scroll to zoom. Click the ground to walk there, or click any landmark with a floating
-diamond to visit and open it. On touch devices: joystick, Jump and an interact button; tap the ground to walk.
+**Controls.** `WASD`/arrows to move, `Shift` to run, `Space` to jump, `E` to interact, `M` for the map, `F`
+for the optional paintball gun. **Mouse look (desktop):** click the world to capture the mouse, then just move it to
+look around, like a third-person game; `Esc` releases it, and it lets go by itself whenever a panel or menu opens.
+Turn it off in Settings to use drag-to-look, click-to-walk and click-to-visit instead. On touch devices: joystick,
+Jump and an interact button; drag to look and tap the ground to walk. The controls are shown on the intro and in the
+opening tips.
+
+**Paintball (optional, ADR-007).** Press `F` for the gun. With the mouse captured the camera moves over your
+shoulder and the centre crosshair is where shots go; otherwise click or tap where you want to shoot. Shooting an
+exhibit opens it. The **Splat Arena** (a bridge from Home, off every route to portfolio content) hosts a shooting
+gallery, a bot arena (paint-bots exist only while that game runs; five paint hits send you back to the arena gate)
+and an island target hunt, plus a challenge board with badges. Best scores and badges are saved in the browser only.
 
 **Accessibility.** The classic portfolio at `#/classic` holds all the content as a regular page. It is also shown
 automatically when WebGL is unavailable. Settings include reduced motion (on by default when the OS asks for it),

@@ -13,6 +13,7 @@ import {
   ideaSeeds,
   profile,
 } from '@/content';
+import { GAME_INFO } from '@/game/paint/config';
 import { useProgress } from '@/state/progress';
 import type { PanelRef } from '@/world/types';
 import { zones } from '@/world/zones';
@@ -46,6 +47,7 @@ import {
 } from '../content/blocks';
 import { Controls } from './Controls';
 import { IslandActions } from './IslandActions';
+import { PaintChallenges, PaintGameInfo, PaintHelp } from './PaintPanels';
 
 export interface PanelView {
   eyebrow: string;
@@ -218,6 +220,12 @@ export function describePanel(ref: PanelRef): PanelView {
       const zone = zones.find((z) => z.id === ref.id);
       return zone ? view(zone.section, zone.name, () => <p className="lead">{zone.description}</p>) : missing;
     }
+    case 'paint-challenges':
+      return view('Splat Arena', 'Paintball challenges', () => <PaintChallenges />);
+    case 'paint-game':
+      return view('Splat Arena', GAME_INFO[ref.id].title, () => <PaintGameInfo id={ref.id} />);
+    case 'paint-help':
+      return view('Paint Armory', 'Paintball gun', () => <PaintHelp />);
     case 'controls':
       return view('Help', 'How to explore', () => <Controls />);
   }

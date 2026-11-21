@@ -5,6 +5,8 @@ import { CameraRig } from './CameraRig';
 import { Environment } from './Environment';
 import { Features } from './Features';
 import { Guide } from './Guide';
+import { MouseLook } from './MouseLook';
+import { PaintView } from './PaintView';
 import { Landmarks } from './Landmarks';
 import { Player } from './Player';
 import { Terrain } from './Terrain';
@@ -41,6 +43,8 @@ export default function Experience({ quality, onContextLost }: Props) {
         <Features />
         <Landmarks />
         <Guide />
+        <PaintView />
+        <MouseLook />
         <Player />
         <CameraRig />
       </Suspense>

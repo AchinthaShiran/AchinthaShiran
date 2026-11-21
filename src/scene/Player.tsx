@@ -3,6 +3,9 @@ import { useEffect, useMemo, useRef } from 'react';
 import type { Group } from 'three';
 import { playSfx } from '@/audio/sfx';
 import { explorer, type CharacterParts } from '@/assets/models/characters';
+import { paintGun } from '@/assets/models/arena';
+import { recoil } from '@/game/paint/controller';
+import { useGameStats } from '@/state/paint';
 import { consumeJump, hasMoveInput, readIntent } from '@/engine/input';
 import { angleDelta, damp } from '@/engine/math';
 import { autoWalk, camera, cancelAutoWalk, player, teleport } from '@/engine/playerState';
@@ -24,6 +27,14 @@ export function Player() {
   const root = useRef<Group>(null);
   const character = useMemo(() => explorer(), []);
   const parts = character.userData.parts as CharacterParts;
+  // Optional paintball marker (ADR-007): held in the right hand while paint mode is on.
+  const gun = useMemo(() => {
+    const g = paintGun();
+    g.position.set(0, -0.58, 0);
+    g.visible = false;
+    parts.armR.add(g);
+    return g;
+  }, [parts]);
   const vel = useRef({ x: 0, z: 0 });
   const anim = useRef({ phase: 0, stuckTime: 0, lastProbe: 0, stepTimer: 0 });
 
@@ -147,7 +158,10 @@ export function Player() {
     }
 
     // 5. Facing + animation
-    if (player.speed > 0.3) {
+    if (camera.locked && useGameStats.getState().mode) {
+      // Aiming with the mouse captured: face where the crosshair points, strafing relative to it.
+      player.yaw += angleDelta(player.yaw, camera.yaw + Math.PI) * damp(14, dt);
+    } else if (player.speed > 0.3) {
       const targetYaw = Math.atan2(vel.current.x, vel.current.z);
       player.yaw += angleDelta(player.yaw, targetYaw) * damp(12, dt);
     }
@@ -163,7 +177,11 @@ export function Player() {
     parts.legL.rotation.x = airborne ? -0.5 : swing;
     parts.legR.rotation.x = airborne ? 0.3 : -swing;
     parts.armL.rotation.x = airborne ? -2.4 : -swing * 0.9;
-    parts.armR.rotation.x = airborne ? -2.4 : swing * 0.9;
+    const aiming = useGameStats.getState().mode;
+    const kickAge = (performance.now() - recoil.at) / 1000;
+    const kick = kickAge < 0.15 ? (1 - kickAge / 0.15) * 0.35 : 0;
+    gun.visible = aiming;
+    parts.armR.rotation.x = aiming ? -1.45 + kick : airborne ? -2.4 : swing * 0.9;
     parts.body.position.y =
       player.speed > 0.2
         ? Math.abs(Math.sin(anim.current.phase)) * 0.06

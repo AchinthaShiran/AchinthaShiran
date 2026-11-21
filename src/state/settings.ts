@@ -10,9 +10,12 @@ interface SettingsState {
   reducedMotion: boolean;
   quality: QualitySetting;
   introSeen: boolean;
+  /** Capture the mouse for GTA-style look on desktop (click the world to start, Esc to release). */
+  mouseLook: boolean;
   setMuted: (muted: boolean) => void;
   setReducedMotion: (on: boolean) => void;
   setQuality: (q: QualitySetting) => void;
+  setMouseLook: (on: boolean) => void;
   markIntroSeen: () => void;
   resetIntro: () => void;
 }
@@ -32,9 +35,11 @@ export const useSettings = create<SettingsState>()(
       reducedMotion: prefersReducedMotion(),
       quality: 'auto',
       introSeen: false,
+      mouseLook: true,
       setMuted: (muted) => set({ muted }),
       setReducedMotion: (reducedMotion) => set({ reducedMotion }),
       setQuality: (quality) => set({ quality }),
+      setMouseLook: (mouseLook) => set({ mouseLook }),
       markIntroSeen: () => set({ introSeen: true }),
       resetIntro: () => set({ introSeen: false }),
     }),
