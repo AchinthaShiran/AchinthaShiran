@@ -67,7 +67,7 @@ export function WorldMap() {
               className="map__svg"
               viewBox={`${box.minX} ${box.minZ} ${box.w} ${box.h}`}
               role="group"
-              aria-label="Islands of Wonderland"
+              aria-label="Map of the islands"
             >
               {world.bridges.map((b) => (
                 <line
@@ -91,7 +91,7 @@ export function WorldMap() {
                     className="map__zone"
                     tabIndex={0}
                     role="button"
-                    aria-label={`${z.def.name} — ${z.def.section}${seen ? ', visited' : ''}`}
+                    aria-label={`${z.def.name} - ${z.def.section}${seen ? ', visited' : ''}`}
                     aria-pressed={active}
                     onClick={() => setSelected(z.id)}
                     onKeyDown={(e) => {

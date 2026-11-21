@@ -133,7 +133,7 @@ function Hero({ webgl }: { webgl: boolean }) {
   const personal = projectsByCategory('personal').length;
   return (
     <section className="classic__hero" aria-labelledby="hero-title">
-      <p className="eyebrow">WONDERLAND · Portfolio</p>
+      <p className="eyebrow">Portfolio</p>
       <h1 id="hero-title">{profile.name}</h1>
       <p className="classic__headline">{profile.headline}</p>
       <p className="muted">{profile.shortHeadline}</p>
@@ -271,7 +271,7 @@ export function Classic({ section, webgl }: { section: string | null; webgl: boo
           <p className="notice" role="status">
             {lostContext
               ? 'The 3D world stopped unexpectedly, so here is the classic portfolio instead.'
-              : "Your browser doesn't support the 3D world, so here is the classic portfolio — all the same content."}
+              : "Your browser doesn't support the 3D world, so here is the classic portfolio - all the same content."}
           </p>
         )}
         <Hero webgl={webgl} />

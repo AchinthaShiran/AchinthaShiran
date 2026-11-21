@@ -144,8 +144,8 @@ export function Hud() {
         <div className="brand">
           <Logo />
           <div>
-            <span className="brand__name">WONDERLAND</span>
-            <span className="brand__owner">{profile.name}</span>
+            <span className="brand__name">{profile.name}</span>
+            <span className="brand__owner">Interactive portfolio</span>
           </div>
         </div>
         <div className="zone-chip" aria-live="polite">

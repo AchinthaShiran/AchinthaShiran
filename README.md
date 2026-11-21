@@ -1,8 +1,8 @@
-# WONDERLAND — Interactive 3D Portfolio
+# Achintha Bandara - Interactive 3D Portfolio
 
 _A world of ideas, built one adventure at a time._
 
-WONDERLAND is the portfolio of **Achintha Bandara**, presented as a small low-poly adventure game: a hub island
+This is the portfolio of **Achintha Bandara**, presented as a small low-poly adventure game: a hub island
 surrounded by six themed islands and two islets, connected by bridges. Visitors explore with keyboard, mouse or
 touch. Every section is also one click away through the Explore menu, the world map and a classic page.
 
@@ -33,12 +33,12 @@ Node 20 or newer is required.
 | ---------------- | --------------------------------------------------------------------------------------------------------- |
 | Home Island      | Welcome, About Me, interests, current role, growth timeline, mailbox                                      |
 | Career City      | One tower per organization, one floor and plaque per role, timeline monument                              |
-| Innovation Lab   | SAGE — Sysco Agentic Ecosystem, explained across six landmarks                                            |
+| Innovation Lab   | SAGE - Sysco Agentic Ecosystem, explained across six landmarks                                            |
 | Project Park     | Hub for every project: an exhibit per Sysco LABS project and a gateway to each personal island            |
-| TALA Workshop    | Personal project TALA — Trusted Assistant for Local Actions, driven by YAML tool packs (Makers' Row)      |
-| Skill Up Academy | Personal project Skill Up — an AI study planner (Makers' Row)                                             |
-| MySpend Market   | Personal project MySpend — an Android expense tracker (Makers' Row)                                       |
-| Unity Arcade     | Personal project OpenAI-Unity — a Unity package for the OpenAI API (Makers' Row)                          |
+| TALA Workshop    | Personal project TALA - Trusted Assistant for Local Actions, driven by YAML tool packs (Makers' Row)      |
+| Skill Up Academy | Personal project Skill Up - an AI study planner (Makers' Row)                                             |
+| MySpend Market   | Personal project MySpend - an Android expense tracker (Makers' Row)                                       |
+| Unity Arcade     | Personal project OpenAI-Unity - a Unity package for the OpenAI API (Makers' Row)                          |
 | Skill Forest     | One crystal per skill, clustered and colour-coded by category                                             |
 | Achievement Peak | Trophies along a winding trail to the summit castle                                                       |
 | Horizon Island   | Contact: lighthouse, message in a bottle, phone booth, CV board, telescope                                |
@@ -81,13 +81,13 @@ Tests check that every cross-reference resolves.
 | To…                                  | Edit                                                                                              |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------- |
 | Change bio, headline or welcome text | [`profile.ts`](src/content/profile.ts)                                                            |
-| Add a role                           | [`experience.ts`](src/content/experience.ts) — Career City adds a floor and a plaque              |
-| Add a corporate project              | [`projects.ts`](src/content/projects.ts) (`category: 'corporate'`) — Project Park adds an exhibit |
+| Add a role                           | [`experience.ts`](src/content/experience.ts) - Career City adds a floor and a plaque              |
+| Add a corporate project              | [`projects.ts`](src/content/projects.ts) (`category: 'corporate'`) - Project Park adds an exhibit |
 | Add a personal project               | See "Adding a personal project" below                                                             |
-| Add a skill                          | [`skills.ts`](src/content/skills.ts) — Skill Forest adds a crystal in its category                |
-| Add an award                         | [`awards.ts`](src/content/awards.ts) — Achievement Peak adds a trophy                             |
+| Add a skill                          | [`skills.ts`](src/content/skills.ts) - Skill Forest adds a crystal in its category                |
+| Add an award                         | [`awards.ts`](src/content/awards.ts) - Achievement Peak adds a trophy                             |
 | Mentoring, education, Idea Seeds     | `mentoring.ts`, `education.ts`, `seeds.ts`                                                        |
-| LinkedIn / GitHub links              | [`contact.ts`](src/content/contact.ts) — set `href`                                               |
+| LinkedIn / GitHub links              | [`contact.ts`](src/content/contact.ts) - set `href`                                               |
 
 **Enable the CV download.** Put the PDF at `public/cv/Achintha_Bandara_CV.pdf`, then set
 `cv.path = 'cv/Achintha_Bandara_CV.pdf'` in [`contact.ts`](src/content/contact.ts).
@@ -135,7 +135,7 @@ world (004).
 2. Add a `ZoneDef` in [`zones.ts`](src/world/zones.ts): a central landmark opening `{ kind: 'project', id }`, one
    station per topic opening `{ kind: 'project-topic', project, id }`, and `projects: [id]`. Set it as
    `primaryLandmark`, then link it in `zoneLinks`.
-3. Models come from [`makers.ts`](src/assets/models/makers.ts) and the [manifest](src/assets/manifest.ts) — reuse
+3. Models come from [`makers.ts`](src/assets/models/makers.ts) and the [manifest](src/assets/manifest.ts) - reuse
    one or add new ones.
 4. Project Park adds a gateway automatically (it has four slots; add more in `parkLandmarks()`), and the Explore
    menu and Classic page list the project. Add an idea seed in `seeds.ts` and place it on the island.

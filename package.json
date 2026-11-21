@@ -1,8 +1,8 @@
 {
-  "name": "wonderland-portfolio",
+  "name": "achintha-portfolio",
   "private": true,
   "version": "0.1.0",
-  "description": "WONDERLAND — an explorable low-poly 3D portfolio of Achintha Bandara",
+  "description": "An explorable low-poly 3D portfolio of Achintha Bandara",
   "type": "module",
   "engines": {
     "node": ">=20"
