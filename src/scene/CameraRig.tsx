@@ -92,7 +92,7 @@ export function CameraRig() {
   }, [gl]);
 
   useFrame((_, rawDt) => {
-    const dt = Math.min(rawDt, 1 / 20);
+    const dt = Math.min(rawDt, 0.1);
     const v = view.current;
     const ui = useUi.getState();
     const reduced = useSettings.getState().reducedMotion;
@@ -104,9 +104,28 @@ export function CameraRig() {
       camState.yaw += angleDelta(camState.yaw, player.yaw + Math.PI) * damp(0.9, dt);
     }
 
-    v.dist += (v.targetDist - v.dist) * damp(6, dt);
     target.current.set(player.x, player.y + 1.5, player.z);
     const cp = Math.cos(v.pitch);
+    // Occlusion: pull the camera in front of buildings/obstacles between it and the player.
+    const ux = Math.sin(camState.yaw) * cp;
+    const uy = Math.sin(v.pitch);
+    const uz = Math.cos(camState.yaw) * cp;
+    let allowed = v.targetDist;
+    for (let s = 1.2; s < v.targetDist; s += 0.5) {
+      if (
+        world.collision.obstacleAt(
+          target.current.x + ux * s,
+          target.current.y + uy * s,
+          target.current.z + uz * s,
+          1,
+        )
+      ) {
+        allowed = Math.max(MIN_DIST * 0.45, s - 0.6);
+        break;
+      }
+    }
+    // Pull in quickly when occluded, ease back out smoothly.
+    v.dist += (allowed - v.dist) * damp(allowed < v.dist ? 14 : 4, dt);
     desired.current.set(
       target.current.x + Math.sin(camState.yaw) * cp * v.dist,
       target.current.y + Math.sin(v.pitch) * v.dist,

@@ -207,14 +207,14 @@ function Paths() {
       if (e.a.zoneId !== e.b.zoneId || Math.abs(e.a.y - e.b.y) > 0.3) continue;
       const len = Math.hypot(e.b.x - e.a.x, e.b.z - e.a.z);
       if (len < 0.1) continue;
-      const strip = box(1.4, 0.06, len, pathMat);
+      const strip = box(1.05, 0.06, len, pathMat);
       strip.position.set((e.a.x + e.b.x) / 2, (e.a.y + e.b.y) / 2 + 0.02, (e.a.z + e.b.z) / 2);
       strip.rotation.y = Math.atan2(e.b.x - e.a.x, e.b.z - e.a.z);
       root.add(strip);
       for (const n of [e.a, e.b]) {
         if (seen.has(n.id)) continue;
         seen.add(n.id);
-        root.add(cylinder(0.75, 0.75, 0.06, 8, pathMat, { p: [n.x, n.y + 0.02, n.z] }));
+        root.add(cylinder(0.6, 0.6, 0.06, 8, pathMat, { p: [n.x, n.y + 0.02, n.z] }));
       }
     }
     const g = new Group();

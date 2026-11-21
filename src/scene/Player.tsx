@@ -32,10 +32,11 @@ export function Player() {
     const s = world.spawn;
     Object.assign(player, { x: s.x, y: s.y, z: s.z, yaw: s.yaw, vy: 0, grounded: true, zoneId: 'home' });
     camera.yaw = s.yaw + Math.PI;
+    useProgress.getState().visit('home');
   }, []);
 
   useFrame((state, rawDt) => {
-    const dt = Math.min(rawDt, 1 / 20);
+    const dt = Math.min(rawDt, 1 / 12);
     const col = world.collision;
     const ui = useUi.getState();
 

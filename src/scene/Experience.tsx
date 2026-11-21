@@ -1,6 +1,5 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import { PCFSoftShadowMap } from 'three';
 import type { Quality } from '@/state/settings';
 import { CameraRig } from './CameraRig';
 import { Environment } from './Environment';
@@ -22,12 +21,14 @@ export default function Experience({ quality, onContextLost }: Props) {
     <Canvas
       className="world-canvas"
       flat
-      shadows={high ? { type: PCFSoftShadowMap } : false}
+      shadows={high}
       dpr={high ? [1, 1.75] : [0.8, 1.2]}
       camera={{ fov: 50, near: 0.3, far: 1400, position: [-40, 110, 190] }}
       gl={{ antialias: high, powerPreference: 'high-performance' }}
       onCreated={({ gl }) => {
         gl.domElement.addEventListener('webglcontextlost', (e) => {
+          // R3F force-loses the context when the canvas unmounts (e.g. switching to Classic) — not a failure.
+          if (!gl.domElement.isConnected) return;
           e.preventDefault();
           onContextLost();
         });

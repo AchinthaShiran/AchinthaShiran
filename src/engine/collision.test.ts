@@ -65,6 +65,13 @@ describe('CollisionWorld', () => {
     expect(p).toEqual({ x: -5, z: 0 });
   });
 
+  it('detects points inside obstacle volumes', () => {
+    expect(world.obstacleAt(-5, 1, 0)).toBe(true);
+    expect(world.obstacleAt(-5, 5, 0)).toBe(false);
+    expect(world.obstacleAt(0, 1, -7)).toBe(true);
+    expect(world.obstacleAt(3, 1, 3)).toBe(false);
+  });
+
   it('lets the player climb a ramp onto a tier', () => {
     let x = 7.9;
     let y = world.groundAt(x, 0, 0) ?? 0;
