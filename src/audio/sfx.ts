@@ -4,7 +4,19 @@
  */
 import { useSettings } from '@/state/settings';
 
-export type Sfx = 'open' | 'close' | 'select' | 'nearby' | 'collect' | 'travel' | 'step';
+export type Sfx =
+  | 'open'
+  | 'close'
+  | 'select'
+  | 'nearby'
+  | 'collect'
+  | 'travel'
+  | 'step'
+  | 'shot'
+  | 'splat'
+  | 'target'
+  | 'hit'
+  | 'bot';
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
@@ -95,6 +107,24 @@ export function playSfx(name: Sfx): void {
       break;
     case 'step':
       noise(0.05, 900, 0.05);
+      break;
+    case 'shot':
+      noise(0.07, 1400, 0.12, 500);
+      tone(300, 0.08, { type: 'square', gain: 0.03, slideTo: 120 });
+      break;
+    case 'splat':
+      noise(0.12, 500, 0.1, 200);
+      break;
+    case 'target':
+      tone(880, 0.1, { type: 'triangle', gain: 0.09 });
+      tone(1320, 0.14, { type: 'triangle', gain: 0.07, delay: 0.06 });
+      break;
+    case 'hit':
+      tone(150, 0.22, { type: 'sawtooth', gain: 0.07, slideTo: 70 });
+      noise(0.15, 300, 0.1);
+      break;
+    case 'bot':
+      tone(500, 0.3, { type: 'square', gain: 0.05, slideTo: 90 });
       break;
   }
 }

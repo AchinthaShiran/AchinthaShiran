@@ -94,6 +94,19 @@ import {
   toolFunnel,
   vault,
 } from './models/makers';
+import {
+  armory,
+  botGate,
+  challengeBoard,
+  coverBlock,
+  galleryBooth,
+  huntDesk,
+  huntTarget,
+  paintBarrel,
+  paintBot,
+  paintGun,
+  paintTarget,
+} from './models/arena';
 import { ideaSeed, placeholder, signpostPost } from './models/props';
 import type { Footprint, ModelEntry, ModelProps } from './types';
 import type { Object3D } from 'three';
@@ -235,6 +248,19 @@ export const manifest = {
   arcadeCabinet: proc(arcadeCabinet, rect(1.5, 1.2), 3.2),
   // Project Park gateways to the personal project islands
   projectGateway: proc(projectGateway, rect(2.6, 0.9), 4.2),
+
+  // Splat Arena (ADR-007): runtime pieces and landmarks
+  paintTarget: proc(paintTarget, null, 2.2),
+  huntTarget: proc(huntTarget, null, 1.4),
+  paintBot: proc(paintBot, null, 2.2),
+  paintGun: proc(paintGun, null, 1),
+  challengeBoard: proc(challengeBoard, rect(3.4, 0.8), 3.4),
+  galleryBooth: proc(galleryBooth, rect(3.4, 1.8), 3.8),
+  botGate: proc(botGate, rect(4.8, 1.0), 4.8),
+  huntDesk: proc(huntDesk, rect(2.6, 1.6), 3.2),
+  armory: proc(armory, rect(3.2, 1.4), 3.6),
+  coverBlock: proc(coverBlock, rect(1.8, 0.8), 1.4),
+  paintBarrel: proc(paintBarrel, circle(0.6), 1.2),
 
   // Collectibles & fallbacks
   ideaSeed: proc(ideaSeed, null, 1.6),

@@ -93,6 +93,14 @@ export const sections: readonly Section[] = [
     panel: { kind: 'cv' },
     description: 'Résumé download.',
   },
+  {
+    id: 'paintball',
+    label: 'Paintball Arena',
+    zoneId: 'arena',
+    landmarkId: 'arena-board',
+    panel: { kind: 'paint-challenges' },
+    description: 'Optional play: shooting gallery, bot arena, target hunt and badges.',
+  },
 ];
 
 /** Where a project lives in the world: the island that explains it, and the landmark to guide visitors to. */
