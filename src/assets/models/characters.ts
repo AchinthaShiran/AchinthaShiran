@@ -88,7 +88,7 @@ export function explorer(): Object3D {
   return buildCharacter(EXPLORER_COLORS, [pack, hat]).root;
 }
 
-/** Colours taken from the owner's reference portrait: dark hair, white shirt, jeans, navy backpack. */
+/** Colours taken from the owner's reference portrait: dark hair, white shirt, jeans. */
 const OWNER = {
   skin: '#E9B991',
   hair: '#2A1D18',
@@ -96,29 +96,15 @@ const OWNER = {
   jeans: '#4F79B8',
   belt: '#6B4423',
   shoes: '#4A3426',
-  pack: '#2B3A67',
-  packDark: '#202C50',
   silver: '#C9CED6',
 } as const;
 
 /**
- * Achintha's avatar on Home Island, styled after the owner's reference portrait: short dark hair, a slight
- * smirk, a white button shirt with rolled sleeves, blue jeans with a brown belt, a navy backpack, arms crossed.
+ * Achintha's avatar on Home Island, styled after the owner's reference portrait: short, slightly spiky dark hair, a slight
+ * smirk, a white button shirt with rolled sleeves, blue jeans with a brown belt.
  */
 export function ownerAvatar(): Object3D {
   const c = OWNER;
-  const backpack = group(
-    [
-      box(0.46, 0.6, 0.24, c.pack),
-      box(0.34, 0.26, 0.1, c.packDark, { p: [0, -0.12, -0.15] }),
-      box(0.1, 0.1, 0.08, c.packDark, { p: [0, 0.34, 0] }),
-    ],
-    { p: [0, 1.18, -0.4] },
-  );
-  const straps = [-1, 1].flatMap((side) => [
-    box(0.08, 0.05, 0.5, c.pack, { p: [side * 0.2, 1.44, -0.12] }),
-    box(0.08, 0.46, 0.04, c.pack, { p: [side * 0.2, 1.2, 0.27] }),
-  ]);
   const shirtDetails = [
     box(0.13, 0.12, 0.05, c.shirt, { p: [-0.1, 1.5, 0.24], r: [0, 0, 0.55] }),
     box(0.13, 0.12, 0.05, c.shirt, { p: [0.1, 1.5, 0.24], r: [0, 0, -0.55] }),
@@ -129,10 +115,19 @@ export function ownerAvatar(): Object3D {
 
   const parts = buildCharacter(
     { skin: c.skin, shirt: c.shirt, pants: c.jeans, hair: c.hair, shoes: c.shoes, accent: c.belt },
-    [backpack, ...straps, ...shirtDetails],
+    shirtDetails,
   );
 
-  // Eyebrows and a smirk (the hair is the smooth short cut from the character base).
+  // Short, slightly spiky hair: a low row of small spikes along the top and front of the base cut.
+  [-0.15, -0.075, 0, 0.075, 0.15].forEach((x, i) =>
+    parts.head.add(
+      cone(0.06, 0.12 + (i % 2) * 0.04, 4, c.hair, {
+        p: [x, 0.27, 0.03 + (i % 2) * 0.03],
+        r: [0.35, 0, -x * 1.6],
+      }),
+    ),
+  );
+  // Eyebrows and a smirk.
   parts.head.add(
     box(0.1, 0.025, 0.02, c.hair, { p: [-0.09, 0.1, 0.25], r: [0, 0, 0.14] }),
     box(0.1, 0.025, 0.02, c.hair, { p: [0.09, 0.1, 0.25], r: [0, 0, -0.14] }),
@@ -151,7 +146,7 @@ export function ownerAvatar(): Object3D {
       box(0.18, 0.05, 0.2, c.shirt, { p: [0, -0.29, 0] }),
     );
   }
-  // Arms hang relaxed at his sides, angled slightly away from the backpack straps.
+  // Arms hang relaxed at his sides, angled slightly away from the body.
   parts.armL.rotation.z = -0.07;
   parts.armR.rotation.z = 0.07;
 
