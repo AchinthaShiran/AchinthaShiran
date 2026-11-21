@@ -17,7 +17,7 @@ const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 
 /** Third-person follow camera with drag-to-orbit, wheel/pinch zoom and a short intro fly-in. */
 export function CameraRig() {
   const { camera, gl } = useThree();
-  const view = useRef({ pitch: 0.42, dist: 13, targetDist: 13, lastDrag: -10 });
+  const view = useRef({ pitch: 0.42, effPitch: 0.42, dist: 13, targetDist: 13, lastDrag: -10 });
   const intro = useRef({ t: 0 });
   const target = useRef(new Vector3());
   const desired = useRef(new Vector3());
@@ -105,31 +105,44 @@ export function CameraRig() {
     }
 
     target.current.set(player.x, player.y + 1.5, player.z);
-    const cp = Math.cos(v.pitch);
-    // Occlusion: pull the camera in front of buildings/obstacles between it and the player.
-    const ux = Math.sin(camState.yaw) * cp;
-    const uy = Math.sin(v.pitch);
-    const uz = Math.cos(camState.yaw) * cp;
-    let allowed = v.targetDist;
-    for (let s = 1.2; s < v.targetDist; s += 0.5) {
-      if (
-        world.collision.obstacleAt(
-          target.current.x + ux * s,
-          target.current.y + uy * s,
-          target.current.z + uz * s,
-          1,
-        )
-      ) {
-        allowed = Math.max(MIN_DIST * 0.45, s - 0.6);
-        break;
+    const tx = target.current.x;
+    const ty = target.current.y;
+    const tz = target.current.z;
+    // How far the camera can sit behind the player at a given pitch before a building/obstacle gets in the way.
+    const clearDistance = (pitch: number) => {
+      const cosP = Math.cos(pitch);
+      const ux = Math.sin(camState.yaw) * cosP;
+      const uy = Math.sin(pitch);
+      const uz = Math.cos(camState.yaw) * cosP;
+      for (let s = 1.2; s < v.targetDist; s += 0.5) {
+        if (world.collision.obstacleAt(tx + ux * s, ty + uy * s, tz + uz * s, 1)) {
+          return Math.max(MIN_DIST * 0.45, s - 0.6);
+        }
+      }
+      return v.targetDist;
+    };
+    // Occlusion: first rise over the obstacle (steeper pitch), and only pull the camera in if that is not enough.
+    let allowed = clearDistance(v.pitch);
+    let pitch = v.pitch;
+    if (allowed < v.targetDist * 0.85) {
+      for (const candidate of [0.8, 1.1]) {
+        if (candidate <= v.pitch) continue;
+        const d = clearDistance(candidate);
+        if (d > allowed) {
+          allowed = d;
+          pitch = candidate;
+        }
+        if (allowed >= v.targetDist * 0.85) break;
       }
     }
+    v.effPitch += (pitch - v.effPitch) * damp(5, dt);
     // Pull in quickly when occluded, ease back out smoothly.
     v.dist += (allowed - v.dist) * damp(allowed < v.dist ? 14 : 4, dt);
+    const cp = Math.cos(v.effPitch);
     desired.current.set(
-      target.current.x + Math.sin(camState.yaw) * cp * v.dist,
-      target.current.y + Math.sin(v.pitch) * v.dist,
-      target.current.z + Math.cos(camState.yaw) * cp * v.dist,
+      tx + Math.sin(camState.yaw) * cp * v.dist,
+      ty + Math.sin(v.effPitch) * v.dist,
+      tz + Math.cos(camState.yaw) * cp * v.dist,
     );
     // Keep the camera above ground (mountain tiers, cliffs).
     const ground = world.collision.topAt(desired.current.x, desired.current.z);
