@@ -22,7 +22,6 @@ import {
   graduationMonument,
   pavilion,
   podium,
-  qualitiesTotem,
   trainingBoard,
   university,
 } from './models/campus';
@@ -213,11 +212,10 @@ export const manifest = {
   trainingBoard: proc(trainingBoard, rect(2.6, 0.6), 2.8),
   bootcampDesk: proc(bootcampDesk, rect(2, 1.2), 2),
   podium: proc(podium, rect(1.6, 1.2), 2.2),
-  qualitiesTotem: proc(qualitiesTotem, circle(0.9), 5.2),
 
   // Makers' Row — personal project islands (ADR-005)
   islandSign: proc(islandSign, rect(3.8, 0.3), 2.8),
-  // Tala Workshop
+  // TALA Workshop
   talaTerminal: proc(talaTerminal, rect(4.6, 2.9), 5.2),
   packShelf: proc(packShelf, rect(3.8, 1.2), 4.8),
   approvalGate: proc(approvalGate, rect(4.8, 1.0), 4.2),

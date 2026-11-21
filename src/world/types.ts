@@ -41,7 +41,6 @@ export type PanelRef =
   | { kind: 'education' }
   | { kind: 'mentoring-overview' }
   | { kind: 'mentoring'; id: string }
-  | { kind: 'soft-skills' }
   | { kind: 'contact' }
   | { kind: 'contact-channel'; id: ContactKind }
   | { kind: 'profiles' }

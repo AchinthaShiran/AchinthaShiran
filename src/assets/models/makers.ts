@@ -53,9 +53,9 @@ export function islandSign(props: ModelProps): Object3D {
   ]);
 }
 
-/* ------------------------------------------------------------------ Tala Workshop */
+/* ------------------------------------------------------------------ TALA Workshop */
 
-/** Tala Terminal: chat in plain language — a terminal typing out lines, with two chat bubbles. */
+/** TALA Terminal: chat in plain language — a terminal typing out lines, with two chat bubbles. */
 export function talaTerminal(): Object3D {
   const widths = [1.6, 2.2, 1.2, 1.9, 0.9];
   const lines = widths.map((w, i) =>
