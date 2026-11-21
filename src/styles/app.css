@@ -780,6 +780,8 @@ kbd {
 .map__svg {
   width: 100%;
   height: auto;
+  /* The whole world should fit on screen without scrolling the map. */
+  max-height: calc(100vh - 170px);
   border-radius: var(--radius);
   background: radial-gradient(circle at 50% 40%, #d8effa, #b7dcf0);
 }

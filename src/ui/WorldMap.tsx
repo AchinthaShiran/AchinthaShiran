@@ -39,7 +39,9 @@ export function WorldMap() {
   const close = () => useUi.getState().setOverlay(null);
 
   const box = useMemo(() => {
-    const xs = world.zones.flatMap((z) => [z.x - z.def.radius, z.x + z.def.radius]);
+    // Labels are centred above each island; leave room for long names at the left and right edges.
+    const halfWidth = (z: (typeof world.zones)[number]) => Math.max(z.def.radius, z.def.name.length * 2.7);
+    const xs = world.zones.flatMap((z) => [z.x - halfWidth(z), z.x + halfWidth(z)]);
     const zs = world.zones.flatMap((z) => [z.z - z.def.radius, z.z + z.def.radius]);
     const minX = Math.min(...xs) - PAD;
     const minZ = Math.min(...zs) - PAD - 6;
@@ -118,16 +120,22 @@ export function WorldMap() {
                     >
                       {z.def.glyph}
                     </text>
-                    <text
-                      className={`map__label ${z.def.kind === 'islet' ? 'map__label--small' : ''}`}
-                      {...labelPosition(z.x, z.z, z.def.radius, z.def.mapLabel)}
-                    >
-                      {z.def.name}
-                      {seen ? ' ✓' : ''}
-                    </text>
                   </g>
                 );
               })}
+              {/* Labels are drawn above every island so neighbouring islands never cover them. */}
+              <g aria-hidden="true" style={{ pointerEvents: 'none' }}>
+                {world.zones.map((z) => (
+                  <text
+                    key={z.id}
+                    className={`map__label ${z.def.kind === 'islet' ? 'map__label--small' : ''}`}
+                    {...labelPosition(z.x, z.z, z.def.radius, z.def.mapLabel)}
+                  >
+                    {z.def.name}
+                    {visited.includes(z.id) ? ' ✓' : ''}
+                  </text>
+                ))}
+              </g>
               <g
                 transform={`translate(${pos.x} ${pos.z}) rotate(${180 - (pos.yaw * 180) / Math.PI})`}
                 aria-label="You are here"
