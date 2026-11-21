@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="900" height="280" role="img" aria-label="Achintha Bandara - Welcome, Explorer">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b1f4b"/>
+      <stop offset="0.6" stop-color="#4b4a9a"/>
+      <stop offset="1" stop-color="#f0a08c"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffd27a"/>
+      <stop offset="1" stop-color="#ff8fa3"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .bob { animation: bob 4s ease-in-out infinite; transform-box: fill-box; }
+    .bob2 { animation: bob 5.5s ease-in-out infinite reverse; transform-box: fill-box; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .cloud { animation: drift 28s linear infinite; }
+    .cloud.c2 { animation-duration: 40s; animation-delay: -14s; }
+    .cloud.c3 { animation-duration: 34s; animation-delay: -22s; }
+    @keyframes drift { from { transform: translateX(-160px); } to { transform: translateX(1060px); } }
+    .star { animation: twinkle 3s ease-in-out infinite; }
+    .star.s2 { animation-delay: -1s; } .star.s3 { animation-delay: -2s; }
+    @keyframes twinkle { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+    .smoke { animation: rise 3s ease-in infinite; transform-box: fill-box; }
+    .smoke.m2 { animation-delay: -1.5s; }
+    @keyframes rise { from { transform: translateY(0) scale(.6); opacity: .8; } to { transform: translateY(-26px) scale(1.2); opacity: 0; } }
+    .line { opacity: 0; animation: cycle 12s infinite; font-family: 'Segoe UI', Verdana, sans-serif; }
+    .l2 { animation-delay: 4s; } .l3 { animation-delay: 8s; }
+    @keyframes cycle { 0% { opacity: 0; transform: translateY(8px); } 6%,30% { opacity: 1; transform: translateY(0); } 36%,100% { opacity: 0; transform: translateY(-8px); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } .l1 { opacity: 1; } }
+  </style>
+  <rect width="900" height="280" fill="url(#sky)"/>
+  <g fill="#fff">
+    <circle class="star" cx="70" cy="40" r="2"/><circle class="star s2" cx="190" cy="85" r="1.6"/>
+    <circle class="star s3" cx="330" cy="30" r="2"/><circle class="star" cx="480" cy="70" r="1.5"/>
+    <circle class="star s2" cx="620" cy="35" r="2"/><circle class="star s3" cx="760" cy="90" r="1.6"/>
+    <circle class="star" cx="850" cy="40" r="2"/><circle class="star s2" cx="120" cy="150" r="1.4"/>
+  </g>
+  <g fill="#fff" opacity=".85">
+    <g class="cloud" transform="translate(0 60)"><ellipse cx="0" cy="0" rx="46" ry="14"/><ellipse cx="26" cy="-9" rx="28" ry="12"/></g>
+    <g class="cloud c2" transform="translate(0 130)"><ellipse cx="0" cy="0" rx="58" ry="16"/><ellipse cx="-24" cy="-10" rx="30" ry="13"/></g>
+    <g class="cloud c3" transform="translate(0 200)"><ellipse cx="0" cy="0" rx="40" ry="12"/><ellipse cx="20" cy="-8" rx="24" ry="10"/></g>
+  </g>
+  <g class="bob2" opacity=".9">
+    <polygon points="95,190 175,190 150,222 120,222" fill="#6b5a7a"/>
+    <polygon points="85,190 185,190 175,176 95,176" fill="#7fcf8f"/>
+  </g>
+  <g class="bob">
+    <polygon points="610,200 850,200 770,262 690,262" fill="#7a5a4a"/>
+    <polygon points="590,200 870,200 840,176 620,176" fill="#7fcf8f"/>
+    <rect x="700" y="140" width="56" height="36" fill="#f4e6c8"/>
+    <polygon points="692,142 728,112 764,142" fill="#d9695f"/>
+    <rect x="720" y="152" width="14" height="24" fill="#6b4423"/>
+    <rect x="742" y="116" width="8" height="18" fill="#8a7f8f"/>
+    <circle class="smoke" cx="746" cy="110" r="5" fill="#fff"/><circle class="smoke m2" cx="746" cy="110" r="5" fill="#fff"/>
+    <rect x="800" y="146" width="6" height="30" fill="#6b4423"/>
+    <polygon points="803,108 784,150 822,150" fill="#3f9d5a"/>
+    <polygon points="803,126 780,166 826,166" fill="#4cb36a"/>
+  </g>
+  <g text-anchor="start">
+    <text x="60" y="118" font-family="'Segoe UI', Verdana, sans-serif" font-size="54" font-weight="800" fill="url(#glow)">Achintha Bandara</text>
+    <text class="line l1" x="62" y="172" font-size="26" fill="#fff">Welcome, Explorer!</text>
+    <text class="line l2" x="62" y="172" font-size="26" fill="#fff">Apps, games and experiments</text>
+    <text class="line l3" x="62" y="172" font-size="26" fill="#fff">Step into my world below</text>
+  </g>
+</svg>
