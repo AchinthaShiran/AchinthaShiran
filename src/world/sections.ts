@@ -1,5 +1,6 @@
-import { cv } from '@/content';
+import { cv, projectsByCategory } from '@/content';
 import type { PanelRef, ZoneId } from './types';
+import { zones } from './zones';
 
 /** Conventional portfolio sections for quick navigation and Classic mode (plan §11). */
 export interface Section {
@@ -41,8 +42,8 @@ export const sections: readonly Section[] = [
     label: 'Key Projects',
     zoneId: 'park',
     landmarkId: 'park-kiosk',
-    panel: { kind: 'projects' },
-    description: 'SAGE, Excellence Hub and TA Portal.',
+    panel: { kind: 'projects', category: 'corporate' },
+    description: 'Corporate projects: SAGE, Excellence Hub and TA Portal.',
   },
   {
     id: 'skills',
@@ -93,3 +94,26 @@ export const sections: readonly Section[] = [
     description: 'Résumé download.',
   },
 ];
+
+/**
+ * One entry per personal project (ADR-005), derived from content + zone config: the island landmark that
+ * opens the project. Projects without an island landmark are skipped here and flagged by the world tests.
+ */
+export const personalSections: readonly Section[] = projectsByCategory('personal').flatMap((project) => {
+  for (const zone of zones) {
+    const landmark = zone.landmarks.find((l) => l.panel?.kind === 'project' && l.panel.id === project.id);
+    if (landmark) {
+      return [
+        {
+          id: project.id,
+          label: project.name,
+          zoneId: zone.id,
+          landmarkId: landmark.id,
+          panel: { kind: 'project', id: project.id } as PanelRef,
+          description: project.tagline,
+        },
+      ];
+    }
+  }
+  return [];
+});

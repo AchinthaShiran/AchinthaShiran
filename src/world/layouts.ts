@@ -8,7 +8,7 @@ import {
   awards,
   formatYears,
   organizations,
-  projects,
+  projectsByCategory,
   rolesForOrganization,
   skillCategories,
   skillsInCategory,
@@ -48,9 +48,12 @@ export function careerLandmarks(): LandmarkDef[] {
   return out;
 }
 
-/** Project Park: exhibits spread over the free arc between bridges (first row r=13.5, then r=18.5). */
-export function parkLandmarks(arcStart = 40, arcEnd = 240, perRow = 6): LandmarkDef[] {
-  const ordered = [...projects].sort((a, b) => Number(b.featured) - Number(a.featured));
+/**
+ * Project Park: one exhibit per corporate project, spread over the free arc between bridges
+ * (first row r=13.5, then r=18.5). Personal projects have their own islands instead (ADR-005).
+ */
+export function parkLandmarks(arcStart = 20, arcEnd = 150, perRow = 4): LandmarkDef[] {
+  const ordered = projectsByCategory('corporate').sort((a, b) => Number(b.featured) - Number(a.featured));
   return ordered.map((project, i) => {
     const row = Math.floor(i / perRow);
     const inRow = Math.min(perRow, ordered.length - row * perRow);
@@ -60,7 +63,10 @@ export function parkLandmarks(arcStart = 40, arcEnd = 240, perRow = 6): Landmark
     return {
       id: `park-exhibit-${project.id}`,
       name: project.shortName,
-      model: isModelKey(project.exhibitModel) ? project.exhibitModel : 'exhibitGeneric',
+      model:
+        project.exhibitModel !== null && isModelKey(project.exhibitModel)
+          ? project.exhibitModel
+          : 'exhibitGeneric',
       at: { a: angle, r: 13.5 + row * 5 },
       panel: { kind: 'project', id: project.id },
       hint: 'Inspect project',

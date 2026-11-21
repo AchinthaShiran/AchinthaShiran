@@ -5,19 +5,21 @@ import {
   getContact,
   getMentoring,
   getProject,
+  getProjectTopic,
   getRole,
   getSageTopic,
   getSeed,
   getSkill,
   organizations,
   projects,
+  projectsByCategory,
   roles,
   skills,
   awards,
   ideaSeeds,
 } from '@/content';
 import { buildWorld, segmentWalkable } from './build';
-import { sections } from './sections';
+import { personalSections, sections } from './sections';
 import type { PanelRef } from './types';
 import { zoneLinks, zones } from './zones';
 
@@ -32,6 +34,8 @@ function panelTargetExists(p: PanelRef): boolean {
       return !!getRole(p.id);
     case 'project':
       return !!getProject(p.id);
+    case 'project-topic':
+      return !!getProjectTopic(p.project, p.id);
     case 'skill':
       return !!getSkill(p.id);
     case 'award':
@@ -153,10 +157,60 @@ describe('content → world mapping', () => {
   });
 
   it('routes from Home spawn to every section', () => {
-    for (const s of sections) {
+    for (const s of [...sections, ...personalSections]) {
       const node = world.targetNode({ kind: 'landmark', id: s.landmarkId });
       expect(node).not.toBeNull();
       expect(world.routeTo(world.spawn, node!), s.id).not.toBeNull();
+    }
+  });
+});
+
+describe('personal project islands (ADR-005)', () => {
+  const personal = projectsByCategory('personal');
+
+  it('gives every personal project its own island with a landmark that opens it', () => {
+    expect(personalSections.map((s) => s.id).sort()).toEqual(personal.map((p) => p.id).sort());
+    const zonesUsed = personalSections.map((s) => s.zoneId);
+    expect(new Set(zonesUsed).size).toBe(personal.length);
+    for (const s of personalSections) {
+      const lm = world.landmark(s.landmarkId);
+      expect(lm?.zoneId, s.id).toBe(s.zoneId);
+      expect(lm?.panel, s.id).toEqual({ kind: 'project', id: s.id });
+    }
+  });
+
+  it('has a station for every topic of every personal project', () => {
+    const stations = world.interactables.flatMap((l) => (l.panel?.kind === 'project-topic' ? [l.panel] : []));
+    const missing = personal.flatMap((p) =>
+      p.topics
+        .filter((t) => !stations.some((s) => s.project === p.id && s.id === t.id))
+        .map((t) => `${p.id}/${t.id}`),
+    );
+    expect(missing).toEqual([]);
+  });
+
+  it('keeps the stations of a project on its own island', () => {
+    for (const lm of world.interactables) {
+      const panel = lm.panel;
+      if (panel?.kind !== 'project-topic') continue;
+      const home = personalSections.find((s) => s.id === panel.project);
+      expect(lm.zoneId, lm.id).toBe(home?.zoneId);
+    }
+  });
+
+  it('keeps Project Park for corporate projects only', () => {
+    const exhibits = world.landmarks.filter((l) => l.id.startsWith('park-exhibit-')).map((l) => l.id);
+    expect(exhibits.sort()).toEqual(
+      projectsByCategory('corporate')
+        .map((p) => `park-exhibit-${p.id}`)
+        .sort(),
+    );
+  });
+
+  it('links the Makers Row islands into the world through bridges', () => {
+    for (const s of personalSections) {
+      const hub = world.zone(s.zoneId).hubNodeId;
+      expect(world.nav.findPath(homeHub, hub), s.id).not.toBeNull();
     }
   });
 });
