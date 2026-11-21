@@ -10,9 +10,25 @@ const ENERGY = '#7FE7D9';
 export function reactorCore(): Object3D {
   const core = ico(1.3, glowMat(ENERGY, 1.1, { unique: true }), { p: [0, 3.6, 0] }, 1);
   const rings = [0, 1].map((i) =>
-    torus(2.1 + i * 0.5, 0.08, glowMat(i ? palette.lavender : palette.sunshine, 0.9), { p: [0, 3.6, 0] }, Math.PI * 2, 4, 24),
+    torus(
+      2.1 + i * 0.5,
+      0.08,
+      glowMat(i ? palette.lavender : palette.sunshine, 0.9),
+      { p: [0, 3.6, 0] },
+      Math.PI * 2,
+      4,
+      24,
+    ),
   );
-  const nodes = [0, 1, 2, 3, 4].map((i) => octa(0.32, glowMat([palette.coral, palette.sky, palette.sunshine, palette.lavender, palette.meadow][i] ?? palette.sky, 1)));
+  const nodes = [0, 1, 2, 3, 4].map((i) =>
+    octa(
+      0.32,
+      glowMat(
+        [palette.coral, palette.sky, palette.sunshine, palette.lavender, palette.meadow][i] ?? palette.sky,
+        1,
+      ),
+    ),
+  );
   const orbit = group(nodes);
   const pillars = [0, 1, 2, 3, 4, 5].map((i) => {
     const a = (i / 6) * Math.PI * 2;
@@ -44,8 +60,16 @@ export function reactorCore(): Object3D {
 /** Agent Workshop: an assembly table producing little agent cubes of different types. */
 export function agentWorkshop(): Object3D {
   const colors = [palette.coral, palette.sky, palette.sunshine, palette.meadow, palette.lavender];
-  const agents = colors.map((c, i) => box(0.45, 0.45, 0.45, glowMat(c, 0.6), { p: [-1.6 + i * 0.8, 1.35, 0.2] }));
-  const arm = group([box(0.15, 1.2, 0.15, palette.metalDark, { p: [0, -0.6, 0] }), cone(0.2, 0.3, 4, palette.coral, { p: [0, -1.3, 0], r: [Math.PI, 0, 0] })], { p: [0, 3.3, -0.2] });
+  const agents = colors.map((c, i) =>
+    box(0.45, 0.45, 0.45, glowMat(c, 0.6), { p: [-1.6 + i * 0.8, 1.35, 0.2] }),
+  );
+  const arm = group(
+    [
+      box(0.15, 1.2, 0.15, palette.metalDark, { p: [0, -0.6, 0] }),
+      cone(0.2, 0.3, 4, palette.coral, { p: [0, -1.3, 0], r: [Math.PI, 0, 0] }),
+    ],
+    { p: [0, 3.3, -0.2] },
+  );
   const g = group([
     box(4.4, 0.25, 0.6, palette.metalDark, { p: [0, 1.0, 0.2] }),
     box(4.6, 1.0, 1.8, palette.metal, { p: [0, 0.5, -0.4] }),
@@ -67,16 +91,36 @@ export function agentWorkshop(): Object3D {
 
 /** Governance Station: a control tower with observability gauges. */
 export function governanceStation(): Object3D {
-  const dish = group([cone(0.9, 0.4, 8, palette.cream, { r: [Math.PI, 0, 0] }), cylinder(0.05, 0.05, 0.6, 4, palette.metalDark, { p: [0, 0.3, 0] })], { p: [0, 5.2, 0] });
-  const bars = [0, 1, 2, 3].map((i) => box(0.25, 1, 0.05, glowMat([palette.meadow, palette.sunshine, palette.sky, palette.coral][i] ?? palette.sky, 0.9), { p: [-0.55 + i * 0.37, 2.5, 1.06] }));
+  const dish = group(
+    [
+      cone(0.9, 0.4, 8, palette.cream, { r: [Math.PI, 0, 0] }),
+      cylinder(0.05, 0.05, 0.6, 4, palette.metalDark, { p: [0, 0.3, 0] }),
+    ],
+    { p: [0, 5.2, 0] },
+  );
+  const bars = [0, 1, 2, 3].map((i) =>
+    box(
+      0.25,
+      1,
+      0.05,
+      glowMat([palette.meadow, palette.sunshine, palette.sky, palette.coral][i] ?? palette.sky, 0.9),
+      { p: [-0.55 + i * 0.37, 2.5, 1.06] },
+    ),
+  );
   const g = group([
     cylinder(1.6, 1.9, 0.4, 6, palette.metalDark, { p: [0, 0.2, 0] }),
     cylinder(1.0, 1.3, 3.6, 6, palette.cream, { p: [0, 2.2, 0] }),
     cylinder(1.6, 1.3, 0.9, 6, palette.lavender, { p: [0, 4.45, 0] }),
     box(1.6, 1.6, 0.1, palette.ink, { p: [0, 2.5, 1.0] }),
     ...bars,
-    cylinder(0.15, 0.15, 0.2, 6, glowMat(palette.meadow, 1), { p: [0.9, 4.45, 1.05], r: [Math.PI / 2, 0, 0] }),
-    cylinder(0.15, 0.15, 0.2, 6, glowMat(palette.coral, 1), { p: [-0.9, 4.45, 1.05], r: [Math.PI / 2, 0, 0] }),
+    cylinder(0.15, 0.15, 0.2, 6, glowMat(palette.meadow, 1), {
+      p: [0.9, 4.45, 1.05],
+      r: [Math.PI / 2, 0, 0],
+    }),
+    cylinder(0.15, 0.15, 0.2, 6, glowMat(palette.coral, 1), {
+      p: [-0.9, 4.45, 1.05],
+      r: [Math.PI / 2, 0, 0],
+    }),
     dish,
   ]);
   return animate(g, (t) => {
@@ -91,9 +135,20 @@ export function governanceStation(): Object3D {
 
 /** Architecture Machine: modular blocks (microservices) slotting into a frame (micro-frontends). */
 export function architectureMachine(): Object3D {
-  const colors = [palette.sky, palette.meadow, palette.coral, palette.sunshine, palette.lavender, palette.sky];
-  const modules = colors.map((c, i) => box(0.8, 0.8, 0.8, c, { p: [-1.1 + (i % 3) * 1.1, 1.2 + Math.floor(i / 3) * 1.1, 0] }));
-  const gears = [0, 1].map((i) => cylinder(0.6, 0.6, 0.2, 8, palette.metalDark, { p: [i ? 1.9 : -1.9, 3.2, 0.3], r: [Math.PI / 2, 0, 0] }));
+  const colors = [
+    palette.sky,
+    palette.meadow,
+    palette.coral,
+    palette.sunshine,
+    palette.lavender,
+    palette.sky,
+  ];
+  const modules = colors.map((c, i) =>
+    box(0.8, 0.8, 0.8, c, { p: [-1.1 + (i % 3) * 1.1, 1.2 + Math.floor(i / 3) * 1.1, 0] }),
+  );
+  const gears = [0, 1].map((i) =>
+    cylinder(0.6, 0.6, 0.2, 8, palette.metalDark, { p: [i ? 1.9 : -1.9, 3.2, 0.3], r: [Math.PI / 2, 0, 0] }),
+  );
   const g = group([
     box(4.2, 0.4, 2, palette.metalDark, { p: [0, 0.2, 0] }),
     box(0.2, 3.4, 1.6, palette.metal, { p: [-1.8, 2.0, 0] }),
@@ -113,7 +168,14 @@ export function architectureMachine(): Object3D {
 /** Identity Gate: an arch with a scanning beam (auth + request validation). */
 export function identityGate(): Object3D {
   const beam = box(2.6, 0.08, 0.08, glowMat(palette.meadow, 1.4, { unique: true }), { p: [0, 1.5, 0] });
-  const key = group([torus(0.3, 0.08, palette.sunshine, {}, Math.PI * 2, 4, 10), box(0.12, 0.7, 0.08, palette.sunshine, { p: [0, -0.6, 0] }), box(0.25, 0.1, 0.08, palette.sunshine, { p: [0.12, -0.8, 0] })], { p: [0, 4.4, 0] });
+  const key = group(
+    [
+      torus(0.3, 0.08, palette.sunshine, {}, Math.PI * 2, 4, 10),
+      box(0.12, 0.7, 0.08, palette.sunshine, { p: [0, -0.6, 0] }),
+      box(0.25, 0.1, 0.08, palette.sunshine, { p: [0.12, -0.8, 0] }),
+    ],
+    { p: [0, 4.4, 0] },
+  );
   const g = group([
     box(0.8, 3.6, 0.8, palette.lavender, { p: [-1.7, 1.8, 0] }),
     box(0.8, 3.6, 0.8, palette.lavender, { p: [1.7, 1.8, 0] }),
@@ -132,13 +194,22 @@ export function identityGate(): Object3D {
 /** Cloud-Agnostic Gateway: a portal with interchangeable clouds orbiting. */
 export function cloudGateway(): Object3D {
   const white = mat(palette.white, { emissive: '#ffffff', emissiveIntensity: 0.2 });
-  const clouds = [0, 1, 2].map(() => group([ico(0.5, white), ico(0.35, white, { p: [0.45, -0.1, 0] }), ico(0.35, white, { p: [-0.45, -0.1, 0] })]));
+  const clouds = [0, 1, 2].map(() =>
+    group([
+      ico(0.5, white),
+      ico(0.35, white, { p: [0.45, -0.1, 0] }),
+      ico(0.35, white, { p: [-0.45, -0.1, 0] }),
+    ]),
+  );
   const portal = torus(1.6, 0.3, palette.sky, { p: [0, 2.4, 0] }, Math.PI * 2, 6, 16);
   const g = group([
     cylinder(1.8, 2.0, 0.4, 8, palette.metalDark, { p: [0, 0.2, 0] }),
     box(0.4, 1.2, 0.4, palette.metal, { p: [0, 0.8, 0] }),
     portal,
-    cylinder(1.35, 1.35, 0.05, 16, glowMat(palette.sky, 0.7, { opacity: 0.6 }), { p: [0, 2.4, 0], r: [Math.PI / 2, 0, 0] }),
+    cylinder(1.35, 1.35, 0.05, 16, glowMat(palette.sky, 0.7, { opacity: 0.6 }), {
+      p: [0, 2.4, 0],
+      r: [Math.PI / 2, 0, 0],
+    }),
     ...clouds,
   ]);
   return animate(g, (t) => {
@@ -165,13 +236,24 @@ export function energyTube(): Object3D {
 }
 
 export function dataDisplay(): Object3D {
-  const bars = [0, 1, 2, 3, 4].map((i) => box(0.3, 1, 0.05, glowMat(i % 2 ? palette.sky : palette.meadow, 1), { p: [-0.8 + i * 0.4, 1.8, 0.06] }));
-  const g = group([box(0.15, 1.4, 0.15, palette.metalDark, { p: [0, 0.7, 0] }), box(2.2, 1.4, 0.1, palette.ink, { p: [0, 1.9, 0] }), ...bars]);
+  const bars = [0, 1, 2, 3, 4].map((i) =>
+    box(0.3, 1, 0.05, glowMat(i % 2 ? palette.sky : palette.meadow, 1), { p: [-0.8 + i * 0.4, 1.8, 0.06] }),
+  );
+  const g = group([
+    box(0.15, 1.4, 0.15, palette.metalDark, { p: [0, 0.7, 0] }),
+    box(2.2, 1.4, 0.1, palette.ink, { p: [0, 1.9, 0] }),
+    ...bars,
+  ]);
   return animate(g, (t) => bars.forEach((b, i) => (b.scale.y = 0.3 + Math.abs(Math.sin(t * 2 + i)) * 0.8)));
 }
 
 export function labSign(): Object3D {
   const sign = signPlane('INNOVATION LAB', 3.6, 0.9, palette.lavender, palette.white);
   sign.position.set(0, 2.2, 0.08);
-  return group([box(0.15, 2.6, 0.15, palette.metalDark, { p: [-1.6, 1.3, 0] }), box(0.15, 2.6, 0.15, palette.metalDark, { p: [1.6, 1.3, 0] }), box(3.8, 1.1, 0.12, palette.metal, { p: [0, 2.2, 0] }), sign]);
+  return group([
+    box(0.15, 2.6, 0.15, palette.metalDark, { p: [-1.6, 1.3, 0] }),
+    box(0.15, 2.6, 0.15, palette.metalDark, { p: [1.6, 1.3, 0] }),
+    box(3.8, 1.1, 0.12, palette.metal, { p: [0, 2.2, 0] }),
+    sign,
+  ]);
 }

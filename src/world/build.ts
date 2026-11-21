@@ -127,7 +127,8 @@ const compassFromLocal = (x: number, z: number) => (Math.atan2(x, -z) * 180) / M
 /** Yaw making a +Z-facing model point toward compass direction `deg`. */
 const yawFromCompass = (deg: number) => Math.PI - toRad(deg);
 
-const footprintRadius = (f: Footprint | null) => (f === null ? 0.5 : f.kind === 'circle' ? f.r : Math.hypot(f.w, f.d) / 2);
+const footprintRadius = (f: Footprint | null) =>
+  f === null ? 0.5 : f.kind === 'circle' ? f.r : Math.hypot(f.w, f.d) / 2;
 const footprintDepth = (f: Footprint | null) => (f === null ? 0.4 : f.kind === 'circle' ? f.r : f.d / 2);
 
 function distToSegment(px: number, pz: number, ax: number, az: number, bx: number, bz: number): number {
@@ -159,7 +160,10 @@ export function segmentWalkable(col: CollisionWorld, a: Vec3, b: Vec3, step = 0.
   return Math.abs(y - b.y) < 0.5;
 }
 
-export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: readonly ZoneLink[] = defaultLinks): World {
+export function buildWorld(
+  zoneDefs: readonly ZoneDef[] = defaultZones,
+  links: readonly ZoneLink[] = defaultLinks,
+): World {
   const zones: ZoneRuntime[] = zoneDefs.map((def) => ({
     def,
     id: def.id,
@@ -174,7 +178,10 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
     if (!z) throw new Error(`Unknown zone "${id}"`);
     return z;
   };
-  const toWorld = (zone: ZoneRuntime, local: { x: number; z: number }) => ({ x: zone.x + local.x, z: zone.z + local.z });
+  const toWorld = (zone: ZoneRuntime, local: { x: number; z: number }) => ({
+    x: zone.x + local.x,
+    z: zone.z + local.z,
+  });
 
   const surfaces: Surface[] = [];
   const obstacles: Obstacle[] = [];
@@ -188,9 +195,29 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
     let prevHeight = 0;
     zone.def.tiers?.forEach((tier, ti) => {
       const y = zone.y + tier.height;
-      tiers.push({ zoneId: zone.id, x: zone.x, z: zone.z, y, baseY: zone.y + prevHeight, radius: tier.radius });
-      surfaces.push({ kind: 'disc', cx: zone.x, cz: zone.z, r: tier.radius - DEFAULT_COLLISION.playerRadius, y });
-      obstacles.push({ kind: 'circle', x: zone.x, z: zone.z, r: tier.radius, y0: zone.y - 1, y1: y - DEFAULT_COLLISION.stepUp - 0.05 });
+      tiers.push({
+        zoneId: zone.id,
+        x: zone.x,
+        z: zone.z,
+        y,
+        baseY: zone.y + prevHeight,
+        radius: tier.radius,
+      });
+      surfaces.push({
+        kind: 'disc',
+        cx: zone.x,
+        cz: zone.z,
+        r: tier.radius - DEFAULT_COLLISION.playerRadius,
+        y,
+      });
+      obstacles.push({
+        kind: 'circle',
+        x: zone.x,
+        z: zone.z,
+        r: tier.radius,
+        y0: zone.y - 1,
+        y1: y - DEFAULT_COLLISION.stepUp - 0.05,
+      });
       const topR = tier.radius - 0.8;
       const bottom = toWorld(zone, polarToLocal({ a: tier.rampAngle, r: topR + tier.rampLength }));
       const top = toWorld(zone, polarToLocal({ a: tier.rampAngle, r: topR }));
@@ -206,7 +233,16 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
         halfWidth: RAMP_HALF_WIDTH,
       };
       ramps.push(ramp);
-      surfaces.push({ kind: 'strip', ax: ramp.ax, az: ramp.az, bx: ramp.bx, bz: ramp.bz, halfWidth: ramp.halfWidth, ay: ramp.ay, by: ramp.by });
+      surfaces.push({
+        kind: 'strip',
+        ax: ramp.ax,
+        az: ramp.az,
+        bx: ramp.bx,
+        bz: ramp.bz,
+        halfWidth: ramp.halfWidth,
+        ay: ramp.ay,
+        by: ramp.by,
+      });
       prevHeight = tier.height;
     });
   }
@@ -235,7 +271,16 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
       halfWidth: BRIDGE_HALF_WIDTH,
     };
     bridges.push(bridge);
-    surfaces.push({ kind: 'strip', ax: bridge.ax, az: bridge.az, bx: bridge.bx, bz: bridge.bz, halfWidth: bridge.halfWidth, ay: bridge.ay, by: bridge.by });
+    surfaces.push({
+      kind: 'strip',
+      ax: bridge.ax,
+      az: bridge.az,
+      bx: bridge.bx,
+      bz: bridge.bz,
+      halfWidth: bridge.halfWidth,
+      ay: bridge.ay,
+      by: bridge.by,
+    });
   }
 
   // 3. Landmarks
@@ -262,7 +307,16 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
         obstacles.push(
           fp.kind === 'circle'
             ? { kind: 'circle', x, z, r: fp.r * scale, y0: y, y1: y + entry.height * scale }
-            : { kind: 'box', x, z, hw: (fp.w * scale) / 2, hd: (fp.d * scale) / 2, rot: yaw, y0: y, y1: y + entry.height * scale },
+            : {
+                kind: 'box',
+                x,
+                z,
+                hw: (fp.w * scale) / 2,
+                hd: (fp.d * scale) / 2,
+                rot: yaw,
+                y0: y,
+                y1: y + entry.height * scale,
+              },
         );
       }
       landmarks.push({
@@ -352,7 +406,8 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
       const homeZone = zones[0]!;
       const firstRing = rings[0] ?? [];
       const towardHome = [...firstRing].sort(
-        (p, q) => Math.hypot(p.x - homeZone.x, p.z - homeZone.z) - Math.hypot(q.x - homeZone.x, q.z - homeZone.z),
+        (p, q) =>
+          Math.hypot(p.x - homeZone.x, p.z - homeZone.z) - Math.hypot(q.x - homeZone.x, q.z - homeZone.z),
       )[0];
       if (!towardHome) throw new Error(`Zone "${zone.id}" has a blocked centre and no nav ring`);
       zone.hubNodeId = towardHome.id;
@@ -412,7 +467,12 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
 
   // 5. Decor scattering
   const decor: DecorItem[] = [];
-  const decorObstacleKinds: Partial<Record<DecorKind, ModelKey>> = { treeRound: 'treeRound', treePine: 'treePine', blossomTree: 'blossomTree', rock: 'rock' };
+  const decorObstacleKinds: Partial<Record<DecorKind, ModelKey>> = {
+    treeRound: 'treeRound',
+    treePine: 'treePine',
+    blossomTree: 'blossomTree',
+    rock: 'rock',
+  };
   for (const zone of zones) {
     const rng = createRng(hashString(zone.id));
     const def = zone.def;
@@ -435,9 +495,24 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
         const a = rng() * 360;
         const local = polarToLocal({ a, r });
         const { x, z } = toWorld(zone, local);
-        if (zoneLandmarks.some((l) => Math.hypot(l.x - x, l.z - z) < footprintRadius(getModel(l.def.model).footprint) * l.scale + itemR + 0.8)) continue;
-        if (zoneEdges.some((e) => distToSegment(x, z, e.a.x, e.a.z, e.b.x, e.b.z) < (solid ? 1.7 : 0.9))) continue;
-        if (corridors.some((c) => distToSegment(x, z, zone.x, zone.z, c.x + (c.x - zone.x) * 0.2, c.z + (c.z - zone.z) * 0.2) < 2.6)) continue;
+        if (
+          zoneLandmarks.some(
+            (l) =>
+              Math.hypot(l.x - x, l.z - z) <
+              footprintRadius(getModel(l.def.model).footprint) * l.scale + itemR + 0.8,
+          )
+        )
+          continue;
+        if (zoneEdges.some((e) => distToSegment(x, z, e.a.x, e.a.z, e.b.x, e.b.z) < (solid ? 1.7 : 0.9)))
+          continue;
+        if (
+          corridors.some(
+            (c) =>
+              distToSegment(x, z, zone.x, zone.z, c.x + (c.x - zone.x) * 0.2, c.z + (c.z - zone.z) * 0.2) <
+              2.6,
+          )
+        )
+          continue;
         if (river && river.kind === 'river') {
           const s = toWorld(zone, polarToLocal({ a: river.a, r: river.r0 - 1 }));
           const e = toWorld(zone, polarToLocal({ a: river.a, r: def.radius + 1 }));
@@ -453,7 +528,8 @@ export function buildWorld(zoneDefs: readonly ZoneDef[] = defaultZones, links: r
         const key = decorObstacleKinds[kind];
         if (key) {
           const fp = getModel(key).footprint;
-          if (fp?.kind === 'circle') obstacles.push({ kind: 'circle', x, z, r: fp.r * scale, y0: zone.y, y1: zone.y + 3 });
+          if (fp?.kind === 'circle')
+            obstacles.push({ kind: 'circle', x, z, r: fp.r * scale, y0: zone.y, y1: zone.y + 3 });
         }
         made++;
       }

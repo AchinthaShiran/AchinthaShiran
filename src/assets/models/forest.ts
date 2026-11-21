@@ -26,9 +26,16 @@ export function crystal(props: ModelProps): Object3D {
   const main = mesh(shard(0.55, 2.4), material, { p: [0, 1.5, 0] });
   const side = [0, 1, 2].map((i) => {
     const a = seed + (i / 3) * Math.PI * 2;
-    return mesh(shard(0.3, 2.1), material, { p: [Math.sin(a) * 0.55, 0.75, Math.cos(a) * 0.55], r: [Math.cos(a) * 0.35, 0, -Math.sin(a) * 0.35] });
+    return mesh(shard(0.3, 2.1), material, {
+      p: [Math.sin(a) * 0.55, 0.75, Math.cos(a) * 0.55],
+      r: [Math.cos(a) * 0.35, 0, -Math.sin(a) * 0.35],
+    });
   });
-  const parts: Object3D[] = [cylinder(0.9, 1.05, 0.3, 7, palette.rockDark, { p: [0, 0.15, 0] }), main, ...side];
+  const parts: Object3D[] = [
+    cylinder(0.9, 1.05, 0.3, 7, palette.rockDark, { p: [0, 0.15, 0] }),
+    main,
+    ...side,
+  ];
   if (label) {
     const plaque = signPlane(label, 1.6, 0.42, palette.cream, palette.ink);
     plaque.position.set(0, 0.42, 0.95);
@@ -45,11 +52,18 @@ export function crystal(props: ModelProps): Object3D {
 
 /** Central skill-tree monument: a tree whose branches end in category-coloured crystals. */
 export function skillTreeMonument(props: ModelProps): Object3D {
-  const colors = Array.isArray(props.colors) ? (props.colors as readonly string[]) : [palette.sky, palette.meadow, palette.coral];
+  const colors = Array.isArray(props.colors)
+    ? (props.colors as readonly string[])
+    : [palette.sky, palette.meadow, palette.coral];
   const branches = colors.map((c, i) => {
     const a = (i / colors.length) * Math.PI * 2;
-    const tip = mesh(shard(0.35, 2), glowMat(c, 0.7), { p: [Math.sin(a) * 2.2, 5.6 + (i % 2) * 0.5, Math.cos(a) * 2.2] });
-    const branch = cylinder(0.1, 0.18, 2.6, 5, palette.woodDark, { p: [Math.sin(a) * 1.1, 4.6, Math.cos(a) * 1.1], r: [Math.cos(a) * 0.9, 0, -Math.sin(a) * 0.9] });
+    const tip = mesh(shard(0.35, 2), glowMat(c, 0.7), {
+      p: [Math.sin(a) * 2.2, 5.6 + (i % 2) * 0.5, Math.cos(a) * 2.2],
+    });
+    const branch = cylinder(0.1, 0.18, 2.6, 5, palette.woodDark, {
+      p: [Math.sin(a) * 1.1, 4.6, Math.cos(a) * 1.1],
+      r: [Math.cos(a) * 0.9, 0, -Math.sin(a) * 0.9],
+    });
     return [branch, tip];
   });
   const tips = branches.map((b) => b[1]!);
@@ -66,11 +80,18 @@ export function skillTreeMonument(props: ModelProps): Object3D {
 export function forestSign(): Object3D {
   const sign = signPlane('SKILL FOREST', 3.2, 0.8, palette.meadow, palette.white);
   sign.position.set(0, 2.0, 0.08);
-  return group([cylinder(0.1, 0.12, 2.6, 5, palette.woodDark, { p: [-1.5, 1.3, 0] }), cylinder(0.1, 0.12, 2.6, 5, palette.woodDark, { p: [1.5, 1.3, 0] }), sign]);
+  return group([
+    cylinder(0.1, 0.12, 2.6, 5, palette.woodDark, { p: [-1.5, 1.3, 0] }),
+    cylinder(0.1, 0.12, 2.6, 5, palette.woodDark, { p: [1.5, 1.3, 0] }),
+    sign,
+  ]);
 }
 
 export function glowShroom(props: ModelProps): Object3D {
   const seed = typeof props.seed === 'number' ? props.seed : 0;
   const c = [palette.lavender, palette.sky, palette.coral][seed % 3] ?? palette.lavender;
-  return group([cylinder(0.08, 0.1, 0.5, 5, palette.cream, { p: [0, 0.25, 0] }), ico(0.28, glowMat(c, 0.7), { p: [0, 0.55, 0], s: [1, 0.5, 1] })]);
+  return group([
+    cylinder(0.08, 0.1, 0.5, 5, palette.cream, { p: [0, 0.25, 0] }),
+    ico(0.28, glowMat(c, 0.7), { p: [0, 0.55, 0], s: [1, 0.5, 1] }),
+  ]);
 }

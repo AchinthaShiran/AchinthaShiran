@@ -11,8 +11,20 @@ const FLOOR_COLORS = [palette.sky, palette.meadow, palette.lavender, palette.cor
 export const floorColor = (i: number) => FLOOR_COLORS[i % FLOOR_COLORS.length] ?? palette.sky;
 
 /** A sign plane with canvas-rendered text. */
-export function signPlane(text: string, w: number, h: number, bg: string = palette.cream, fg: string = palette.ink): Mesh {
-  const tex = labelTexture(text, { background: bg, color: fg, border: palette.woodDark, width: 512, height: Math.round((512 * h) / w) });
+export function signPlane(
+  text: string,
+  w: number,
+  h: number,
+  bg: string = palette.cream,
+  fg: string = palette.ink,
+): Mesh {
+  const tex = labelTexture(text, {
+    background: bg,
+    color: fg,
+    border: palette.woodDark,
+    width: 512,
+    height: Math.round((512 * h) / w),
+  });
   const m = mesh(new PlaneGeometry(w, h), mat(palette.white, { unique: true }));
   const material = m.material as MeshStandardMaterial;
   material.map = tex;
@@ -67,11 +79,14 @@ export function cityBlock(props: ModelProps): Object3D {
   const rows = Math.floor(h / 1.2);
   const wins: Object3D[] = [];
   for (let r = 0; r < rows; r++)
-    for (let c = -1; c <= 1; c += 2) wins.push(box(0.5, 0.55, 0.05, window, { p: [c * 0.7, 0.9 + r * 1.1, 1.53] }));
+    for (let c = -1; c <= 1; c += 2)
+      wins.push(box(0.5, 0.55, 0.05, window, { p: [c * 0.7, 0.9 + r * 1.1, 1.53] }));
   return group([
     box(3, h, 3, color, { p: [0, h / 2, 0] }),
     box(3.3, 0.25, 3.3, palette.cream, { p: [0, h + 0.12, 0] }),
-    seed % 2 ? cone(1.5, 1.2, 4, palette.roof, { p: [0, h + 0.85, 0], r: [0, Math.PI / 4, 0] }) : box(1, 0.6, 1, palette.metal, { p: [0.6, h + 0.55, -0.4] }),
+    seed % 2
+      ? cone(1.5, 1.2, 4, palette.roof, { p: [0, h + 0.85, 0], r: [0, Math.PI / 4, 0] })
+      : box(1, 0.6, 1, palette.metal, { p: [0.6, h + 0.55, -0.4] }),
     ...wins,
   ]);
 }

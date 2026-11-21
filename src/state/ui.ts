@@ -4,7 +4,8 @@ import type { PanelRef, ZoneId } from '@/world/types';
 export type Overlay = 'map' | 'menu' | 'settings' | null;
 export type Phase = 'intro' | 'play';
 
-export type Destination = { kind: 'zone'; id: ZoneId; label: string } | { kind: 'landmark'; id: string; label: string };
+export type Destination =
+  { kind: 'zone'; id: ZoneId; label: string } | { kind: 'landmark'; id: string; label: string };
 
 export interface Toast {
   id: number;

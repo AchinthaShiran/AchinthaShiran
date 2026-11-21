@@ -143,6 +143,28 @@ export class CollisionWorld {
     return false;
   }
 
+  /**
+   * True if the point (x, y, z) lies inside an obstacle volume (used for camera occlusion).
+   * Obstacles smaller than `minSize` (trees, posts) are ignored so the camera doesn't jitter.
+   */
+  obstacleAt(x: number, y: number, z: number, minSize = 0): boolean {
+    for (const o of this.obstacles) {
+      if (y < o.y0 || y > o.y1) continue;
+      if (o.kind === 'circle') {
+        if (o.r < minSize) continue;
+        if ((x - o.x) ** 2 + (z - o.z) ** 2 < o.r * o.r) return true;
+      } else {
+        if (Math.max(o.hw, o.hd) < minSize) continue;
+        const c = Math.cos(o.rot);
+        const s = Math.sin(o.rot);
+        const dx = x - o.x;
+        const dz = z - o.z;
+        if (Math.abs(dx * c - dz * s) < o.hw && Math.abs(dx * s + dz * c) < o.hd) return true;
+      }
+    }
+    return false;
+  }
+
   /** True if a straight walk between two points at roughly constant height stays walkable. */
   isWalkable(x: number, z: number, y: number): boolean {
     const p = this.scratch;

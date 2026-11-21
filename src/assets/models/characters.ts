@@ -37,13 +37,9 @@ export function buildCharacter(c: CharacterColors, extras: Object3D[] = []): Cha
       { p: [x, 0.82, 0] },
     );
   const arm = (x: number) =>
-    group(
-      [
-        box(0.15, 0.55, 0.17, c.shirt, { p: [0, -0.26, 0] }),
-        ico(0.1, c.skin, { p: [0, -0.58, 0] }),
-      ],
-      { p: [x, 1.38, 0] },
-    );
+    group([box(0.15, 0.55, 0.17, c.shirt, { p: [0, -0.26, 0] }), ico(0.1, c.skin, { p: [0, -0.58, 0] })], {
+      p: [x, 1.38, 0],
+    });
   const head = group([
     ico(0.26, c.skin, { p: [0, 0, 0] }, 1),
     ico(0.28, c.hair, { p: [0, 0.08, -0.05], s: [1.02, 0.8, 1] }, 1),
