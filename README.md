@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets-readme/hero.svg" alt="A small platformer character running and jumping" width="100%" />
+<img src="assets-readme/hero.svg" alt="Pixel-art platformer: a tiny developer runs, jumps over bugs, collects coins and defeats a boss bug called PRODUCTION" width="100%" />
 
 ### 🌍 [Step into my interactive 3D world](https://achinthashiran.github.io/AchinthaShiran/)
 
@@ -21,5 +21,3 @@
 | [**OpenAI-Unity**](https://github.com/TaprobanaStudios/OpenAI-Unity)                       | An OpenAI package for Unity so games can use the OpenAI API directly. [Article](https://medium.com/@achinthabandara1/openai-unity-509fb6173b87)                                                       |
 
 📱 More apps on my [**Google Play developer page**](https://play.google.com/store/apps/dev?id=6821467528489170264).
-
-<sub>Portfolio built with TypeScript, React Three Fiber and three.js. How it works: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).</sub>
