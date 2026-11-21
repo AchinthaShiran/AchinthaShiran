@@ -1,17 +1,17 @@
 # Status
 
-## wonderland (core) — delivered 2026-11-21
+## wonderland (core) - delivered 2026-11-21
 | Phase | State |
 |---|---|
 | 0–3 Brainstorm, strategy, design, planning | ✅ ADR-001..004 |
 | 4 Implementation | ✅ T1–T11 |
 | 5 Verification | ✅ [QA](reviews/2026-11-21-qa-report.md), [Security](reviews/2026-11-21-security-review.md) |
-| 6 Delivery | ✅ CI + Pages workflow — **pending owner: create GitHub repo, push, enable Pages** |
+| 6 Delivery | ✅ CI + Pages workflow - **pending owner: create GitHub repo, push, enable Pages** |
 
-## personal-islands — merged to `main` 2026-11-21 (ADR-005, ADR-006)
+## personal-islands - merged to `main` 2026-11-21 (ADR-005, ADR-006)
 Four personal project islands, Project Park as the project hub, Sysco LABS district bridges.
 
-## paintball — implemented 2026-11-21 (branch `feat/paintball`, ADR-007, ADR-008)
+## paintball - implemented 2026-11-21 (branch `feat/paintball`, ADR-007, ADR-008)
 | Item | State |
 |---|---|
 | Paintball gun, shooting, splats, landmark shots | ✅ |
@@ -22,7 +22,7 @@ Four personal project islands, Project Park as the project hub, Sysco LABS distr
 | Controls shown on intro and opening tips (incl. paintball) | ✅ |
 | Lint / typecheck / 97 tests / build / browser play-tests | ✅ no page errors |
 
-## classic-redesign and avatar — implemented 2026-11-21
+## classic-redesign and avatar - implemented 2026-11-21
 | Item | State |
 |---|---|
 | Placeholder messages removed (role Career step, contact, profiles, CV) | ✅ |

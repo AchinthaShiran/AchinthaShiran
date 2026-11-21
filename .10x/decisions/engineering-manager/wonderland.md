@@ -1,10 +1,10 @@
-# Engineering Manager — wonderland task plan
+# Engineering Manager - wonderland task plan
 
 Branches: `feat/foundation` → `feat/world` → `feat/experience` → `ci/pages`, each merged `--no-ff` into `main`.
 
 | # | Task | Depends |
 |---|---|---|
-| T1 | Scaffold Vite/TS/R3F, lint, prettier, vitest, design tokens | — |
+| T1 | Scaffold Vite/TS/R3F, lint, prettier, vitest, design tokens | - |
 | T2 | Content modules + integrity tests | T1 |
 | T3 | Engine: rng, collision, nav/A* + tests | T1 |
 | T4 | Assets: builders, materials, manifest, procedural models | T1 |

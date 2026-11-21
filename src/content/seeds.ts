@@ -1,7 +1,7 @@
 import type { IdeaSeed } from './types';
 
 /**
- * Optional collectibles (plan §10). Facts are drawn from the resume only — replace or add
+ * Optional collectibles (plan §10). Facts are drawn from the resume only - replace or add
  * personal stories here. Collecting seeds never gates any portfolio content.
  */
 export const ideaSeeds: readonly IdeaSeed[] = [
@@ -13,7 +13,7 @@ export const ideaSeeds: readonly IdeaSeed[] = [
   {
     id: 'seed-game-dev',
     title: 'Player Two',
-    fact: 'Game development is a personal passion — Unity sits alongside the enterprise stack.',
+    fact: 'Game development is a personal passion - Unity sits alongside the enterprise stack.',
   },
   {
     id: 'seed-bootcamp',
@@ -28,12 +28,12 @@ export const ideaSeeds: readonly IdeaSeed[] = [
   {
     id: 'seed-journey',
     title: 'The Climb',
-    fact: 'From Software Engineer (2022) to Associate Technical Lead (2026) — all at Sysco LABS Technologies.',
+    fact: 'From Software Engineer (2022) to Associate Technical Lead (2026) - all at Sysco LABS Technologies.',
   },
   {
     id: 'seed-agents',
     title: 'Many Agents',
-    fact: 'SAGE supports RAG, API, Database, Generic, and MCP Agents — plus Orchestrators to coordinate them.',
+    fact: 'SAGE supports RAG, API, Database, Generic, and MCP Agents - plus Orchestrators to coordinate them.',
   },
   {
     id: 'seed-alfred',
@@ -43,7 +43,7 @@ export const ideaSeeds: readonly IdeaSeed[] = [
   {
     id: 'seed-tala',
     title: 'Teach TALA',
-    fact: 'TALA learns new skills from a simple YAML file — no code needed — and asks before it changes anything.',
+    fact: 'TALA learns new skills from a simple YAML file - no code needed - and asks before it changes anything.',
   },
   {
     id: 'seed-skillup',

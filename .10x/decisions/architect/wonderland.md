@@ -1,4 +1,4 @@
-# Architect — wonderland
+# Architect - wonderland
 
 ## Components & boundaries
 - `content/`: pure data, imports nothing from other layers.

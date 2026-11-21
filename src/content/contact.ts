@@ -2,7 +2,7 @@ import type { ContactChannel, CvInfo } from './types';
 
 /**
  * Contact channels. LinkedIn and GitHub URLs were not supplied in the resume:
- * set `href` once known — until then the UI shows the label only (no link).
+ * set `href` once known - until then the UI shows the label only (no link).
  */
 export const contacts: readonly ContactChannel[] = [
   {

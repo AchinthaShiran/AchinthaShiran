@@ -37,7 +37,7 @@ export interface AimCamera {
 /**
  * Over-the-shoulder camera: behind and slightly to the right of `pivot`, looking where the mouse points.
  * The camera offset from the pivot is (sin yaw·cos pitch, sin pitch, cos yaw·cos pitch), so a positive
- * pitch puts the camera higher and looks down — the same convention as the follow camera.
+ * pitch puts the camera higher and looks down - the same convention as the follow camera.
  */
 export function aimCamera(
   pivot: Vec3,

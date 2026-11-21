@@ -11,7 +11,7 @@ import type { Project } from './types';
 export const projects: readonly Project[] = [
   {
     id: 'sage',
-    name: 'SAGE — Sysco Agentic Ecosystem',
+    name: 'SAGE - Sysco Agentic Ecosystem',
     shortName: 'SAGE',
     category: 'corporate',
     organizationId: 'sysco-labs',
@@ -134,7 +134,7 @@ export const projects: readonly Project[] = [
   },
 
   // ---------------------------------------------------------------------------------------------
-  // Personal projects — facts from the public GitHub README / website / Google Play listing.
+  // Personal projects - facts from the public GitHub README / website / Google Play listing.
   // ---------------------------------------------------------------------------------------------
   {
     id: 'tala',
@@ -150,7 +150,7 @@ export const projects: readonly Project[] = [
       'with approval prompts, an audit log and safe-by-default execution. Built with LangChain and LangGraph; ' +
       'works on Windows, Linux and macOS. Nothing leaves your machine, and nothing risky runs without your approval.',
     capabilities: [
-      'Add capabilities with YAML only — no Python needed',
+      'Add capabilities with YAML only - no Python needed',
       'One logical tool with a command per operating system (Windows, macOS, Linux)',
       'Safe by default: mandatory risk levels, approval prompts showing the exact command, and an audit log',
       'Runs on small local models using hybrid keyword and vector tool retrieval',
@@ -187,7 +187,7 @@ export const projects: readonly Project[] = [
         title: 'Local Brain',
         summary: 'A model you host yourself (via Ollama) chooses the tools, so nothing leaves your computer.',
         points: [
-          'Runs fully on your machine — no cloud',
+          'Runs fully on your machine - no cloud',
           'Questions, files and system details stay local',
           'Built with LangChain and LangGraph',
         ],
@@ -349,7 +349,7 @@ export const projects: readonly Project[] = [
         points: [
           'Add expenses, see who owes whom and settle up in a tap',
           'Invite people with a code or by email',
-          'Only the amount, description, date and who paid are shared — your alerts never are',
+          'Only the amount, description, date and who paid are shared - your alerts never are',
           'Signing in with Google is only needed for groups',
         ],
       },

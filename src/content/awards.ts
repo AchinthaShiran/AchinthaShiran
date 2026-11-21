@@ -2,7 +2,7 @@ import type { Award } from './types';
 
 /**
  * Recognitions as listed in the resume, each associated with a project.
- * `recipient: 'project'` — the resume does not state an individual recipient (plan §5.6).
+ * `recipient: 'project'` - the resume does not state an individual recipient (plan §5.6).
  */
 export const awards: readonly Award[] = [
   {

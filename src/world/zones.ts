@@ -39,7 +39,7 @@ const home: ZoneDef = {
     },
     {
       id: 'home-house',
-      name: 'Cozy House — About Me',
+      name: 'Cozy House - About Me',
       model: 'cozyHouse',
       at: { a: 135, r: 12 },
       panel: { kind: 'about' },
@@ -47,7 +47,7 @@ const home: ZoneDef = {
     },
     {
       id: 'home-mailbox',
-      name: 'Mailbox — Contact',
+      name: 'Mailbox - Contact',
       model: 'mailbox',
       at: { a: 162, r: 9.5 },
       panel: { kind: 'contact' },
@@ -55,7 +55,7 @@ const home: ZoneDef = {
     },
     {
       id: 'home-workstation',
-      name: 'Workstation — Interests',
+      name: 'Workstation - Interests',
       model: 'workstation',
       at: { a: 72, r: 10.5 },
       panel: { kind: 'interests' },
@@ -63,7 +63,7 @@ const home: ZoneDef = {
     },
     {
       id: 'home-board',
-      name: 'Notice Board — Current Role',
+      name: 'Notice Board - Current Role',
       model: 'noticeBoard',
       at: { a: 205, r: 10 },
       panel: { kind: 'current-role' },
@@ -71,7 +71,7 @@ const home: ZoneDef = {
     },
     {
       id: 'home-tree',
-      name: 'Giant Tree — Growth',
+      name: 'Giant Tree - Growth',
       model: 'giantTree',
       at: { a: 238, r: 12 },
       panel: { kind: 'growth' },
@@ -89,7 +89,7 @@ const education: ZoneDef = {
   id: 'education',
   name: 'University Grove',
   section: 'Education',
-  description: 'University of Peradeniya — BSc. Honors in Computer Science, First Class.',
+  description: 'University of Peradeniya - BSc. Honors in Computer Science, First Class.',
   kind: 'islet',
   center: [-28, -25],
   elevation: 0.8,
@@ -172,7 +172,7 @@ const lab: ZoneDef = {
   id: 'lab',
   name: 'Innovation Lab',
   section: 'SAGE / Agentic AI',
-  description: 'SAGE — Sysco Agentic Ecosystem: agents, governance, architecture and identity.',
+  description: 'SAGE - Sysco Agentic Ecosystem: agents, governance, architecture and identity.',
   kind: 'island',
   center: [-64, 8],
   elevation: 1.4,
@@ -189,7 +189,7 @@ const lab: ZoneDef = {
   landmarks: [
     {
       id: 'lab-core',
-      name: 'Agentic Platform Core — SAGE',
+      name: 'Agentic Platform Core - SAGE',
       model: 'reactorCore',
       at: { x: 0, z: 0 },
       face: { deg: 83 },
@@ -369,7 +369,7 @@ const peak: ZoneDef = {
     ...peakLandmarks(),
     {
       id: 'peak-castle',
-      name: 'Summit Castle — Milestones',
+      name: 'Summit Castle - Milestones',
       model: 'castle',
       scale: 0.7,
       at: { x: 0, z: -1.6 },
@@ -442,7 +442,7 @@ const mentorship: ZoneDef = {
     },
     {
       id: 'mentor-training',
-      name: 'Training Board — Project Summit',
+      name: 'Training Board - Project Summit',
       model: 'trainingBoard',
       at: { a: 300, r: 7.5 },
       panel: { kind: 'mentoring', id: 'project-summit' },
@@ -450,7 +450,7 @@ const mentorship: ZoneDef = {
     },
     {
       id: 'mentor-bootcamp',
-      name: 'Bootcamp Desk — STEMLINK',
+      name: 'Bootcamp Desk - STEMLINK',
       model: 'bootcampDesk',
       at: { a: 340, r: 7.5 },
       panel: { kind: 'mentoring', id: 'stemlink' },
@@ -458,7 +458,7 @@ const mentorship: ZoneDef = {
     },
     {
       id: 'mentor-podium',
-      name: 'Facilitator Podium — GLO',
+      name: 'Facilitator Podium - GLO',
       model: 'podium',
       at: { a: 15, r: 7.5 },
       panel: { kind: 'mentoring', id: 'glo-leadership' },
@@ -488,7 +488,7 @@ const horizon: ZoneDef = {
   id: 'horizon',
   name: 'Horizon Island',
   section: 'Contact',
-  description: "Lighthouse, message in a bottle and more — let's connect.",
+  description: "Lighthouse, message in a bottle and more - let's connect.",
   kind: 'island',
   center: [0, 64],
   elevation: -1.5,
@@ -511,7 +511,7 @@ const horizon: ZoneDef = {
     },
     {
       id: 'horizon-board',
-      name: 'Notice Board — CV',
+      name: 'Notice Board - CV',
       model: 'noticeBoard',
       at: { a: 60, r: 11 },
       panel: { kind: 'cv' },
@@ -519,7 +519,7 @@ const horizon: ZoneDef = {
     },
     {
       id: 'horizon-bottle',
-      name: 'Message in a Bottle — Email',
+      name: 'Message in a Bottle - Email',
       model: 'bottle',
       at: { a: 100, r: 12 },
       panel: { kind: 'contact-channel', id: 'email' },
@@ -527,7 +527,7 @@ const horizon: ZoneDef = {
     },
     {
       id: 'horizon-lighthouse',
-      name: 'Lighthouse — LinkedIn',
+      name: 'Lighthouse - LinkedIn',
       model: 'lighthouse',
       at: { a: 185, r: 12.5 },
       panel: { kind: 'contact-channel', id: 'linkedin' },
@@ -535,7 +535,7 @@ const horizon: ZoneDef = {
     },
     {
       id: 'horizon-phone',
-      name: 'Telephone Booth — Phone',
+      name: 'Telephone Booth - Phone',
       model: 'phoneBooth',
       at: { a: 262, r: 11.5 },
       panel: { kind: 'contact-channel', id: 'phone' },
@@ -543,7 +543,7 @@ const horizon: ZoneDef = {
     },
     {
       id: 'horizon-telescope',
-      name: 'Telescope — Profiles',
+      name: 'Telescope - Profiles',
       model: 'telescope',
       at: { a: 300, r: 12 },
       panel: { kind: 'profiles' },
@@ -555,7 +555,7 @@ const horizon: ZoneDef = {
 };
 
 // ---------------------------------------------------------------------------------------------
-// Makers' Row — one island per personal project (ADR-005). The centre landmark opens the project (or its
+// Makers' Row - one island per personal project (ADR-005). The centre landmark opens the project (or its
 // signature topic); a ring of stations opens one topic each. Facts live in `content/projects.ts`.
 // ---------------------------------------------------------------------------------------------
 
@@ -590,7 +590,7 @@ const tala: ZoneDef = {
     },
     {
       id: 'tala-packs',
-      name: 'Pack Library — YAML tools',
+      name: 'Pack Library - YAML tools',
       model: 'packShelf',
       at: { a: 50, r: 12.5 },
       panel: { kind: 'project-topic', project: 'tala', id: 'packs' },
@@ -670,7 +670,7 @@ const skillup: ZoneDef = {
     },
     {
       id: 'skillup-hall',
-      name: 'Learning Hall — Skill Up',
+      name: 'Learning Hall - Skill Up',
       model: 'learningHall',
       at: { a: 185, r: 10.5 },
       panel: { kind: 'project', id: 'skill-up' },
@@ -846,7 +846,7 @@ const unity: ZoneDef = {
     },
     {
       id: 'unity-install',
-      name: 'Git Portal — Package Import',
+      name: 'Git Portal - Package Import',
       model: 'gitPortal',
       at: { a: 100, r: 11.5 },
       panel: { kind: 'project-topic', project: 'openai-unity', id: 'install' },
@@ -854,7 +854,7 @@ const unity: ZoneDef = {
     },
     {
       id: 'unity-chat',
-      name: 'Chatty NPC — Chat Completions',
+      name: 'Chatty NPC - Chat Completions',
       model: 'npcTalker',
       at: { a: 160, r: 11.5 },
       panel: { kind: 'project-topic', project: 'openai-unity', id: 'chat' },

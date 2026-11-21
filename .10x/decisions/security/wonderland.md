@@ -1,4 +1,4 @@
-# Security — wonderland
+# Security - wonderland
 
 Threat model: static site, no backend, no auth, no user input beyond navigation. Assets: owner reputation,
 visitor privacy, integrity of published content.

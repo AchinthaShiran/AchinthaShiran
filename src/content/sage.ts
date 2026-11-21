@@ -1,12 +1,12 @@
 import type { SageTopic } from './types';
 
-/** Innovation Lab explanations. Resume facts only — no metrics or unverified capabilities (plan §5.3). */
+/** Innovation Lab explanations. Resume facts only - no metrics or unverified capabilities (plan §5.3). */
 export const sageTopics: readonly SageTopic[] = [
   {
     id: 'core',
     title: 'Agentic Platform Core',
     summary:
-      'SAGE — Sysco Agentic Ecosystem — is the central platform for Agentic AI integrations across Sysco, ' +
+      'SAGE - Sysco Agentic Ecosystem - is the central platform for Agentic AI integrations across Sysco, ' +
       'supporting enterprise-wide adoption.',
     points: [
       'Cloud-agnostic, no-code Agentic AI platform',
@@ -20,7 +20,7 @@ export const sageTopics: readonly SageTopic[] = [
     id: 'agent-workshop',
     title: 'Agent Workshop',
     summary:
-      'SAGE enables the creation of RAG, API, Database, Generic, and MCP Agents, as well as Orchestrators — ' +
+      'SAGE enables the creation of RAG, API, Database, Generic, and MCP Agents, as well as Orchestrators - ' +
       'without writing code.',
     points: ['RAG Agents', 'API Agents', 'Database Agents', 'Generic Agents', 'MCP Agents', 'Orchestrators'],
   },

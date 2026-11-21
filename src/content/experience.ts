@@ -37,7 +37,7 @@ export const roles: readonly Role[] = [
     title: 'Associate Technical Lead',
     start: '2026-03',
     end: null,
-    summary: 'Technical Lead for SAGE — Sysco Agentic Ecosystem, working on enterprise Agentic AI solutions.',
+    summary: 'Technical Lead for SAGE - Sysco Agentic Ecosystem, working on enterprise Agentic AI solutions.',
     responsibilities: [
       'Driving platform strategy',
       'Executing the platform roadmap',

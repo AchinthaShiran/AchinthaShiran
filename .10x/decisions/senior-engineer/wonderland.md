@@ -1,4 +1,4 @@
-# Senior Engineer — wonderland implementation approach
+# Senior Engineer - wonderland implementation approach
 
 - **Collision (T3):** surfaces `disc {cx,cz,r,y}` / `strip {ax,az,bx,bz,halfWidth,ay,by}`. `groundAt(x,z,y)` returns
   the highest surface height ≤ y + stepUp, or `null` if none / blocked by a higher containing surface.

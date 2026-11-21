@@ -1,4 +1,4 @@
-# CTO — wonderland
+# CTO - wonderland
 
 - **Build vs buy:** Build. A bespoke explorable world is the product; templates/site builders cannot deliver it.
 - **Stack:** Vite + TS strict + React Three Fiber 9 / drei 10 / three r187 + Zustand 5. React chosen for the

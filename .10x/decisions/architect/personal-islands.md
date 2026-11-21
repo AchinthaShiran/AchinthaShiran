@@ -1,4 +1,4 @@
-# Architect — personal-islands
+# Architect - personal-islands
 
 See ADR-005 (personal project islands) and ADR-006 (Sysco LABS district, Project Park hub).
 

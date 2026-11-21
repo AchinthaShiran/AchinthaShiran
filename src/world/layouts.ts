@@ -1,6 +1,6 @@
 /**
  * Content-driven landmark generators (ADR-002). Adding a role, project, skill or award to `content/`
- * adds the matching world object here — no hand placement required.
+ * adds the matching world object here - no hand placement required.
  */
 import { floorColor } from '@/assets/models/city';
 import { isModelKey } from '@/assets/manifest';
@@ -92,7 +92,7 @@ export function parkLandmarks(arcStart = 170, arcEnd = 330, perRow = 4): Landmar
     const [a, r] = GATEWAY_SLOTS[i]!;
     return {
       id: `park-gateway-${project.id}`,
-      name: `${project.shortName} — island gateway`,
+      name: `${project.shortName} - island gateway`,
       model: 'projectGateway',
       props: { label: project.shortName, color: GATEWAY_COLORS[i % GATEWAY_COLORS.length] },
       at: { a, r },
@@ -137,7 +137,7 @@ export function forestLandmarks(arcStart = 255, arcSpan = 255, radius = 14): Lan
 
 const TROPHY_COLORS = ['#FFD27D', '#F5A6A6', '#B9A1E8', '#75BDEB', '#80CFA9', '#FFB07D'];
 
-/** Achievement Peak: trophies along the trail — newest highest. Extra awards spill onto the base ring. */
+/** Achievement Peak: trophies along the trail - newest highest. Extra awards spill onto the base ring. */
 export function peakLandmarks(): LandmarkDef[] {
   const slots: { a: number; r: number; level: number; face: 'center' | 'out' }[] = [
     { a: 330, r: 12.7, level: 1.8, face: 'center' },

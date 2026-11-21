@@ -1,4 +1,4 @@
-# WONDERLAND — Design Spec
+# WONDERLAND - Design Spec
 
 **Date:** 2026-11-21
 **Feature slug:** `wonderland`
@@ -29,14 +29,14 @@ indie adventure game while keeping every piece of professional content one or tw
 | Assets | `src/assets/` | Manifest `modelKey → procedural factory | gltf url` + footprint. Shared flat-shaded materials. | three |
 | Engine | `src/engine/` | 2.5D walkable-surface collision, obstacles, waypoint nav graph + A*, input, mutable player state. Pure TS, unit-tested. | world |
 | Scene | `src/scene/` | R3F components rendering world, player, camera, guide trail, environment. | engine, world, assets, state |
-| State | `src/state/` | Zustand stores: UI (panels, map, destination), settings (persisted), progress (visited, seeds). | — |
+| State | `src/state/` | Zustand stores: UI (panels, map, destination), settings (persisted), progress (visited, seeds). | - |
 | UI | `src/ui/` | HUD, panels, minimap, world map, quick nav, intro, settings, Classic mode. | content, state |
 
 ## 4. World layout
 
 Central Home Island with six islands (N Achievement Peak, NW Career City, NE Skill Forest, W Innovation
-Lab, E Project Park, S Horizon Island) and two islets (University Grove — Education, between Home and
-Career City; Mentor Pavilion — Mentorship, between Home and Skill Forest). Bridges are generated from
+Lab, E Project Park, S Horizon Island) and two islets (University Grove - Education, between Home and
+Career City; Mentor Pavilion - Mentorship, between Home and Skill Forest). Bridges are generated from
 zone-graph edges. Elevations vary by a few units; bridges slope between them.
 
 Content-driven zones (adding data adds world objects, no layout changes):

@@ -213,7 +213,7 @@ export function Interests({ nav }: { nav: Nav }) {
       </ul>
       <p className="muted">{profile.passion}</p>
       <div className="actions">
-        <NavChip label="SAGE — Agentic AI" to={{ kind: 'sage', id: 'core' }} nav={nav} />
+        <NavChip label="SAGE - Agentic AI" to={{ kind: 'sage', id: 'core' }} nav={nav} />
         <NavChip label="Skills" to={{ kind: 'skills' }} nav={nav} />
       </div>
     </>
@@ -804,7 +804,7 @@ export function EducationSummary() {
     <>
       {education.map((e) => (
         <p key={e.institution} style={{ margin: 0 }}>
-          <strong>{e.qualification}</strong> — {e.result}
+          <strong>{e.qualification}</strong> - {e.result}
           <br />
           <span className="muted">
             {e.institution} · {e.startYear}–{e.endYear}
@@ -910,7 +910,7 @@ export function GrowthTimeline({ nav }: { nav: Nav }) {
   ].sort((a, b) => a.sort.localeCompare(b.sort));
   return (
     <>
-      <p>Education, career progression and project recognition — growing like the tree.</p>
+      <p>Education, career progression and project recognition - growing like the tree.</p>
       <ol className="timeline">
         {items.map((i) => (
           <li key={i.key} style={{ ['--dot' as string]: i.color }}>
@@ -930,7 +930,7 @@ export function GrowthTimeline({ nav }: { nav: Nav }) {
         <ul className="list">
           {mentoring.map((m) => (
             <li key={m.id}>
-              <strong>{m.title}</strong> — {m.description}
+              <strong>{m.title}</strong> - {m.description}
             </li>
           ))}
         </ul>

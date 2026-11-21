@@ -213,7 +213,7 @@ export const manifest = {
   bootcampDesk: proc(bootcampDesk, rect(2, 1.2), 2),
   podium: proc(podium, rect(1.6, 1.2), 2.2),
 
-  // Makers' Row — personal project islands (ADR-005)
+  // Makers' Row - personal project islands (ADR-005)
   islandSign: proc(islandSign, rect(3.8, 0.3), 2.8),
   // TALA Workshop
   talaTerminal: proc(talaTerminal, rect(4.6, 2.9), 5.2),

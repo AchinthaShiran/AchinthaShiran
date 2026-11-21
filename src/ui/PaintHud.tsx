@@ -160,7 +160,7 @@ export function PaintHud() {
     <>
       {mode && !hud && (
         <button type="button" className="paint-badge" onClick={togglePaintMode}>
-          <Icon name="paint" /> Paint mode — click or tap to shoot · <kbd>F</kbd> to put the gun away
+          <Icon name="paint" /> Paint mode - click or tap to shoot · <kbd>F</kbd> to put the gun away
         </button>
       )}
       {hud && <GameHudCard hud={hud} />}

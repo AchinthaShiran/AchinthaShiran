@@ -1,3 +1,3 @@
-# SRE — Index
+# SRE - Index
 
 Active features: [wonderland](wonderland.md)

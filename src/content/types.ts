@@ -8,7 +8,7 @@
 
 export type Id = string;
 
-/** A link that may not be known yet. `url: null` means "configured placeholder — hide it". */
+/** A link that may not be known yet. `url: null` means "configured placeholder - hide it". */
 export interface OptionalLink {
   readonly label: string;
   readonly url: string | null;

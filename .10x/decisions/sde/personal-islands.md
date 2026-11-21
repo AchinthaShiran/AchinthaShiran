@@ -1,4 +1,4 @@
-# SDE — personal-islands (what was built)
+# SDE - personal-islands (what was built)
 
 ## Delivered
 - Content: four personal projects (Tala, Skill Up, MySpend, OpenAI-Unity) with categories, topics, public links;
@@ -10,7 +10,7 @@
 - UI: project topics + links + category lists, "Find it in the world" Guide/Travel, Explore menu group,
   Classic "Personal projects" section, world-map label layer and bounds fix.
 - Camera: occlusion rises over obstacles before zooming in.
-- Tests: 62 (was 46) — categories/topics/links, per-island invariants, project connections.
+- Tests: 62 (was 46) - categories/topics/links, per-island invariants, project connections.
 
 ## Deviations
 - Facts for the two private repositories come from their public Play Store listings and the MySpend website.

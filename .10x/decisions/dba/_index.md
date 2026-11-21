@@ -1,3 +1,3 @@
-# DBA — Index
+# DBA - Index
 
 Active features: [wonderland](wonderland.md)

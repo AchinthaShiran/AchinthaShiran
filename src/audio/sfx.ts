@@ -1,5 +1,5 @@
 /**
- * Tiny procedural WebAudio sound kit — no audio files to download. Muted by default (plan §14);
+ * Tiny procedural WebAudio sound kit - no audio files to download. Muted by default (plan §14);
  * every call is a no-op while muted or when WebAudio is unavailable.
  */
 import { useSettings } from '@/state/settings';

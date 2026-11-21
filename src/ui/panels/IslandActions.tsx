@@ -23,7 +23,7 @@ export function IslandActions({ projectId }: { projectId: string }) {
         <span className="muted">{zone.def.section}</span>
       </p>
       {currentZone === island.zoneId ? (
-        <p className="note">You are on this island — look around for its stations.</p>
+        <p className="note">You are on this island - look around for its stations.</p>
       ) : (
         <div className="actions">
           <button

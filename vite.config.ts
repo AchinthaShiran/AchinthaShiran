@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config';
 
 /**
  * Content-Security-Policy for the static build (GitHub Pages cannot set headers, so a meta tag is used).
- * Applied to production builds only — Vite's dev server relies on inline scripts for HMR.
+ * Applied to production builds only - Vite's dev server relies on inline scripts for HMR.
  */
 const CSP = [
   "default-src 'self'",

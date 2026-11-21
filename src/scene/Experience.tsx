@@ -29,7 +29,7 @@ export default function Experience({ quality, onContextLost }: Props) {
       gl={{ antialias: high, powerPreference: 'high-performance' }}
       onCreated={({ gl }) => {
         gl.domElement.addEventListener('webglcontextlost', (e) => {
-          // R3F force-loses the context when the canvas unmounts (e.g. switching to Classic) — not a failure.
+          // R3F force-loses the context when the canvas unmounts (e.g. switching to Classic) - not a failure.
           if (!gl.domElement.isConnected) return;
           e.preventDefault();
           onContextLost();

@@ -7,7 +7,7 @@
 
 ## Context
 The owner asked that (1) Project Park connect to every project and to the islands that explain them, and (2) the
-Innovation Lab (SAGE) — a Sysco LABS project — be bridged to Career City (Sysco LABS) and to Project Park.
+Innovation Lab (SAGE) - a Sysco LABS project - be bridged to Career City (Sysco LABS) and to Project Park.
 Project Park sat in the east and the Innovation Lab in the west; a straight bridge between them would cross Home
 Island. Bridges are straight strips, and a strip above Home's surface would act as a wall for the player
 (ADR-003: surfaces higher than step height block).
