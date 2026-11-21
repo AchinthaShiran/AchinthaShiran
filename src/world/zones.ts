@@ -465,14 +465,6 @@ const mentorship: ZoneDef = {
       hint: 'View facilitation',
     },
     {
-      id: 'mentor-totem',
-      name: 'Qualities Totem',
-      model: 'qualitiesTotem',
-      at: { a: 268, r: 7.5 },
-      panel: { kind: 'soft-skills' },
-      hint: 'View professional qualities',
-    },
-    {
       id: 'mentor-figure-1',
       name: 'Student',
       model: 'miniFigure',
@@ -569,10 +561,10 @@ const horizon: ZoneDef = {
 
 const tala: ZoneDef = {
   id: 'tala',
-  name: 'Tala Workshop',
-  section: 'Personal project · Tala',
+  name: 'TALA Workshop',
+  section: 'Personal project · TALA',
   description:
-    'Tala: a private AI assistant for your PC. A local model runs tools you define in YAML, and asks before it changes anything.',
+    'TALA (Trusted Assistant for Local Actions): a private AI assistant for your PC. A local model runs tools you define in YAML, and asks before it changes anything.',
   kind: 'island',
   center: [-72, 52],
   elevation: 0.6,
@@ -589,12 +581,12 @@ const tala: ZoneDef = {
   landmarks: [
     {
       id: 'tala-terminal',
-      name: 'Tala Terminal',
+      name: 'TALA Terminal',
       model: 'talaTerminal',
       at: { x: 0, z: 0 },
       face: { deg: 20 },
       panel: { kind: 'project', id: 'tala' },
-      hint: 'Meet Tala',
+      hint: 'Meet TALA',
     },
     {
       id: 'tala-packs',
@@ -638,7 +630,7 @@ const tala: ZoneDef = {
     },
     {
       id: 'tala-sign',
-      name: 'Tala Workshop',
+      name: 'TALA Workshop',
       model: 'islandSign',
       props: { label: 'TALA WORKSHOP', color: '#7FE7D9' },
       at: { a: 120, r: 14.5 },

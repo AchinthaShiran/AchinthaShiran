@@ -22,7 +22,6 @@ import {
   MentoringOverview,
   ProjectList,
   RoleDetails,
-  SageOverview,
   SkillsOverview,
 } from './content/blocks';
 import { Icon, Logo } from './Icon';
@@ -48,7 +47,10 @@ const scrollBehavior = (): ScrollBehavior => (prefersReducedMotion() ? 'auto' : 
 
 /** Links to the hash we are already on do not change the route, so scroll explicitly. */
 const jumpTo = (id: string | null) => {
-  if (id) document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+  if (id)
+    document
+      .getElementById(SUB_ANCHORS[id] ?? id)
+      ?.scrollIntoView({ block: 'start', behavior: scrollBehavior() });
   else window.scrollTo({ top: 0, behavior: scrollBehavior() });
 };
 
@@ -301,7 +303,7 @@ export function Classic({ section, webgl }: { section: string | null; webgl: boo
           id="personal"
           eyebrow="Built on my own"
           title="Personal projects"
-          intro={`Projects created outside work: ${personal.map((p) => p.name).join(', ')}.`}
+          intro={`Projects created outside work: ${personal.map((p) => p.shortName).join(', ')}.`}
         >
           <ProjectList nav={undefined} category="personal" />
         </ClassicSection>
@@ -310,13 +312,9 @@ export function Classic({ section, webgl }: { section: string | null; webgl: boo
           id="projects"
           eyebrow="Sysco LABS"
           title="Key projects at Sysco LABS"
-          intro="Corporate projects from the resume, with SAGE — Enterprise Agentic AI — explained in detail below."
+          intro="Corporate projects from Sysco LABS."
         >
           <ProjectList nav={undefined} category="corporate" />
-          <div id="sage" className="classic-subsection">
-            <h3>SAGE — Enterprise Agentic AI</h3>
-            <SageOverview nav={undefined} />
-          </div>
         </ClassicSection>
 
         <ClassicSection id="skills" eyebrow="Toolbox" title="Skills">

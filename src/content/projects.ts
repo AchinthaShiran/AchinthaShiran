@@ -64,12 +64,17 @@ export const projects: readonly Project[] = [
     shortName: 'Excellence Hub',
     category: 'corporate',
     organizationId: 'sysco-labs',
-    tagline: 'A platform integrated with the Smart AI Agent "Alfred".',
+    tagline:
+      'A platform that tracks agile standards and offers suggestions and recommendations to improve and mitigate.',
     problem: null,
     solution:
-      'Built using microservices and micro-frontend architecture to enable scalable and modular deployments, ' +
-      'with integration of the Smart AI Agent "Alfred".',
+      'Tracks agile standards and provides suggestions, recommendations and mitigations that help teams improve. ' +
+      'Built using microservices and micro-frontend architecture for scalable and modular deployments, and ' +
+      'integrated with the Smart AI Agent "Alfred".',
     capabilities: [
+      'Tracking of agile standards',
+      'Suggestions and recommendations to improve',
+      'Mitigations for the gaps it finds',
       'Integration with Smart AI Agent "Alfred"',
       'Microservices and micro-frontend architecture',
       'Scalable and modular deployments',
@@ -97,14 +102,18 @@ export const projects: readonly Project[] = [
     shortName: 'TA Portal',
     category: 'corporate',
     organizationId: 'sysco-labs',
-    tagline: 'An AI-powered Talent Acquisition Portal.',
+    tagline:
+      'An AI-driven talent acquisition portal that makes talent filtering and acquisition streamlined and efficient.',
     problem: null,
     solution:
-      'Enables resume data extraction and ranking with a human-in-the-loop approach, and automates the ' +
-      'pipeline from job posting to hiring.',
+      'Resumes are extracted, ranked and classified with AI, so filtering talent and acquiring it is streamlined and ' +
+      'efficient. A human-in-the-loop approach keeps recruiters in control, and the pipeline from job posting to ' +
+      'hiring is automated.',
     capabilities: [
-      'Resume data extraction',
-      'Resume ranking with a human-in-the-loop approach',
+      'AI-driven resume data extraction',
+      'AI-based ranking and classification of resumes',
+      'Streamlined, efficient talent filtering and acquisition',
+      'Human-in-the-loop approach',
       'Automated pipeline from job posting to hiring',
     ],
     role: 'Lead Engineer',
@@ -129,8 +138,8 @@ export const projects: readonly Project[] = [
   // ---------------------------------------------------------------------------------------------
   {
     id: 'tala',
-    name: 'Tala',
-    shortName: 'Tala',
+    name: 'TALA: Trusted Assistant for Local Actions',
+    shortName: 'TALA',
     category: 'personal',
     organizationId: null,
     tagline:

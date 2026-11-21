@@ -42,7 +42,6 @@ import {
   SageTopicDetails,
   SkillDetails,
   SkillsOverview,
-  SoftSkills,
   Welcome,
 } from '../content/blocks';
 import { Controls } from './Controls';
@@ -183,8 +182,6 @@ export function describePanel(ref: PanelRef): PanelView {
         ? view('Mentoring & leadership', activity.title, () => <MentoringDetails activity={activity} />)
         : missing;
     }
-    case 'soft-skills':
-      return view('Mentor Pavilion', 'Professional qualities', () => <SoftSkills />);
     case 'contact':
       return view('Contact', "Let's connect", () => <ContactList />);
     case 'contact-channel': {

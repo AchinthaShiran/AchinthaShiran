@@ -23,7 +23,6 @@ export interface Profile {
   readonly passion: string;
   readonly technicalInterests: readonly string[];
   readonly themes: readonly string[];
-  readonly softSkills: readonly string[];
   readonly intro: IntroCopy;
   readonly closingMessage: string;
 }

@@ -123,15 +123,3 @@ export function podium(): Object3D {
   ]);
   return animate(g, (t) => (globe.rotation.y = t * 0.8));
 }
-
-/** Soft-skills totem: five stacked shapes, one per quality. */
-export function qualitiesTotem(): Object3D {
-  const colors = [palette.coral, palette.sunshine, palette.meadow, palette.sky, palette.lavender];
-  const shapes = colors.map((c, i) =>
-    i % 2
-      ? octa(0.45, c, { p: [0, 0.8 + i * 0.85, 0] })
-      : box(0.7, 0.7, 0.7, c, { p: [0, 0.8 + i * 0.85, 0], r: [0, i, 0] }),
-  );
-  const g = group([cylinder(0.8, 0.9, 0.4, 7, palette.stone, { p: [0, 0.2, 0] }), ...shapes]);
-  return animate(g, (t) => shapes.forEach((s, i) => (s.rotation.y = t * (i % 2 ? 0.6 : -0.4))));
-}

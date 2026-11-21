@@ -35,7 +35,7 @@ Node 20 or newer is required.
 | Career City      | One tower per organization, one floor and plaque per role, timeline monument                              |
 | Innovation Lab   | SAGE — Sysco Agentic Ecosystem, explained across six landmarks                                            |
 | Project Park     | Hub for every project: an exhibit per Sysco LABS project and a gateway to each personal island            |
-| Tala Workshop    | Personal project Tala — a local AI assistant driven by YAML tool packs (Makers' Row)                      |
+| TALA Workshop    | Personal project TALA — Trusted Assistant for Local Actions, driven by YAML tool packs (Makers' Row)      |
 | Skill Up Academy | Personal project Skill Up — an AI study planner (Makers' Row)                                             |
 | MySpend Market   | Personal project MySpend — an Android expense tracker (Makers' Row)                                       |
 | Unity Arcade     | Personal project OpenAI-Unity — a Unity package for the OpenAI API (Makers' Row)                          |
@@ -44,7 +44,7 @@ Node 20 or newer is required.
 | Horizon Island   | Contact: lighthouse, message in a bottle, phone booth, CV board, telescope                                |
 | University Grove | Education                                                                                                 |
 | Splat Arena      | Optional paintball play: shooting gallery, bot arena, target hunt, challenge badges (linked to Home only) |
-| Mentor Pavilion  | Mentoring, leadership and professional qualities                                                          |
+| Mentor Pavilion  | Mentoring and leadership activities                                                                       |
 
 **How the projects connect.** The Innovation Lab (SAGE) is bridged to Career City (Sysco LABS) and to Project Park,
 forming the Sysco LABS district in the west. Project Park is the hub for every project: its exhibits cover the Sysco

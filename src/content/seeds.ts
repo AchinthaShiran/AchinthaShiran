@@ -42,8 +42,8 @@ export const ideaSeeds: readonly IdeaSeed[] = [
   },
   {
     id: 'seed-tala',
-    title: 'Teach Tala',
-    fact: 'Tala learns new skills from a simple YAML file — no code needed — and asks before it changes anything.',
+    title: 'Teach TALA',
+    fact: 'TALA learns new skills from a simple YAML file — no code needed — and asks before it changes anything.',
   },
   {
     id: 'seed-skillup',
