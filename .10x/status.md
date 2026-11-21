@@ -22,6 +22,14 @@ Four personal project islands, Project Park as the project hub, Sysco LABS distr
 | Controls shown on intro and opening tips (incl. paintball) | ✅ |
 | Lint / typecheck / 97 tests / build / browser play-tests | ✅ no page errors |
 
+## classic-redesign and avatar — implemented 2026-11-21
+| Item | State |
+|---|---|
+| Placeholder messages removed (role Career step, contact, profiles, CV) | ✅ |
+| Classic view redesign: hero, scroll-aware nav, progress, collapsible project cards, back-to-top, print | ✅ |
+| Classic order: Personal projects, then Key projects at Sysco LABS (SAGE inside) | ✅ |
+| Achintha's avatar restyled after the reference portrait | ✅ (the visitor's own character is unchanged) |
+
 ## Open items (owner input)
 - LinkedIn and GitHub profile URLs (`src/content/contact.ts`).
 - CV PDF (`public/cv/…` + `cv.path`).
