@@ -8,14 +8,19 @@
 | 5 Verification | ✅ [QA](reviews/2026-11-21-qa-report.md), [Security](reviews/2026-11-21-security-review.md) |
 | 6 Delivery | ✅ CI + Pages workflow — **pending owner: create GitHub repo, push, enable Pages** |
 
-## personal-islands — implemented 2026-11-21 (branch `feat/personal-islands`)
+## personal-islands — merged to `main` 2026-11-21 (ADR-005, ADR-006)
+Four personal project islands, Project Park as the project hub, Sysco LABS district bridges.
+
+## paintball — implemented 2026-11-21 (branch `feat/paintball`, ADR-007, ADR-008)
 | Item | State |
 |---|---|
-| Design (ADR-005, ADR-006) | ✅ |
-| Personal projects as islands (4) | ✅ |
-| Project Park hub: gateways + "Find it in the world" | ✅ |
-| Sysco LABS district: Lab ↔ Career City ↔ Project Park bridges | ✅ |
-| Tests / lint / typecheck / build / browser smoke | ✅ 62 tests, no page errors |
+| Paintball gun, shooting, splats, landmark shots | ✅ |
+| Splat Arena island (Home-only link) | ✅ |
+| Shooting gallery, bot arena (waves, splat meter, respawn at gate), island target hunt | ✅ |
+| Challenge board, 11 badges, personal bests (local only) | ✅ |
+| GTA-style mouse look (pointer lock) + over-the-shoulder aim camera + crosshair | ✅ |
+| Controls shown on intro and opening tips (incl. paintball) | ✅ |
+| Lint / typecheck / 97 tests / build / browser play-tests | ✅ no page errors |
 
 ## Open items (owner input)
 - LinkedIn and GitHub profile URLs (`src/content/contact.ts`).
@@ -24,7 +29,9 @@
 - Confirm the skills added from the personal projects (Python, C#, LangChain, LangGraph, Ollama).
 - Confirm Tala's license (website says Apache-2.0, GitHub says MIT) if it should be shown.
 - Role-specific details for Software Engineer and Senior Software Engineer (optional).
+- Try the paintball feel on a real GPU and tune `GRAVITY`, `BALL_SPEED`, bot speed and wave sizes in
+  `src/game/paint/config.ts` / `ballistics.ts` if needed.
 
 ## Next iteration candidates
-Self-host fonts · trim drei · E2E smoke in CI · real .glb hero models · background music · Skill Up / MySpend
-screenshots.
+Self-host fonts · trim drei · E2E smoke in CI · real .glb hero models · background music · touch fire button ·
+project screenshots.

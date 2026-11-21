@@ -24,6 +24,8 @@ interface UiState {
   destination: Destination | null;
   toast: Toast | null;
   fading: boolean;
+  /** The mouse is captured by pointer lock (desktop mouse look). */
+  locked: boolean;
 
   setPhase: (phase: Phase) => void;
   openPanel: (panel: PanelRef, sourceId?: string | null) => void;
@@ -38,6 +40,7 @@ interface UiState {
   setDestination: (d: Destination | null) => void;
   showToast: (text: string) => void;
   setFading: (fading: boolean) => void;
+  setLocked: (locked: boolean) => void;
   /** Close whatever is on top (Escape semantics). Returns true if something closed. */
   closeTop: () => boolean;
 }
@@ -55,6 +58,7 @@ export const useUi = create<UiState>()((set, get) => ({
   destination: null,
   toast: null,
   fading: false,
+  locked: false,
 
   setPhase: (phase) => set({ phase }),
   openPanel: (panel, sourceId = null) => set({ panels: [panel], overlay: null, selectedId: sourceId }),
@@ -75,6 +79,7 @@ export const useUi = create<UiState>()((set, get) => ({
   setDestination: (destination) => set({ destination }),
   showToast: (text) => set({ toast: { id: ++toastSeq, text } }),
   setFading: (fading) => set({ fading }),
+  setLocked: (locked) => set({ locked }),
   closeTop: () => {
     const s = get();
     if (s.overlay) {

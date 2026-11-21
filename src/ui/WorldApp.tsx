@@ -2,10 +2,14 @@ import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { startAmbient, stopAmbient } from '@/audio/sfx';
 import { attachKeyboard } from '@/engine/input';
 import { interactNearby } from '@/game/actions';
+import { togglePaintMode } from '@/game/paint/controller';
+import { useGameStats } from '@/state/paint';
 import { resolveQuality, useSettings } from '@/state/settings';
 import { isUiBlocking, useUi } from '@/state/ui';
 import { Hud } from './Hud';
 import { Intro } from './Intro';
+import { MouseHint, Crosshair } from './MouseHint';
+import { PaintHud } from './PaintHud';
 import { PanelHost } from './panels/PanelHost';
 import { QuickNav } from './QuickNav';
 import { SettingsSheet } from './SettingsSheet';
@@ -42,11 +46,17 @@ function useHotkeys() {
         return;
       const ui = useUi.getState();
       if (e.key === 'Escape') {
-        if (ui.closeTop()) e.preventDefault();
+        if (useGameStats.getState().result) {
+          useGameStats.getState().showResult(null);
+          e.preventDefault();
+        } else if (ui.closeTop()) e.preventDefault();
         return;
       }
       if (ui.phase !== 'play') return;
-      if (e.code === 'KeyM') {
+      if (e.code === 'KeyF' && !ui.overlay && ui.panels.length === 0) {
+        e.preventDefault();
+        togglePaintMode();
+      } else if (e.code === 'KeyM') {
         e.preventDefault();
         ui.toggleOverlay('map');
       } else if (e.code === 'KeyE' && !ui.overlay && ui.panels.length === 0) {
@@ -78,6 +88,7 @@ export default function WorldApp() {
   const quality = useMemo(() => resolveQuality(qualitySetting), [qualitySetting]);
   const overlay = useUi((s) => s.overlay);
   const fading = useUi((s) => s.fading);
+  const paintMode = useGameStats((s) => s.mode);
   const [touch] = useState(() => window.matchMedia?.('(pointer: coarse)').matches ?? false);
 
   useHotkeys();
@@ -98,7 +109,7 @@ export default function WorldApp() {
   };
 
   return (
-    <div className="world">
+    <div className={`world ${paintMode ? 'world--paint' : ''}`}>
       <a className="skip-link" href="#/classic">
         Skip to the classic portfolio
       </a>
@@ -107,6 +118,9 @@ export default function WorldApp() {
       </Suspense>
       <Hud />
       <PanelHost />
+      <PaintHud />
+      <Crosshair />
+      <MouseHint />
       {touch && <TouchControls />}
       {overlay === 'map' && <WorldMap />}
       {overlay === 'menu' && <QuickNav />}
