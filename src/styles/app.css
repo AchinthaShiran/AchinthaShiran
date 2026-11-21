@@ -499,7 +499,8 @@ kbd {
 /* ---------- Panels & overlays ---------- */
 .panel {
   position: absolute;
-  top: var(--hud-gap);
+  /* Below the HUD buttons so menu, map and sound stay reachable while reading. */
+  top: calc(var(--hud-gap) + 58px);
   right: var(--hud-gap);
   bottom: var(--hud-gap);
   width: var(--panel-width);
@@ -799,6 +800,9 @@ kbd {
   stroke: #fbf5e6;
   stroke-width: 3px;
 }
+.map__label--small {
+  font-size: 6.5px;
+}
 .map__side {
   display: flex;
   flex-direction: column;
@@ -1043,6 +1047,12 @@ kbd {
   .zone-chip {
     display: none;
   }
+  .brand {
+    padding: 6px;
+  }
+  .brand__name {
+    display: none;
+  }
   .hud__top-right {
     gap: 6px;
   }
@@ -1090,6 +1100,10 @@ kbd {
     transform: none;
   }
   .toast {
-    top: 120px;
+    top: auto;
+    bottom: 230px;
+  }
+  .zone-banner {
+    top: 190px;
   }
 }

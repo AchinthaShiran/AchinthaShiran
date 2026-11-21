@@ -116,6 +116,8 @@ export interface ZoneDef {
   readonly palette: ZonePalette;
   /** Map glyph (single character / short symbol). */
   readonly glyph: string;
+  /** Where the world map draws the name (default: above the island). */
+  readonly mapLabel?: 'top' | 'bottom' | 'left' | 'right';
   readonly landmarks: readonly LandmarkDef[];
   readonly decor: Partial<Record<DecorKind, number>>;
   /** Minimum radius for scattered decor (keeps the hub clear). */

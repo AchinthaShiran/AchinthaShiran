@@ -8,6 +8,19 @@ import { Icon } from './Icon';
 
 const PAD = 10;
 
+function labelPosition(x: number, z: number, r: number, side: 'top' | 'bottom' | 'left' | 'right' = 'top') {
+  switch (side) {
+    case 'bottom':
+      return { x, y: z + r + 8, textAnchor: 'middle' as const };
+    case 'left':
+      return { x: x - r - 2, y: z + 3, textAnchor: 'end' as const };
+    case 'right':
+      return { x: x + r + 2, y: z + 3, textAnchor: 'start' as const };
+    default:
+      return { x, y: z - r - 2.5, textAnchor: 'middle' as const };
+  }
+}
+
 function usePlayerPos(hz = 5) {
   const [pos, setPos] = useState({ x: player.x, z: player.z, yaw: player.yaw });
   useEffect(() => {
@@ -105,7 +118,10 @@ export function WorldMap() {
                     >
                       {z.def.glyph}
                     </text>
-                    <text className="map__label" x={z.x} y={z.z - z.def.radius - 2.5} textAnchor="middle">
+                    <text
+                      className={`map__label ${z.def.kind === 'islet' ? 'map__label--small' : ''}`}
+                      {...labelPosition(z.x, z.z, z.def.radius, z.def.mapLabel)}
+                    >
                       {z.def.name}
                       {seen ? ' ✓' : ''}
                     </text>
