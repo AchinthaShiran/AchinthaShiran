@@ -74,6 +74,23 @@ export const cylinder = (rTop: number, rBottom: number, h: number, seg: number, 
     pl,
   );
 
+/**
+ * Gabled roof: a triangular prism with the apex up and the ridge along X.
+ * `span` is the eave-to-eave width (Z), `rise` the apex height above the underside,
+ * `length` the ridge length (X) and `y` the height of the flat underside.
+ * Make `length` larger than the wall it covers so the gable end caps overhang the
+ * walls instead of sitting flush with them (flush faces z-fight).
+ */
+export const gableRoof = (span: number, rise: number, length: number, m: Mat, y: number, pl?: Place) => {
+  const r = (rise * 2) / 3; // circumradius of the triangle: rise = 1.5 r
+  return cylinder(r, r, length, 3, m, {
+    ...pl,
+    p: [pl?.p?.[0] ?? 0, y + r / 2, pl?.p?.[2] ?? 0],
+    r: [-Math.PI / 2, 0, Math.PI / 2],
+    s: [span / (r * Math.sqrt(3)), 1, 1],
+  });
+};
+
 export const cone = (r: number, h: number, seg: number, m: Mat, pl?: Place) =>
   mesh(
     cachedGeometry(`cone:${r}:${h}:${seg}`, () => new ConeGeometry(r, h, seg)),
