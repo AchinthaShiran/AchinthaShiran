@@ -58,7 +58,7 @@ const ANCHORS: Partial<Record<PanelRef['kind'], string>> = {
   skills: 'skills',
   award: 'awards',
   awards: 'awards',
-  sage: 'sage',
+  sage: 'projects',
   education: 'education',
   mentoring: 'mentoring',
   'mentoring-overview': 'mentoring',
@@ -190,9 +190,6 @@ export function About({ nav }: { nav: Nav }) {
       <Section title="Education">
         <EducationSummary />
       </Section>
-      <Section title="Professional qualities">
-        <SoftSkills />
-      </Section>
       <CvAction />
       <div className="actions">
         <NavChip label="Career timeline" to={{ kind: 'career-timeline' }} nav={nav} />
@@ -220,18 +217,6 @@ export function Interests({ nav }: { nav: Nav }) {
         <NavChip label="Skills" to={{ kind: 'skills' }} nav={nav} />
       </div>
     </>
-  );
-}
-
-export function SoftSkills() {
-  return (
-    <ul className="chips">
-      {profile.softSkills.map((s) => (
-        <li key={s} className="chip">
-          {s}
-        </li>
-      ))}
-    </ul>
   );
 }
 
@@ -320,18 +305,6 @@ export function RoleDetails({ role, nav }: { role: Role; nav: Nav }) {
           <Bullets items={role.responsibilities} />
         </Section>
       )}
-      {role.projectIds.length > 0 && (
-        <Section title="Relevant projects">
-          <div className="chips">
-            {role.projectIds.map((pid) => {
-              const p = getProject(pid);
-              return p ? (
-                <NavChip key={pid} label={p.shortName} to={{ kind: 'project', id: pid }} nav={nav} />
-              ) : null;
-            })}
-          </div>
-        </Section>
-      )}
       {role.technologies.length > 0 && <TechChips ids={role.technologies} nav={nav} />}
       <CareerStep role={role} nav={nav} />
       {nav && (
@@ -377,23 +350,6 @@ export function SageTopicDetails({ topic, nav }: { topic: SageTopic; nav: Nav })
             ))}
         </div>
       </Section>
-      <div className="actions">
-        <NavChip label="SAGE project details" to={{ kind: 'project', id: 'sage' }} nav={nav} />
-      </div>
-    </>
-  );
-}
-
-export function SageOverview({ nav }: { nav: Nav }) {
-  return (
-    <>
-      {sageTopics.map((t) => (
-        <div key={t.id} className="card">
-          <h3>{t.title}</h3>
-          <p>{t.summary}</p>
-          <Bullets items={t.points} />
-        </div>
-      ))}
       <div className="actions">
         <NavChip label="SAGE project details" to={{ kind: 'project', id: 'sage' }} nav={nav} />
       </div>
@@ -464,9 +420,11 @@ export function ProjectDetails({
         <Bullets items={project.capabilities} />
       </Section>
       {project.topics.length > 0 && <ProjectTopics project={project} nav={nav} />}
-      <Section title="Achintha's role & contributions">
-        <Bullets items={project.contributions} />
-      </Section>
+      {project.category === 'corporate' && (
+        <Section title="Achintha's role & contributions">
+          <Bullets items={project.contributions} />
+        </Section>
+      )}
       {project.media.length > 0 && (
         <Section title="Media">
           <div className="grid-2">
@@ -506,11 +464,12 @@ export function ProjectDetails({
       {project.technologies.length > 0 && (
         <>
           <TechChips ids={project.technologies} nav={nav} />
-          <p className="note">
-            {project.category === 'corporate'
-              ? 'Technologies are those listed for the project in the resume; not every technology is used in every component.'
-              : "Technologies are those stated in the project's public sources."}
-          </p>
+          {project.category === 'corporate' && (
+            <p className="note">
+              Technologies are those listed for the project in the resume; not every technology is used in
+              every component.
+            </p>
+          )}
         </>
       )}
       {(project.liveUrl || project.repoUrl || project.demoVideoUrl || project.links.length > 0) && (
@@ -612,14 +571,14 @@ const PROJECT_GROUPS: { category: ProjectCategory; title: string }[] = [
 ];
 
 /** Classic-mode project card: name, tagline, role and main technologies, expanding to the full details. */
-function ProjectCard({ project, open }: { project: Project; open: boolean }) {
+function ProjectCard({ project }: { project: Project }) {
   const org = project.organizationId ? getOrganization(project.organizationId) : undefined;
   const tech = project.technologies
     .map((id) => getSkill(id)?.name)
     .filter((n): n is string => !!n)
     .slice(0, 5);
   return (
-    <details className="project" open={open}>
+    <details className="project">
       <summary>
         <span className="project__main">
           <span className="project__name">{project.name}</span>
@@ -654,7 +613,7 @@ export function ProjectList({ nav, category }: { nav: Nav; category?: ProjectCat
         return (
           <div key={group.category}>
             {!category && <h3 className="section-title">{group.title}</h3>}
-            {list.map((p, i) =>
+            {list.map((p) =>
               nav ? (
                 <button
                   key={p.id}
@@ -668,7 +627,7 @@ export function ProjectList({ nav, category }: { nav: Nav; category?: ProjectCat
                   </p>
                 </button>
               ) : (
-                <ProjectCard key={p.id} project={p} open={i === 0} />
+                <ProjectCard key={p.id} project={p} />
               ),
             )}
           </div>
@@ -899,9 +858,6 @@ export function MentoringOverview({ nav }: { nav: Nav }) {
           <p style={{ margin: 0 }}>{m.description}</p>
         </div>
       ))}
-      <Section title="Professional qualities">
-        <SoftSkills />
-      </Section>
       {nav && (
         <div className="actions">
           <NavChip label="Career timeline" to={{ kind: 'career-timeline' }} nav={nav} />

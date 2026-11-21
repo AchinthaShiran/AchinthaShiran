@@ -30,7 +30,6 @@ export const profile: Profile = {
     'Engineering leadership and mentoring',
     'Game development as a personal passion',
   ],
-  softSkills: ['Teamwork', 'Leadership', 'Fast Learner', 'Communication', 'Strategic Thinking'],
   intro: {
     greeting: 'Welcome, Explorer!',
     lead: "You've discovered a little world built around ideas, technology, and creativity.",
