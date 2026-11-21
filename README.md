@@ -1,26 +1,17 @@
 <div align="center">
 
-# Hey, I'm Achintha Bandara 👋
+<img src="assets-readme/hero.svg" alt="Achintha Bandara - Welcome, Explorer" width="100%" />
 
-**Associate Technical Lead · Enterprise Agentic AI · Full-Stack Engineering**
+### 🌍 [Step into my interactive 3D world](https://achinthashiran.github.io/AchinthaShiran/)
 
-_Software engineer, AI innovator and game development enthusiast._
-
-[🌍 **Explore my world** - an interactive 3D portfolio](https://achinthashiran.github.io/AchinthaShiran/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Explore_my_world-7c5cff?style=for-the-badge)](https://achinthashiran.github.io/AchinthaShiran/)
+[![Google Play](https://img.shields.io/badge/Google_Play-My_apps-3ddc84?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/dev?id=6821467528489170264)
 
 </div>
 
 ---
 
-## 🚀 What I do
-
-- 🤖 Building **Enterprise Agentic AI** solutions at Sysco LABS
-- 🧩 Full-stack engineering with **microservices**, **micro-frontends** and **cloud-native** architectures
-- 🧭 Shaping technical strategy, platform roadmaps and architecture
-- 🌱 Mentoring early-career engineers through best practices and standards
-- 🎮 Game development is my personal passion (Unity)
-
-## 🛠️ Things I've built on my own
+## 🛠️ Projects
 
 | Project                                                                                    | What it is                                                                                                                                                                                            |
 | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -29,21 +20,14 @@ _Software engineer, AI innovator and game development enthusiast._
 | [**MySpend**](https://play.google.com/store/apps/details?id=com.taprobana_studios.spendly) | A spending tracker that turns payments into entries by itself. [Website](https://myspend.site/)                                                                                                       |
 | [**OpenAI-Unity**](https://github.com/TaprobanaStudios/OpenAI-Unity)                       | An OpenAI package for Unity so games can use the OpenAI API directly. [Article](https://medium.com/@achinthabandara1/openai-unity-509fb6173b87)                                                       |
 
-## 🌍 My portfolio is a game
+📱 More apps on my [**Google Play developer page**](https://play.google.com/store/apps/dev?id=6821467528489170264).
 
-Instead of a plain page, my portfolio is a small low-poly world: a hub island, themed islands for
-my career, projects, skills and awards, connected by bridges. Walk around, jump, even grab a
-paintball gun for some target practice, or switch to the classic page if you'd rather just read.
+## 🎮 My portfolio is a game
+
+A small low-poly world of floating islands: walk, run and jump around, follow the guide trails,
+check the minimap, and even grab a paintball gun for some target practice. Prefer reading? There is
+a classic page too.
 
 **[Step into the world →](https://achinthashiran.github.io/AchinthaShiran/)**
 
-Built with TypeScript, React Three Fiber, three.js and Zustand. The code and how it works are in
-[`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
-
----
-
-<div align="center">
-
-_Have an idea, opportunity or project in mind? Let's connect._
-
-</div>
+<sub>Built with TypeScript, React Three Fiber and three.js. How it works: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).</sub>
