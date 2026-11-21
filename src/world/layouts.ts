@@ -70,7 +70,9 @@ export function parkLandmarks(arcStart = 40, arcEnd = 240, perRow = 6): Landmark
 
 /** Skill Forest: one crystal per skill, clustered by category along the free arc. */
 export function forestLandmarks(arcStart = 255, arcSpan = 255, radius = 14): LandmarkDef[] {
-  const clusters = skillCategories.map((c) => ({ category: c, skills: skillsInCategory(c.id) })).filter((c) => c.skills.length > 0);
+  const clusters = skillCategories
+    .map((c) => ({ category: c, skills: skillsInCategory(c.id) }))
+    .filter((c) => c.skills.length > 0);
   const total = clusters.reduce((n, c) => n + c.skills.length, 0);
   const inner = total - clusters.length;
   const gaps = clusters.length - 1;
@@ -124,7 +126,10 @@ export function peakLandmarks(): LandmarkDef[] {
       id: `peak-award-${award.id}`,
       name: award.title,
       model: 'trophy',
-      props: { color: TROPHY_COLORS[i % TROPHY_COLORS.length], label: formatYears(award.years).replace(' and ', ' · ') },
+      props: {
+        color: TROPHY_COLORS[i % TROPHY_COLORS.length],
+        label: formatYears(award.years).replace(' and ', ' · '),
+      },
       at: { a: slot.a, r: slot.r },
       level: slot.level,
       face: slot.face,

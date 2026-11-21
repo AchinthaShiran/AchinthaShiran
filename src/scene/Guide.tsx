@@ -1,6 +1,13 @@
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
-import { CylinderGeometry, type InstancedMesh, type Mesh, Object3D, OctahedronGeometry, RingGeometry } from 'three';
+import {
+  CylinderGeometry,
+  type InstancedMesh,
+  type Mesh,
+  Object3D,
+  OctahedronGeometry,
+  RingGeometry,
+} from 'three';
 import { glowMat, mat } from '@/assets/materials';
 import { palette } from '@/assets/palette';
 import type { Vec3 } from '@/engine/math';
@@ -41,7 +48,10 @@ function GuideTrail() {
   const dotGeo = useMemo(() => new OctahedronGeometry(0.22, 0), []);
   const dotMat = useMemo(() => glowMat(palette.sunshine, 1.4, { unique: true }), []);
   const beaconGeo = useMemo(() => new CylinderGeometry(0.9, 0.9, 30, 12, 1, true), []);
-  const beaconMat = useMemo(() => glowMat(palette.sunshine, 1, { opacity: 0.22, doubleSide: true, unique: true }), []);
+  const beaconMat = useMemo(
+    () => glowMat(palette.sunshine, 1, { opacity: 0.22, doubleSide: true, unique: true }),
+    [],
+  );
 
   useFrame(({ clock }, dt) => {
     const mesh = dots.current;

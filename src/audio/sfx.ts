@@ -14,7 +14,9 @@ function audio(): { ctx: AudioContext; out: GainNode } | null {
   if (useSettings.getState().muted) return null;
   try {
     if (!ctx) {
-      const Ctor = globalThis.AudioContext ?? (globalThis as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      const Ctor =
+        globalThis.AudioContext ??
+        (globalThis as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!Ctor) return null;
       ctx = new Ctor();
       master = ctx.createGain();
@@ -28,7 +30,11 @@ function audio(): { ctx: AudioContext; out: GainNode } | null {
   }
 }
 
-function tone(freq: number, dur: number, opts: { type?: OscillatorType; gain?: number; delay?: number; slideTo?: number } = {}) {
+function tone(
+  freq: number,
+  dur: number,
+  opts: { type?: OscillatorType; gain?: number; delay?: number; slideTo?: number } = {},
+) {
   const a = audio();
   if (!a) return;
   const t0 = a.ctx.currentTime + (opts.delay ?? 0);
@@ -80,7 +86,9 @@ export function playSfx(name: Sfx): void {
       tone(1320, 0.08, { gain: 0.025 });
       break;
     case 'collect':
-      [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.22, { type: 'triangle', gain: 0.08, delay: i * 0.07 }));
+      [523, 659, 784, 1047].forEach((f, i) =>
+        tone(f, 0.22, { type: 'triangle', gain: 0.08, delay: i * 0.07 }),
+      );
       break;
     case 'travel':
       noise(0.6, 400, 0.25, 3000);

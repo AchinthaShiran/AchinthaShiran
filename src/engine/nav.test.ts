@@ -19,11 +19,19 @@ function graph() {
 
 describe('NavGraph', () => {
   it('finds the shortest path', () => {
-    expect(graph().findPath('a', 'c')?.map((n) => n.id)).toEqual(['a', 'c']);
+    expect(
+      graph()
+        .findPath('a', 'c')
+        ?.map((n) => n.id),
+    ).toEqual(['a', 'c']);
   });
 
   it('returns a single-node path when start equals goal', () => {
-    expect(graph().findPath('b', 'b')?.map((n) => n.id)).toEqual(['b']);
+    expect(
+      graph()
+        .findPath('b', 'b')
+        ?.map((n) => n.id),
+    ).toEqual(['b']);
   });
 
   it('returns null for unreachable or unknown nodes', () => {

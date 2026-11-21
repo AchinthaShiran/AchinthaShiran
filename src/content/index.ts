@@ -54,7 +54,8 @@ export const projectsUsingSkill = (skillId: Id): Project[] =>
 export const skillsInCategory = (categoryId: Skill['categoryId']): Skill[] =>
   skills.filter((s) => s.categoryId === categoryId);
 export const rolesForOrganization = (orgId: Id): Role[] => roles.filter((r) => r.organizationId === orgId);
-export const rolesForProject = (projectId: Id): Role[] => roles.filter((r) => r.projectIds.includes(projectId));
+export const rolesForProject = (projectId: Id): Role[] =>
+  roles.filter((r) => r.projectIds.includes(projectId));
 
 /** The latest role (no end date first, then most recent start). */
 export function currentRole(): Role {

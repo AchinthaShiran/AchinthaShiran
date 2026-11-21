@@ -1,7 +1,16 @@
 import { Html } from '@react-three/drei';
 import { type ThreeEvent, useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
-import { Color, Group, InstancedMesh, Mesh, type MeshStandardMaterial, Object3D, OctahedronGeometry, RingGeometry } from 'three';
+import type { InstancedMesh } from 'three';
+import {
+  Color,
+  Group,
+  Mesh,
+  type MeshStandardMaterial,
+  Object3D,
+  OctahedronGeometry,
+  RingGeometry,
+} from 'three';
 import { box, cone, group } from '@/assets/builders';
 import { glowMat } from '@/assets/materials';
 import { signPlane } from '@/assets/models/city';
@@ -39,7 +48,8 @@ function Landmark({ lm }: { lm: LandmarkRuntime }) {
 
     // Skill crystals glow when their category is highlighted or they are nearby.
     if (lm.def.group) {
-      const glow = (g.children[0]?.children[0]?.userData.glowMaterial ?? findGlow(g)) as MeshStandardMaterial | undefined;
+      const glow = (g.children[0]?.children[0]?.userData.glowMaterial ?? findGlow(g)) as
+        MeshStandardMaterial | undefined;
       if (glow) {
         const target = near ? 1.4 : ui.highlightGroup === lm.def.group ? 1.0 : 0.35;
         glow.emissiveIntensity += (target - glow.emissiveIntensity) * 0.1;
@@ -136,7 +146,12 @@ function NearbyIndicator() {
       <group ref={ring} position={[lm.x, lm.y + 0.08, lm.z]}>
         <primitive object={ringObject} />
       </group>
-      <Html position={[lm.x, lm.y + lm.height + 1.1, lm.z]} center zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
+      <Html
+        position={[lm.x, lm.y + lm.height + 1.1, lm.z]}
+        center
+        zIndexRange={[20, 0]}
+        style={{ pointerEvents: 'none' }}
+      >
         <div className="world-label">
           <span className="world-label__name">{lm.def.name}</span>
           <span className="world-label__hint">
@@ -159,7 +174,14 @@ function arrowBoard(text: string, color: string): Group {
   return group([board, tip, front, back]);
 }
 
-const ARROW_COLORS = [palette.sunshine, palette.coral, palette.sky, palette.meadow, palette.lavender, palette.cream];
+const ARROW_COLORS = [
+  palette.sunshine,
+  palette.coral,
+  palette.sky,
+  palette.meadow,
+  palette.lavender,
+  palette.cream,
+];
 
 /** Signposts at Home (and wherever a `signpostPost` landmark is placed) pointing to linked zones. */
 function SignpostArrows() {

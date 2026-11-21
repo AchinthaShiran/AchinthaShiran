@@ -1,6 +1,16 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
-import { BackSide, Color, type DirectionalLight, Fog, type Group, Mesh, PlaneGeometry, ShaderMaterial, SphereGeometry } from 'three';
+import type { Mesh } from 'three';
+import {
+  BackSide,
+  Color,
+  type DirectionalLight,
+  Fog,
+  type Group,
+  PlaneGeometry,
+  ShaderMaterial,
+  SphereGeometry,
+} from 'three';
 import { jitter } from '@/assets/builders';
 import { mat, sharedUniforms } from '@/assets/materials';
 import { bird, cloud } from '@/assets/models/nature';
@@ -39,7 +49,14 @@ function Sky() {
   );
   const ref = useRef<Mesh>(null);
   useFrame(({ camera }) => ref.current?.position.copy(camera.position));
-  return <mesh ref={ref} geometry={useMemo(() => new SphereGeometry(900, 24, 16), [])} material={material} renderOrder={-1} />;
+  return (
+    <mesh
+      ref={ref}
+      geometry={useMemo(() => new SphereGeometry(900, 24, 16), [])}
+      material={material}
+      renderOrder={-1}
+    />
+  );
 }
 
 function Ocean() {
@@ -48,12 +65,18 @@ function Ocean() {
     g.rotateX(-Math.PI / 2);
     return jitter(g, 3, 7);
   }, []);
-  const material = useMemo(() => mat(palette.waterDeep, { roughness: 0.6, emissive: '#3C8FC4', emissiveIntensity: 0.25 }), []);
+  const material = useMemo(
+    () => mat(palette.waterDeep, { roughness: 0.6, emissive: '#3C8FC4', emissiveIntensity: 0.25 }),
+    [],
+  );
   const ref = useRef<Mesh>(null);
   useFrame(({ clock }) => {
-    if (ref.current && !useSettings.getState().reducedMotion) ref.current.position.y = -60 + Math.sin(clock.elapsedTime * 0.4) * 0.6;
+    if (ref.current && !useSettings.getState().reducedMotion)
+      ref.current.position.y = -60 + Math.sin(clock.elapsedTime * 0.4) * 0.6;
   });
-  return <mesh ref={ref} geometry={geometry} material={material} position={[0, -60, 0]} receiveShadow={false} />;
+  return (
+    <mesh ref={ref} geometry={geometry} material={material} position={[0, -60, 0]} receiveShadow={false} />
+  );
 }
 
 function Clouds({ count }: { count: number }) {
@@ -105,7 +128,11 @@ function Birds({ count }: { count: number }) {
     const t = clock.elapsedTime;
     for (const b of birds) {
       const a = b.phase + t * b.speed;
-      b.object.position.set(b.cx + Math.cos(a) * b.r, b.y + Math.sin(t + b.phase) * 1.5, b.cz + Math.sin(a) * b.r);
+      b.object.position.set(
+        b.cx + Math.cos(a) * b.r,
+        b.y + Math.sin(t + b.phase) * 1.5,
+        b.cz + Math.sin(a) * b.r,
+      );
       b.object.rotation.y = -a + (b.speed > 0 ? 0 : Math.PI);
       (b.object.userData.tick as ((t: number, dt: number) => void) | undefined)?.(t, dt);
     }

@@ -25,7 +25,13 @@ export function exhibitSage(): Object3D {
     ];
   });
   const ring = torus(1.0, 0.05, glowMat(palette.sunshine, 1), { p: [0, 2.3, 0] }, Math.PI * 2, 4, 20);
-  const g = group([...plinth(palette.lavender), cylinder(0.4, 0.6, 1.2, 6, palette.metal, { p: [0, 1.2, 0] }), core, ring, ...stations]);
+  const g = group([
+    ...plinth(palette.lavender),
+    cylinder(0.4, 0.6, 1.2, 6, palette.metal, { p: [0, 1.2, 0] }),
+    core,
+    ring,
+    ...stations,
+  ]);
   return animate(g, (t) => {
     core.rotation.y = t * 0.5;
     ring.rotation.set(Math.PI / 2 + Math.sin(t) * 0.4, t, 0);
@@ -43,7 +49,9 @@ export function exhibitExcellenceHub(): Object3D {
     octa(0.12, palette.ink, { p: [0, -0.35, 0.36] }),
   ]);
   alfredHead.position.set(0, 2.6, 0.2);
-  const books = [palette.coral, palette.sky, palette.sunshine, palette.meadow].map((c, i) => box(0.18, 0.5, 0.4, c, { p: [-1.6 + i * 0.22, 1.35, -1.0] }));
+  const books = [palette.coral, palette.sky, palette.sunshine, palette.meadow].map((c, i) =>
+    box(0.18, 0.5, 0.4, c, { p: [-1.6 + i * 0.22, 1.35, -1.0] }),
+  );
   const g = group([
     ...plinth(palette.sunshine),
     box(3.4, 1.8, 0.3, palette.cream, { p: [0, 1.5, -1.3] }),
@@ -65,8 +73,16 @@ export function exhibitExcellenceHub(): Object3D {
 export function exhibitTaPortal(): Object3D {
   const pipelineColors = [palette.sky, palette.lavender, palette.sunshine, palette.meadow];
   const stages = pipelineColors.map((c, i) => box(0.55, 0.55, 0.55, c, { p: [-1.5 + i * 1.0, 1.0, -0.9] }));
-  const doc = group([box(0.5, 0.65, 0.03, palette.white), box(0.32, 0.04, 0.01, palette.ink, { p: [0, 0.18, 0.02] }), box(0.32, 0.04, 0.01, palette.ink, { p: [0, 0.06, 0.02] }), box(0.2, 0.04, 0.01, palette.ink, { p: [-0.06, -0.06, 0.02] })]);
-  const lens = group([torus(0.28, 0.05, palette.ink, {}, Math.PI * 2, 4, 12), box(0.07, 0.4, 0.07, palette.woodDark, { p: [0.25, -0.3, 0], r: [0, 0, 0.6] })]);
+  const doc = group([
+    box(0.5, 0.65, 0.03, palette.white),
+    box(0.32, 0.04, 0.01, palette.ink, { p: [0, 0.18, 0.02] }),
+    box(0.32, 0.04, 0.01, palette.ink, { p: [0, 0.06, 0.02] }),
+    box(0.2, 0.04, 0.01, palette.ink, { p: [-0.06, -0.06, 0.02] }),
+  ]);
+  const lens = group([
+    torus(0.28, 0.05, palette.ink, {}, Math.PI * 2, 4, 12),
+    box(0.07, 0.4, 0.07, palette.woodDark, { p: [0.25, -0.3, 0], r: [0, 0, 0.6] }),
+  ]);
   const star = octa(0.22, glowMat(palette.sunshine, 1.2));
   const g = group([
     ...plinth(palette.meadow),
@@ -87,7 +103,13 @@ export function exhibitTaPortal(): Object3D {
 }
 
 function miniPerson(color: string, x: number, z: number): Object3D {
-  return group([cylinder(0.18, 0.22, 0.6, 6, color, { p: [0, 0.95, 0] }), ico(0.18, palette.skin, { p: [0, 1.42, 0] }, 1)], { p: [x, 0, z] });
+  return group(
+    [
+      cylinder(0.18, 0.22, 0.6, 6, color, { p: [0, 0.95, 0] }),
+      ico(0.18, palette.skin, { p: [0, 1.42, 0] }, 1),
+    ],
+    { p: [x, 0, z] },
+  );
 }
 
 /** Default exhibit for projects without a bespoke model. */
@@ -116,7 +138,9 @@ export function kiosk(): Object3D {
 
 export function fountain(): Object3D {
   const water = mat(palette.water, { opacity: 0.8, emissive: palette.water, emissiveIntensity: 0.2 });
-  const jets = [0, 1, 2, 3, 4, 5].map((i) => ico(0.18, water, { p: [Math.sin(i) * 0.6, 2.4, Math.cos(i) * 0.6] }));
+  const jets = [0, 1, 2, 3, 4, 5].map((i) =>
+    ico(0.18, water, { p: [Math.sin(i) * 0.6, 2.4, Math.cos(i) * 0.6] }),
+  );
   const g = group([
     cylinder(2.6, 2.8, 0.7, 10, palette.stone, { p: [0, 0.35, 0] }),
     cylinder(2.3, 2.3, 0.1, 10, water, { p: [0, 0.68, 0] }),
@@ -128,7 +152,11 @@ export function fountain(): Object3D {
     jets.forEach((j, i) => {
       const k = (t * 0.8 + i / 6) % 1;
       const a = (i / 6) * Math.PI * 2;
-      j.position.set(Math.sin(a) * (0.3 + k * 1.6), 2.4 + Math.sin(k * Math.PI) * 1.2 - k * 1.2, Math.cos(a) * (0.3 + k * 1.6));
+      j.position.set(
+        Math.sin(a) * (0.3 + k * 1.6),
+        2.4 + Math.sin(k * Math.PI) * 1.2 - k * 1.2,
+        Math.cos(a) * (0.3 + k * 1.6),
+      );
     }),
   );
 }
@@ -146,7 +174,8 @@ export function sculpture(props: ModelProps): Object3D {
   const seed = typeof props.seed === 'number' ? props.seed : 0;
   const colors = [palette.coral, palette.lavender, palette.sky, palette.sunshine];
   const c = colors[seed % colors.length] ?? palette.coral;
-  const top = seed % 2 ? octa(0.7, c, { p: [0, 2.2, 0] }) : torus(0.6, 0.2, c, { p: [0, 2.2, 0] }, Math.PI * 2, 5, 10);
+  const top =
+    seed % 2 ? octa(0.7, c, { p: [0, 2.2, 0] }) : torus(0.6, 0.2, c, { p: [0, 2.2, 0] }, Math.PI * 2, 5, 10);
   const g = group([box(0.9, 1.4, 0.9, palette.stone, { p: [0, 0.7, 0] }), top]);
   return animate(g, (t) => (top.rotation.y = t * 0.5 + seed));
 }

@@ -5,21 +5,75 @@
  *   { kind: 'gltf', url: 'models/cozy-house.glb', scale: 1 }
  * and drop the file into `public/models/`. Footprint and height stay, so collision keeps working.
  */
-import { agentWorkshop, architectureMachine, cloudGateway, dataDisplay, energyTube, governanceStation, identityGate, labSign, reactorCore } from './models/lab';
-import { bookStack, bootcampDesk, graduationMonument, pavilion, podium, qualitiesTotem, trainingBoard, university } from './models/campus';
+import {
+  agentWorkshop,
+  architectureMachine,
+  cloudGateway,
+  dataDisplay,
+  energyTube,
+  governanceStation,
+  identityGate,
+  labSign,
+  reactorCore,
+} from './models/lab';
+import {
+  bookStack,
+  bootcampDesk,
+  graduationMonument,
+  pavilion,
+  podium,
+  qualitiesTotem,
+  trainingBoard,
+  university,
+} from './models/campus';
 import { car, cityBlock, officeTower, rolePlaque, streetTree, timelineMonument } from './models/city';
 import { explorer, miniFigure, ownerAvatar, robot } from './models/characters';
 import { crystal, forestSign, glowShroom, skillTreeMonument } from './models/forest';
-import { cozyHouse, fence, footbridge, lamppost, mailbox, noticeBoard, waterfall, windmill, workstation } from './models/home';
+import {
+  cozyHouse,
+  fence,
+  footbridge,
+  lamppost,
+  mailbox,
+  noticeBoard,
+  waterfall,
+  windmill,
+  workstation,
+} from './models/home';
 import { bottle, boat, lighthouse, phoneBooth, pier, telescope, welcomeArch } from './models/horizon';
-import { bird, blossomTree, bush, cloud, flower, giantFlower, giantTree, mushroom, rock, treePine, treeRound } from './models/nature';
-import { bench, exhibitExcellenceHub, exhibitGeneric, exhibitSage, exhibitTaPortal, fountain, kiosk, sculpture } from './models/park';
+import {
+  bird,
+  blossomTree,
+  bush,
+  cloud,
+  flower,
+  giantFlower,
+  giantTree,
+  mushroom,
+  rock,
+  treePine,
+  treeRound,
+} from './models/nature';
+import {
+  bench,
+  exhibitExcellenceHub,
+  exhibitGeneric,
+  exhibitSage,
+  exhibitTaPortal,
+  fountain,
+  kiosk,
+  sculpture,
+} from './models/park';
 import { castle, flag, peakSign, trophy } from './models/peak';
 import { ideaSeed, placeholder, signpostPost } from './models/props';
 import type { Footprint, ModelEntry, ModelProps } from './types';
 import type { Object3D } from 'three';
 
-const proc = (build: (props: ModelProps) => Object3D, footprint: Footprint | null, height: number): ModelEntry => ({
+const proc = (
+  build: (props: ModelProps) => Object3D,
+  footprint: Footprint | null,
+  height: number,
+): ModelEntry => ({
   source: { kind: 'procedural', build },
   footprint,
   height,

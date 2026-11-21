@@ -44,7 +44,11 @@ export function CameraRig() {
       if (pointers.size === 2) {
         const [a, b] = [...pointers.values()];
         const d = Math.hypot(a!.x - b!.x, a!.y - b!.y);
-        view.current.targetDist = clamp(view.current.targetDist * (pinch / Math.max(1, d)), MIN_DIST, MAX_DIST);
+        view.current.targetDist = clamp(
+          view.current.targetDist * (pinch / Math.max(1, d)),
+          MIN_DIST,
+          MAX_DIST,
+        );
         pinch = d;
         return;
       }
@@ -67,7 +71,11 @@ export function CameraRig() {
     };
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      view.current.targetDist = clamp(view.current.targetDist * (1 + Math.sign(e.deltaY) * 0.1), MIN_DIST, MAX_DIST);
+      view.current.targetDist = clamp(
+        view.current.targetDist * (1 + Math.sign(e.deltaY) * 0.1),
+        MIN_DIST,
+        MAX_DIST,
+      );
     };
     el.addEventListener('pointerdown', onDown);
     window.addEventListener('pointermove', onMove);

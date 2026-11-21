@@ -38,7 +38,11 @@ export function flag(props: ModelProps): Object3D {
   const color = typeof props.color === 'string' ? props.color : palette.coral;
   const cloth = box(1.1, 0.7, 0.04, mat(color, { doubleSide: true }), { p: [0.55, 0, 0] });
   const pivot = group([cloth], { p: [0, 2.6, 0] });
-  const g = group([cylinder(0.05, 0.06, 3, 5, palette.woodDark, { p: [0, 1.5, 0] }), ico(0.1, palette.sunshine, { p: [0, 3.05, 0] }), pivot]);
+  const g = group([
+    cylinder(0.05, 0.06, 3, 5, palette.woodDark, { p: [0, 1.5, 0] }),
+    ico(0.1, palette.sunshine, { p: [0, 3.05, 0] }),
+    pivot,
+  ]);
   const seed = typeof props.seed === 'number' ? props.seed : 0;
   return animate(g, (t) => {
     pivot.rotation.y = Math.sin(t * 2 + seed) * 0.35;
@@ -72,5 +76,9 @@ export function castle(): Object3D {
 export function peakSign(): Object3D {
   const sign = signPlane('ACHIEVEMENT PEAK', 3.4, 0.8, palette.sunshine, palette.ink);
   sign.position.set(0, 2.1, 0.08);
-  return group([cylinder(0.1, 0.12, 2.7, 5, palette.woodDark, { p: [-1.6, 1.35, 0] }), cylinder(0.1, 0.12, 2.7, 5, palette.woodDark, { p: [1.6, 1.35, 0] }), sign]);
+  return group([
+    cylinder(0.1, 0.12, 2.7, 5, palette.woodDark, { p: [-1.6, 1.35, 0] }),
+    cylinder(0.1, 0.12, 2.7, 5, palette.woodDark, { p: [1.6, 1.35, 0] }),
+    sign,
+  ]);
 }

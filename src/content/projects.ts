@@ -10,7 +10,8 @@ export const projects: readonly Project[] = [
     name: 'SAGE — Sysco Agentic Ecosystem',
     shortName: 'SAGE',
     organizationId: 'sysco-labs',
-    tagline: 'The central platform for Agentic AI integrations across Sysco, supporting enterprise-wide adoption.',
+    tagline:
+      'The central platform for Agentic AI integrations across Sysco, supporting enterprise-wide adoption.',
     problem: null,
     solution:
       'A cloud-agnostic, no-code Agentic AI platform that enables the creation of RAG, API, Database, Generic, ' +
@@ -33,7 +34,16 @@ export const projects: readonly Project[] = [
       'Shapes technical direction and architecture decisions',
       'Leads integration of core platform capabilities',
     ],
-    technologies: ['python-fastapi', 'springboot', 'nodejs', 'reactjs', 'aws', 'gcp', 'mongodb', 'postgresql'],
+    technologies: [
+      'python-fastapi',
+      'springboot',
+      'nodejs',
+      'reactjs',
+      'aws',
+      'gcp',
+      'mongodb',
+      'postgresql',
+    ],
     media: [],
     demoVideoUrl: null,
     liveUrl: null,

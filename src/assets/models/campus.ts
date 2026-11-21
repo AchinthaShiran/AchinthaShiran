@@ -7,11 +7,19 @@ import { noticeBoard } from './home';
 
 /** University building (education). */
 export function university(): Object3D {
-  const columns = [-1.8, -0.6, 0.6, 1.8].map((x) => cylinder(0.22, 0.25, 2.6, 6, palette.white, { p: [x, 1.7, 2.0] }));
+  const columns = [-1.8, -0.6, 0.6, 1.8].map((x) =>
+    cylinder(0.22, 0.25, 2.6, 6, palette.white, { p: [x, 1.7, 2.0] }),
+  );
   const sign = signPlane('UNIVERSITY', 2.6, 0.5, palette.roofBlue, palette.white);
   sign.position.set(0, 3.55, 2.32);
   const clockHand = box(0.05, 0.4, 0.02, palette.ink, { p: [0, 0.15, 0] });
-  const clock = group([cylinder(0.45, 0.45, 0.08, 10, palette.cream, { r: [Math.PI / 2, 0, 0] }), group([clockHand], { p: [0, 0, 0.06] })], { p: [0, 5.6, 1.55] });
+  const clock = group(
+    [
+      cylinder(0.45, 0.45, 0.08, 10, palette.cream, { r: [Math.PI / 2, 0, 0] }),
+      group([clockHand], { p: [0, 0, 0.06] }),
+    ],
+    { p: [0, 5.6, 1.55] },
+  );
   const g = group([
     box(6.4, 0.4, 5, palette.stone, { p: [0, 0.2, 0] }),
     box(5.6, 3, 3.6, palette.cream, { p: [0, 1.9, -0.4] }),
@@ -49,7 +57,11 @@ export function graduationMonument(): Object3D {
 
 export function bookStack(): Object3D {
   const colors = [palette.coral, palette.sky, palette.sunshine, palette.lavender];
-  return group(colors.map((c, i) => box(1.0 - i * 0.08, 0.22, 0.7, c, { p: [0, 0.11 + i * 0.22, 0], r: [0, i * 0.25, 0] })));
+  return group(
+    colors.map((c, i) =>
+      box(1.0 - i * 0.08, 0.22, 0.7, c, { p: [0, 0.11 + i * 0.22, 0], r: [0, i * 0.25, 0] }),
+    ),
+  );
 }
 
 /** Learning pavilion (mentoring overview). */
@@ -96,7 +108,12 @@ export function bootcampDesk(): Object3D {
 
 /** Facilitator podium (GLO Leadership). */
 export function podium(): Object3D {
-  const globe = ico(0.35, mat(palette.sky, { emissive: palette.sky, emissiveIntensity: 0.25 }), { p: [0, 1.75, 0] }, 1);
+  const globe = ico(
+    0.35,
+    mat(palette.sky, { emissive: palette.sky, emissiveIntensity: 0.25 }),
+    { p: [0, 1.75, 0] },
+    1,
+  );
   const g = group([
     box(1.6, 0.2, 1.2, palette.stone, { p: [0, 0.1, 0] }),
     box(0.9, 1.2, 0.6, palette.lavender, { p: [0, 0.8, 0] }),
@@ -110,7 +127,11 @@ export function podium(): Object3D {
 /** Soft-skills totem: five stacked shapes, one per quality. */
 export function qualitiesTotem(): Object3D {
   const colors = [palette.coral, palette.sunshine, palette.meadow, palette.sky, palette.lavender];
-  const shapes = colors.map((c, i) => (i % 2 ? octa(0.45, c, { p: [0, 0.8 + i * 0.85, 0] }) : box(0.7, 0.7, 0.7, c, { p: [0, 0.8 + i * 0.85, 0], r: [0, i, 0] })));
+  const shapes = colors.map((c, i) =>
+    i % 2
+      ? octa(0.45, c, { p: [0, 0.8 + i * 0.85, 0] })
+      : box(0.7, 0.7, 0.7, c, { p: [0, 0.8 + i * 0.85, 0], r: [0, i, 0] }),
+  );
   const g = group([cylinder(0.8, 0.9, 0.4, 7, palette.stone, { p: [0, 0.2, 0] }), ...shapes]);
   return animate(g, (t) => shapes.forEach((s, i) => (s.rotation.y = t * (i % 2 ? 0.6 : -0.4))));
 }

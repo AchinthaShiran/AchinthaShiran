@@ -2,7 +2,8 @@
  * Merge many static meshes into one mesh per material (draw-call reduction for decor).
  * Animated objects (with userData.tick) must not be baked.
  */
-import { BufferAttribute, BufferGeometry, type Material, Mesh, type Object3D } from 'three';
+import type { BufferAttribute } from 'three';
+import { BufferGeometry, type Material, Mesh, type Object3D } from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 export function bakeStatic(root: Object3D, receiveShadow = true): Mesh[] {

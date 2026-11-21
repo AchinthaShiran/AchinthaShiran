@@ -3,15 +3,7 @@ import type { ModelProps } from '@/assets/types';
 import type { ContactKind } from '@/content';
 
 export type ZoneId =
-  | 'home'
-  | 'career'
-  | 'lab'
-  | 'park'
-  | 'forest'
-  | 'peak'
-  | 'horizon'
-  | 'education'
-  | 'mentorship';
+  'home' | 'career' | 'lab' | 'park' | 'forest' | 'peak' | 'horizon' | 'education' | 'mentorship';
 
 /** What a landmark opens. Rendered by the panel registry in `ui/panels`. */
 export type PanelRef =

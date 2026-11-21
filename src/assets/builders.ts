@@ -95,7 +95,15 @@ export const octa = (r: number, m: Mat, pl?: Place) =>
     pl,
   );
 
-export const torus = (r: number, tube: number, m: Mat, pl?: Place, arc = Math.PI * 2, radial = 6, tubular = 12) =>
+export const torus = (
+  r: number,
+  tube: number,
+  m: Mat,
+  pl?: Place,
+  arc = Math.PI * 2,
+  radial = 6,
+  tubular = 12,
+) =>
   mesh(
     cachedGeometry(
       `torus:${r}:${tube}:${arc}:${radial}:${tubular}`,
@@ -106,10 +114,21 @@ export const torus = (r: number, tube: number, m: Mat, pl?: Place, arc = Math.PI
   );
 
 /** Organic low-poly blob: icosahedron/dodecahedron with deterministic vertex jitter. */
-export function blob(r: number, m: Mat, seed: number, pl?: Place, amount = 0.22, kind: 'ico' | 'dodeca' = 'ico') {
+export function blob(
+  r: number,
+  m: Mat,
+  seed: number,
+  pl?: Place,
+  amount = 0.22,
+  kind: 'ico' | 'dodeca' = 'ico',
+) {
   const variant = seed % 6;
   const geo = cachedGeometry(`blob:${kind}:${r}:${amount}:${variant}`, () =>
-    jitter(kind === 'ico' ? new IcosahedronGeometry(r, 0) : new DodecahedronGeometry(r, 0), r * amount, variant + 1),
+    jitter(
+      kind === 'ico' ? new IcosahedronGeometry(r, 0) : new DodecahedronGeometry(r, 0),
+      r * amount,
+      variant + 1,
+    ),
   );
   return mesh(geo, m, pl);
 }

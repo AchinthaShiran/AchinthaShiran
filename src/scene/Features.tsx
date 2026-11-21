@@ -15,7 +15,10 @@ import type { ZoneFeature } from '@/world/types';
 import { onGroundClick } from './Terrain';
 
 const toRad = (d: number) => (d * Math.PI) / 180;
-const polar = (zone: ZoneRuntime, a: number, r: number) => ({ x: zone.x + Math.sin(toRad(a)) * r, z: zone.z - Math.cos(toRad(a)) * r });
+const polar = (zone: ZoneRuntime, a: number, r: number) => ({
+  x: zone.x + Math.sin(toRad(a)) * r,
+  z: zone.z - Math.cos(toRad(a)) * r,
+});
 
 type Tick = (t: number, dt: number) => void;
 
@@ -26,7 +29,10 @@ function useTick(fn: Tick) {
 }
 
 function Plaza({ zone, r, color }: { zone: ZoneRuntime; r: number; color: string }) {
-  const m = useMemo(() => cylinder(r, r, 0.06, 20, color, { p: [zone.x, zone.y + 0.015, zone.z] }), [zone, r, color]);
+  const m = useMemo(
+    () => cylinder(r, r, 0.06, 20, color, { p: [zone.x, zone.y + 0.015, zone.z] }),
+    [zone, r, color],
+  );
   return <primitive object={m} onClick={onGroundClick} />;
 }
 
@@ -40,7 +46,9 @@ function RingRoad({ zone, r, width, cars }: { zone: ZoneRuntime; r: number; widt
     const dashes = new Group();
     for (let i = 0; i < 18; i++) {
       const a = (i / 18) * Math.PI * 2;
-      dashes.add(box(0.12, 0.02, 0.5, palette.cream, { p: [Math.cos(a) * r, 0.02, Math.sin(a) * r], r: [0, -a, 0] }));
+      dashes.add(
+        box(0.12, 0.02, 0.5, palette.cream, { p: [Math.cos(a) * r, 0.02, Math.sin(a) * r], r: [0, -a, 0] }),
+      );
     }
     road.add(dashes);
     const carObjects = Array.from({ length: cars }, (_, i) => {
@@ -82,7 +90,12 @@ function River({ zone, a, r0 }: { zone: ZoneRuntime; a: number; r0: number }) {
     g.add(box(1.3, 0.05, len, water, { p: [mid.x, zone.y + 0.03, mid.z], r: [0, yaw, 0] }));
     for (const s of [-0.85, 0.85]) {
       const off = { x: Math.cos(-yaw) * s, z: Math.sin(-yaw) * s };
-      g.add(box(0.25, 0.12, len, palette.stone, { p: [mid.x + off.x, zone.y + 0.05, mid.z + off.z], r: [0, yaw, 0] }));
+      g.add(
+        box(0.25, 0.12, len, palette.stone, {
+          p: [mid.x + off.x, zone.y + 0.05, mid.z + off.z],
+          r: [0, yaw, 0],
+        }),
+      );
     }
     const fall = waterfall();
     fall.position.set(rim.x, zone.y, rim.z);
@@ -128,7 +141,10 @@ function Robots({ zone, count, r }: { zone: ZoneRuntime; count: number; r: numbe
   const bots = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => {
-        const bot = robot({ seed: i, color: [palette.metal, palette.cream, palette.lavender, palette.sky][i % 4] });
+        const bot = robot({
+          seed: i,
+          color: [palette.metal, palette.cream, palette.lavender, palette.sky][i % 4],
+        });
         const a = (i / count) * Math.PI * 2;
         bot.position.set(zone.x + Math.cos(a) * r, zone.y + 0.1, zone.z + Math.sin(a) * r);
         return bot;
@@ -165,17 +181,31 @@ function CrystalLinks({ zone }: { zone: ZoneRuntime }) {
     for (const c of crystals) byGroup.set(c.def.group!, [...(byGroup.get(c.def.group!) ?? []), c]);
     const link = (ax: number, az: number, bx: number, bz: number, color: string) => {
       const len = Math.hypot(bx - ax, bz - az);
-      g.add(box(0.22, 0.05, len, glowMat(color, 0.9), { p: [(ax + bx) / 2, zone.y + 0.06, (az + bz) / 2], r: [0, Math.atan2(bx - ax, bz - az), 0] }));
+      g.add(
+        box(0.22, 0.05, len, glowMat(color, 0.9), {
+          p: [(ax + bx) / 2, zone.y + 0.06, (az + bz) / 2],
+          r: [0, Math.atan2(bx - ax, bz - az), 0],
+        }),
+      );
     };
     for (const list of byGroup.values()) {
       const color = (list[0]?.def.props?.color as string | undefined) ?? palette.sky;
-      for (let i = 1; i < list.length; i++) link(list[i - 1]!.x, list[i - 1]!.z, list[i]!.x, list[i]!.z, color);
+      for (let i = 1; i < list.length; i++)
+        link(list[i - 1]!.x, list[i - 1]!.z, list[i]!.x, list[i]!.z, color);
       const head = list[Math.floor(list.length / 2)]!;
       const dx = zone.x - head.x;
       const dz = zone.z - head.z;
       const d = Math.hypot(dx, dz);
-      link(head.x + (dx / d) * 1.2, head.z + (dz / d) * 1.2, zone.x - (dx / d) * 3.2, zone.z - (dz / d) * 3.2, color);
-      g.add(ico(0.2, glowMat(color, 1), { p: [zone.x - (dx / d) * 3.2, zone.y + 0.2, zone.z - (dz / d) * 3.2] }));
+      link(
+        head.x + (dx / d) * 1.2,
+        head.z + (dz / d) * 1.2,
+        zone.x - (dx / d) * 3.2,
+        zone.z - (dz / d) * 3.2,
+        color,
+      );
+      g.add(
+        ico(0.2, glowMat(color, 1), { p: [zone.x - (dx / d) * 3.2, zone.y + 0.2, zone.z - (dz / d) * 3.2] }),
+      );
     }
     g.traverse((o) => (o.castShadow = false));
     return g;

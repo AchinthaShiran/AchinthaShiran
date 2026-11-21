@@ -62,7 +62,10 @@ export function giantTree(): Object3D {
   const leafC = mat(palette.lavender, { sway: 0.08 });
   const fruit = mat(palette.sunshine, { emissive: palette.sunshine, emissiveIntensity: 0.35 });
   const roots = [0, 1, 2, 3, 4].map((i) =>
-    box(0.5, 0.5, 1.8, bark, { p: [Math.sin(i * 1.26) * 1.1, 0.2, Math.cos(i * 1.26) * 1.1], r: [0.2, i * 1.26, 0] }),
+    box(0.5, 0.5, 1.8, bark, {
+      p: [Math.sin(i * 1.26) * 1.1, 0.2, Math.cos(i * 1.26) * 1.1],
+      r: [0.2, i * 1.26, 0],
+    }),
   );
   const fruits = [0, 1, 2, 3, 4, 5].map((i) =>
     ico(0.22, fruit, { p: [Math.sin(i * 1.05) * 2.6, 5.4 + (i % 3) * 0.6, Math.cos(i * 1.05) * 2.6] }),
@@ -120,7 +123,14 @@ export function rock(props: ModelProps): Object3D {
   const s = num(props.scale, 1);
   return group(
     [
-      blob(0.7, seed % 2 ? palette.rock : palette.stone, seed, { p: [0, 0.35, 0], s: [1, 0.7, 1] }, 0.3, 'dodeca'),
+      blob(
+        0.7,
+        seed % 2 ? palette.rock : palette.stone,
+        seed,
+        { p: [0, 0.35, 0], s: [1, 0.7, 1] },
+        0.3,
+        'dodeca',
+      ),
       blob(0.35, palette.rockDark, seed + 2, { p: [0.6, 0.15, 0.2] }, 0.3, 'dodeca'),
     ],
     { s },

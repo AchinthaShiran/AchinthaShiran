@@ -33,17 +33,32 @@ function islandBody(zone: ZoneRuntime): Group {
   top.receiveShadow = true;
   const rim = new Mesh(jitter(new CylinderGeometry(r * 0.99, r * 0.9, 1.4, seg), 0.35, seed), mat(pal.rim));
   rim.position.y = -1.6;
-  const underside = new Mesh(jitter(new ConeGeometry(r * 0.92, r * 0.85, seg, 3), r * 0.08, seed + 1), mat(pal.rock));
+  const underside = new Mesh(
+    jitter(new ConeGeometry(r * 0.92, r * 0.85, seg, 3), r * 0.08, seed + 1),
+    mat(pal.rock),
+  );
   underside.rotation.x = Math.PI;
   underside.position.y = -2.3 - (r * 0.85) / 2;
-  const deep = new Mesh(jitter(new ConeGeometry(r * 0.45, r * 0.6, 7, 2), r * 0.06, seed + 2), mat(palette.rockDark));
+  const deep = new Mesh(
+    jitter(new ConeGeometry(r * 0.45, r * 0.6, 7, 2), r * 0.06, seed + 2),
+    mat(palette.rockDark),
+  );
   deep.rotation.x = Math.PI;
   deep.position.set(r * 0.12, -2.3 - r * 0.85 - r * 0.15, -r * 0.08);
   g.add(top, rim, underside, deep);
   for (let i = 0; i < Math.round(r / 4); i++) {
     const a = rng() * Math.PI * 2;
     const d = r * (0.3 + rng() * 0.5);
-    g.add(blob(1 + rng() * 1.6, pal.rock, Math.floor(rng() * 100), { p: [Math.cos(a) * d, -3 - rng() * r * 0.5, Math.sin(a) * d] }, 0.3, 'dodeca'));
+    g.add(
+      blob(
+        1 + rng() * 1.6,
+        pal.rock,
+        Math.floor(rng() * 100),
+        { p: [Math.cos(a) * d, -3 - rng() * r * 0.5, Math.sin(a) * d] },
+        0.3,
+        'dodeca',
+      ),
+    );
   }
   g.traverse((o) => {
     if (o instanceof Mesh) o.castShadow = false;
@@ -63,11 +78,21 @@ function Tiers() {
       const zone = world.zone(t.zoneId);
       const h = t.y - t.baseY;
       const seg = Math.max(12, Math.round(t.radius * 1.3));
-      const cliff = new Mesh(jitter(new CylinderGeometry(t.radius, t.radius + 0.4, h, seg, 2), 0.25, hashString(`${t.zoneId}${t.y}`)), mat(zone.def.palette.rock));
+      const cliff = new Mesh(
+        jitter(
+          new CylinderGeometry(t.radius, t.radius + 0.4, h, seg, 2),
+          0.25,
+          hashString(`${t.zoneId}${t.y}`),
+        ),
+        mat(zone.def.palette.rock),
+      );
       cliff.position.set(t.x, t.baseY + h / 2 - 0.15, t.z);
       cliff.castShadow = true;
       cliff.receiveShadow = true;
-      const cap = new Mesh(new CylinderGeometry(t.radius + 0.1, t.radius + 0.1, 0.4, seg), mat(zone.def.palette.top));
+      const cap = new Mesh(
+        new CylinderGeometry(t.radius + 0.1, t.radius + 0.1, 0.4, seg),
+        mat(zone.def.palette.top),
+      );
       cap.position.set(t.x, t.y - 0.2, t.z);
       cap.receiveShadow = true;
       g.add(cliff, cap);
@@ -152,7 +177,12 @@ function Bridges() {
       // Lanterns at both ends help the routes read at a distance.
       for (const t of [0, 1]) {
         for (const side of [-1.6, 1.6]) {
-          const lantern = box(0.3, 0.35, 0.3, mat(palette.glow, { emissive: palette.glow, emissiveIntensity: 0.9 }));
+          const lantern = box(
+            0.3,
+            0.35,
+            0.3,
+            mat(palette.glow, { emissive: palette.glow, emissiveIntensity: 0.9 }),
+          );
           orientAlong(lantern, b, t);
           lantern.translateX(side);
           lantern.translateY(1.3);

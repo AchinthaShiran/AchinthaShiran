@@ -41,7 +41,13 @@ export function Player() {
 
     // 1. Teleport requests (travel / respawn)
     if (teleport.target) {
-      Object.assign(player, { x: teleport.target.x, y: teleport.target.y, z: teleport.target.z, vy: 0, yaw: teleport.yaw });
+      Object.assign(player, {
+        x: teleport.target.x,
+        y: teleport.target.y,
+        z: teleport.target.z,
+        vy: 0,
+        yaw: teleport.yaw,
+      });
       camera.yaw = teleport.yaw + Math.PI;
       vel.current.x = vel.current.z = 0;
       teleport.target = null;
@@ -157,7 +163,10 @@ export function Player() {
     parts.legR.rotation.x = airborne ? 0.3 : -swing;
     parts.armL.rotation.x = airborne ? -2.4 : -swing * 0.9;
     parts.armR.rotation.x = airborne ? -2.4 : swing * 0.9;
-    parts.body.position.y = player.speed > 0.2 ? Math.abs(Math.sin(anim.current.phase)) * 0.06 : Math.sin(state.clock.elapsedTime * 2) * 0.015;
+    parts.body.position.y =
+      player.speed > 0.2
+        ? Math.abs(Math.sin(anim.current.phase)) * 0.06
+        : Math.sin(state.clock.elapsedTime * 2) * 0.015;
     parts.body.rotation.x = sp * 0.12;
     if (player.grounded && player.speed > 1) {
       anim.current.stepTimer -= dt;
@@ -192,7 +201,7 @@ export function Player() {
     if (best !== ui.nearbyId) {
       if (best) playSfx('nearby');
       ui.setNearby(best);
-      const group = best ? world.landmark(best)?.def.group ?? null : null;
+      const group = best ? (world.landmark(best)?.def.group ?? null) : null;
       if (group || !ui.panels.length) ui.setHighlightGroup(group);
     }
 
@@ -202,7 +211,9 @@ export function Player() {
       if (Math.hypot(seed.x - player.x, seed.z - player.z) < 1.4 && Math.abs(seed.y - player.y) < 2) {
         progress.collectSeed(seed.id);
         playSfx('collect');
-        ui.showToast(`Idea Seed found: ${getSeed(seed.id)?.title ?? 'Discovery'} (${progress.seeds.length + 1}/${world.seeds.length})`);
+        ui.showToast(
+          `Idea Seed found: ${getSeed(seed.id)?.title ?? 'Discovery'} (${progress.seeds.length + 1}/${world.seeds.length})`,
+        );
         ui.openPanel({ kind: 'seed', id: seed.id });
       }
     }
@@ -211,7 +222,11 @@ export function Player() {
     if (dest) {
       const nodeId = world.targetNode(dest);
       const node = nodeId ? world.nav.getNode(nodeId) : undefined;
-      if (node && Math.hypot(node.x - player.x, node.z - player.z) < 2.5 && Math.abs(node.y - player.y) < 1.5) {
+      if (
+        node &&
+        Math.hypot(node.x - player.x, node.z - player.z) < 2.5 &&
+        Math.abs(node.y - player.y) < 1.5
+      ) {
         ui.setDestination(null);
         ui.showToast(`You've arrived at ${dest.label}`);
         playSfx('collect');

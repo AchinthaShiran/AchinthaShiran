@@ -86,7 +86,11 @@ export function mailbox(): Object3D {
   const g = group([
     box(0.12, 1.1, 0.12, palette.woodDark, { p: [0, 0.55, 0] }),
     box(0.45, 0.4, 0.65, palette.roofBlue, { p: [0, 1.25, 0] }),
-    cylinder(0.225, 0.225, 0.65, 8, palette.roofBlue, { p: [0, 1.45, 0], r: [Math.PI / 2, 0, 0], s: [1, 1, 0.6] }),
+    cylinder(0.225, 0.225, 0.65, 8, palette.roofBlue, {
+      p: [0, 1.45, 0],
+      r: [Math.PI / 2, 0, 0],
+      s: [1, 1, 0.6],
+    }),
     box(0.36, 0.3, 0.02, palette.ink, { p: [0, 1.25, 0.33] }),
     box(0.2, 0.06, 0.02, palette.cream, { p: [0, 1.3, 0.34] }),
     flagPivot,
@@ -110,7 +114,9 @@ export function footbridge(): Object3D {
 export function waterfall(): Object3D {
   const water = mat(palette.water, { opacity: 0.75, emissive: palette.water, emissiveIntensity: 0.2 });
   const foam = mat(palette.white, { opacity: 0.85 });
-  const sheets = [0, 1, 2].map((i) => box(1.8 - i * 0.3, 7, 0.2, water, { p: [0, -3.5 - i * 0.4, 0.3 + i * 0.25] }));
+  const sheets = [0, 1, 2].map((i) =>
+    box(1.8 - i * 0.3, 7, 0.2, water, { p: [0, -3.5 - i * 0.4, 0.3 + i * 0.25] }),
+  );
   const drops = [0, 1, 2, 3, 4].map((i) => ico(0.25, foam, { p: [(i - 2) * 0.4, -1, 0.5] }));
   const g = group([...sheets, ...drops, ico(0.5, foam, { p: [0, 0, 0.1], s: [2, 0.5, 1] })]);
   g.traverse((o) => (o.castShadow = false));
@@ -127,7 +133,10 @@ export function waterfall(): Object3D {
 export function windmill(): Object3D {
   const blades = group(
     [0, 1, 2, 3].map((i) =>
-      box(0.35, 2.4, 0.06, palette.cream, { p: [Math.sin((i * Math.PI) / 2) * 1.2, Math.cos((i * Math.PI) / 2) * 1.2, 0], r: [0, 0, (-i * Math.PI) / 2] }),
+      box(0.35, 2.4, 0.06, palette.cream, {
+        p: [Math.sin((i * Math.PI) / 2) * 1.2, Math.cos((i * Math.PI) / 2) * 1.2, 0],
+        r: [0, 0, (-i * Math.PI) / 2],
+      }),
     ),
     { p: [0, 4.6, 0.85] },
   );

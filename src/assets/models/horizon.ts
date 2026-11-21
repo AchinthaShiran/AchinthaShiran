@@ -6,8 +6,13 @@ import { signPlane } from './city';
 
 /** Lighthouse (LinkedIn): rotating beacon. */
 export function lighthouse(): Object3D {
-  const stripes = [0, 1, 2].map((i) => cylinder(1.12 - i * 0.18, 1.2 - i * 0.18, 0.7, 8, palette.roof, { p: [0, 1.3 + i * 2.0, 0] }));
-  const beam = cone(0.9, 6, 6, glowMat(palette.glow, 1, { opacity: 0.35 }), { p: [3, 0, 0], r: [0, 0, Math.PI / 2] });
+  const stripes = [0, 1, 2].map((i) =>
+    cylinder(1.12 - i * 0.18, 1.2 - i * 0.18, 0.7, 8, palette.roof, { p: [0, 1.3 + i * 2.0, 0] }),
+  );
+  const beam = cone(0.9, 6, 6, glowMat(palette.glow, 1, { opacity: 0.35 }), {
+    p: [3, 0, 0],
+    r: [0, 0, Math.PI / 2],
+  });
   beam.castShadow = false;
   const beamPivot = group([beam], { p: [0, 7.4, 0] });
   const g = group([
@@ -34,7 +39,11 @@ export function bottle(): Object3D {
   ]);
   b.position.set(0, 0.6, 0);
   b.rotation.z = 1.2;
-  const g = group([cylinder(1.2, 1.4, 0.2, 9, palette.sand, { p: [0, 0.1, 0] }), ico(0.25, palette.coral, { p: [0.8, 0.25, 0.3] }), b]);
+  const g = group([
+    cylinder(1.2, 1.4, 0.2, 9, palette.sand, { p: [0, 0.1, 0] }),
+    ico(0.25, palette.coral, { p: [0.8, 0.25, 0.3] }),
+    b,
+  ]);
   return animate(g, (t) => {
     b.position.y = 0.6 + Math.sin(t * 2) * 0.08;
     b.rotation.x = Math.sin(t * 1.5) * 0.15;
@@ -58,7 +67,13 @@ export function phoneBooth(): Object3D {
 
 /** Telescope (other profiles). */
 export function telescope(): Object3D {
-  const tube = group([cylinder(0.18, 0.26, 1.6, 8, palette.roofBlue, { r: [Math.PI / 2, 0, 0] }), cylinder(0.27, 0.27, 0.1, 8, palette.sunshine, { p: [0, 0, 0.8], r: [Math.PI / 2, 0, 0] })], { p: [0, 1.5, 0], r: [-0.35, 0, 0] });
+  const tube = group(
+    [
+      cylinder(0.18, 0.26, 1.6, 8, palette.roofBlue, { r: [Math.PI / 2, 0, 0] }),
+      cylinder(0.27, 0.27, 0.1, 8, palette.sunshine, { p: [0, 0, 0.8], r: [Math.PI / 2, 0, 0] }),
+    ],
+    { p: [0, 1.5, 0], r: [-0.35, 0, 0] },
+  );
   const g = group([
     cylinder(0.04, 0.04, 1.4, 4, palette.ink, { p: [0.3, 0.7, -0.2], r: [0.2, 0, -0.2] }),
     cylinder(0.04, 0.04, 1.4, 4, palette.ink, { p: [-0.3, 0.7, -0.2], r: [0.2, 0, 0.2] }),
@@ -69,16 +84,28 @@ export function telescope(): Object3D {
 }
 
 export function pier(): Object3D {
-  const planks = Array.from({ length: 9 }, (_, i) => box(2.4, 0.15, 0.7, i % 2 ? palette.wood : '#C99467', { p: [0, 0, i * 0.75] }));
-  const posts = [0, 3, 6].flatMap((i) => [cylinder(0.12, 0.12, 2.2, 5, palette.woodDark, { p: [-1.1, -0.9, i * 0.75 + 0.3] }), cylinder(0.12, 0.12, 2.2, 5, palette.woodDark, { p: [1.1, -0.9, i * 0.75 + 0.3] })]);
+  const planks = Array.from({ length: 9 }, (_, i) =>
+    box(2.4, 0.15, 0.7, i % 2 ? palette.wood : '#C99467', { p: [0, 0, i * 0.75] }),
+  );
+  const posts = [0, 3, 6].flatMap((i) => [
+    cylinder(0.12, 0.12, 2.2, 5, palette.woodDark, { p: [-1.1, -0.9, i * 0.75 + 0.3] }),
+    cylinder(0.12, 0.12, 2.2, 5, palette.woodDark, { p: [1.1, -0.9, i * 0.75 + 0.3] }),
+  ]);
   return group([...planks, ...posts]);
 }
 
 export function boat(): Object3D {
-  const sail = cone(1.0, 2.2, 3, mat(palette.cream, { doubleSide: true }), { p: [0, 1.9, 0], s: [0.1, 1, 1] });
+  const sail = cone(1.0, 2.2, 3, mat(palette.cream, { doubleSide: true }), {
+    p: [0, 1.9, 0],
+    s: [0.1, 1, 1],
+  });
   const g = group([
     box(1.2, 0.5, 2.6, palette.wood, { p: [0, 0.25, 0] }),
-    cone(0.6, 0.8, 4, palette.wood, { p: [0, 0.25, 1.6], r: [Math.PI / 2, Math.PI / 4, 0], s: [1.4, 1, 0.6] }),
+    cone(0.6, 0.8, 4, palette.wood, {
+      p: [0, 0.25, 1.6],
+      r: [Math.PI / 2, Math.PI / 4, 0],
+      s: [1.4, 1, 0.6],
+    }),
     box(1.0, 0.1, 2.2, palette.woodDark, { p: [0, 0.52, 0] }),
     cylinder(0.05, 0.05, 2.6, 4, palette.woodDark, { p: [0, 1.6, 0] }),
     sail,

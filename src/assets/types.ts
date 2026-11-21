@@ -4,7 +4,9 @@ import type { Object3D } from 'three';
 export type ModelProps = Readonly<Record<string, string | number | boolean | readonly string[] | undefined>>;
 
 /** Collision footprint in the model's local space (ADR-002). */
-export type Footprint = { readonly kind: 'circle'; readonly r: number } | { readonly kind: 'box'; readonly w: number; readonly d: number };
+export type Footprint =
+  | { readonly kind: 'circle'; readonly r: number }
+  | { readonly kind: 'box'; readonly w: number; readonly d: number };
 
 export type ModelSource =
   | { readonly kind: 'procedural'; readonly build: (props: ModelProps) => Object3D }

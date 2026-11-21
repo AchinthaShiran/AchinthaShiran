@@ -63,7 +63,10 @@ describe('world layout', () => {
 
   it('keeps every nav edge walkable', () => {
     const bad = world.navEdges.filter(
-      (e) => !e.a.id.startsWith('bridge-') && !e.a.id.includes(':ramp') && !segmentWalkable(world.collision, e.a, e.b),
+      (e) =>
+        !e.a.id.startsWith('bridge-') &&
+        !e.a.id.includes(':ramp') &&
+        !segmentWalkable(world.collision, e.a, e.b),
     );
     expect(bad.map((e) => `${e.a.id} → ${e.b.id}`)).toEqual([]);
   });
@@ -106,7 +109,8 @@ describe('world layout', () => {
         const a = solid[i]!;
         const b = solid[j]!;
         if (a.zoneId !== b.zoneId || Math.abs(a.y - b.y) > 0.5) continue;
-        if (Math.hypot(a.x - b.x, a.z - b.z) < radius(a.id) + radius(b.id)) overlaps.push(`${a.id} × ${b.id}`);
+        if (Math.hypot(a.x - b.x, a.z - b.z) < radius(a.id) + radius(b.id))
+          overlaps.push(`${a.id} × ${b.id}`);
       }
     expect(overlaps).toEqual([]);
   });
