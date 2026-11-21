@@ -1,4 +1,4 @@
-import { type Group, type Object3D } from 'three';
+import { type Group, type Object3D, Vector3 } from 'three';
 import { animate, box, cone, cylinder, group, ico } from '../builders';
 import { glowMat } from '../materials';
 import { palette } from '../palette';
@@ -88,28 +88,89 @@ export function explorer(): Object3D {
   return buildCharacter(EXPLORER_COLORS, [pack, hat]).root;
 }
 
-/** Achintha's avatar on Home Island: waves gently at visitors. */
+/** Colours taken from the owner's reference portrait: brown spiky hair, white shirt, jeans, navy backpack. */
+const OWNER = {
+  skin: '#E9B991',
+  hair: '#8A5A3A',
+  shirt: '#F6F4EE',
+  jeans: '#4F79B8',
+  belt: '#6B4423',
+  shoes: '#4A3426',
+  pack: '#2B3A67',
+  packDark: '#202C50',
+  silver: '#C9CED6',
+} as const;
+
+/**
+ * Achintha's avatar on Home Island, styled after the owner's reference portrait: spiky brown hair, a slight
+ * smirk, a white button shirt with rolled sleeves, blue jeans with a brown belt, a navy backpack, arms crossed.
+ */
 export function ownerAvatar(): Object3D {
-  const laptop = box(0.36, 0.03, 0.26, palette.metal, { p: [0, 0, 0] });
-  const parts = buildCharacter({
-    skin: '#D9A27E',
-    shirt: palette.lavender,
-    pants: '#3E4766',
-    hair: palette.hair,
-    shoes: '#2E2A3A',
-    accent: palette.ink,
-  });
-  const glasses = group([
-    box(0.12, 0.08, 0.02, palette.ink, { p: [-0.09, 0, 0.27] }),
-    box(0.12, 0.08, 0.02, palette.ink, { p: [0.09, 0, 0.27] }),
+  const c = OWNER;
+  const backpack = group(
+    [
+      box(0.46, 0.6, 0.24, c.pack),
+      box(0.34, 0.26, 0.1, c.packDark, { p: [0, -0.12, -0.15] }),
+      box(0.1, 0.1, 0.08, c.packDark, { p: [0, 0.34, 0] }),
+    ],
+    { p: [0, 1.18, -0.4] },
+  );
+  const straps = [-1, 1].flatMap((side) => [
+    box(0.08, 0.05, 0.5, c.pack, { p: [side * 0.2, 1.44, -0.12] }),
+    box(0.08, 0.46, 0.04, c.pack, { p: [side * 0.2, 1.2, 0.27] }),
   ]);
-  parts.head.add(glasses);
-  parts.armL.add(laptop);
-  laptop.position.set(0, -0.55, 0.12);
+  const shirtDetails = [
+    box(0.13, 0.12, 0.05, c.shirt, { p: [-0.1, 1.5, 0.24], r: [0, 0, 0.55] }),
+    box(0.13, 0.12, 0.05, c.shirt, { p: [0.1, 1.5, 0.24], r: [0, 0, -0.55] }),
+    box(0.1, 0.14, 0.02, c.skin, { p: [0, 1.47, 0.27] }),
+    ...[1.3, 1.18, 1.06].map((y) => ico(0.025, '#D8D2C4', { p: [0, y, 0.285] })),
+    box(0.1, 0.08, 0.02, c.silver, { p: [0, 0.86, 0.265] }),
+  ];
+
+  const parts = buildCharacter(
+    { skin: c.skin, shirt: c.shirt, pants: c.jeans, hair: c.hair, shoes: c.shoes, accent: c.belt },
+    [backpack, ...straps, ...shirtDetails],
+  );
+
+  // Spiky hair, eyebrows and a smirk.
+  [-0.16, -0.08, 0, 0.08, 0.16].forEach((x, i) =>
+    parts.head.add(
+      cone(0.07, 0.2 + (i % 2) * 0.06, 4, c.hair, {
+        p: [x, 0.3, 0.04 + (i % 2) * 0.03],
+        r: [0.3, 0, -x * 2.2],
+      }),
+    ),
+  );
+  parts.head.add(
+    box(0.1, 0.025, 0.02, c.hair, { p: [-0.09, 0.1, 0.25], r: [0, 0, 0.14] }),
+    box(0.1, 0.025, 0.02, c.hair, { p: [0.09, 0.1, 0.25], r: [0, 0, -0.14] }),
+  );
+  const mouth = parts.head.children[4];
+  if (mouth) {
+    mouth.position.x = 0.03;
+    mouth.rotation.z = 0.22;
+    mouth.scale.x = 1.4;
+  }
+
+  // Rolled sleeves: skin-toned forearms below a white cuff.
+  for (const arm of [parts.armL, parts.armR]) {
+    arm.add(
+      box(0.17, 0.24, 0.19, c.skin, { p: [0, -0.42, 0] }),
+      box(0.18, 0.05, 0.2, c.shirt, { p: [0, -0.29, 0] }),
+    );
+  }
+  // Arms crossed over the chest (left arm in front).
+  const down = new Vector3(0, -1, 0);
+  parts.armL.quaternion.setFromUnitVectors(down, new Vector3(0.78, -0.12, 0.62).normalize());
+  parts.armR.quaternion.setFromUnitVectors(down, new Vector3(-0.78, -0.12, 0.62).normalize());
+  parts.armL.position.z = 0.1;
+  parts.armR.position.set(parts.armR.position.x, parts.armR.position.y - 0.1, -0.02);
+
+  parts.root.scale.setScalar(1.05);
   return animate(parts.root, (t) => {
-    parts.armR.rotation.z = 2.5 + Math.sin(t * 5) * 0.35;
-    parts.body.position.y = Math.sin(t * 2) * 0.02;
-    parts.head.rotation.y = Math.sin(t * 0.8) * 0.25;
+    parts.body.position.y = Math.sin(t * 2) * 0.015;
+    parts.head.rotation.y = Math.sin(t * 0.7) * 0.18;
+    parts.head.rotation.x = Math.sin(t * 0.5) * 0.03;
   });
 }
 
