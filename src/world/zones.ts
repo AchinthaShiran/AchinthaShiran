@@ -155,13 +155,13 @@ const career: ZoneDef = {
     },
     { id: 'career-block-1', name: 'Office', model: 'cityBlock', props: { seed: 1 }, at: { a: 60, r: 15 } },
     { id: 'career-block-2', name: 'Office', model: 'cityBlock', props: { seed: 2 }, at: { a: 92, r: 15.5 } },
-    { id: 'career-block-3', name: 'Office', model: 'cityBlock', props: { seed: 3 }, at: { a: 232, r: 15 } },
-    { id: 'career-block-4', name: 'Office', model: 'cityBlock', props: { seed: 4 }, at: { a: 258, r: 16 } },
+    { id: 'career-block-3', name: 'Office', model: 'cityBlock', props: { seed: 3 }, at: { a: 210, r: 15 } },
+    { id: 'career-block-4', name: 'Office', model: 'cityBlock', props: { seed: 4 }, at: { a: 268, r: 16 } },
     { id: 'career-lamp-1', name: 'Lamp', model: 'lamppost', at: { a: 20, r: 9.6 } },
     { id: 'career-lamp-2', name: 'Lamp', model: 'lamppost', at: { a: 70, r: 9.6 } },
     { id: 'career-lamp-3', name: 'Lamp', model: 'lamppost', at: { a: 225, r: 9.6 } },
     { id: 'career-street-tree-1', name: 'Tree', model: 'streetTree', at: { a: 112, r: 16 } },
-    { id: 'career-street-tree-2', name: 'Tree', model: 'streetTree', at: { a: 205, r: 16 } },
+    { id: 'career-street-tree-2', name: 'Tree', model: 'streetTree', at: { a: 160, r: 16 } },
   ],
   seeds: [{ id: 'seed-summit', at: { a: 200, r: 12.5 } }],
   overviewPanel: { kind: 'career-timeline' },
@@ -216,7 +216,7 @@ const lab: ZoneDef = {
       id: 'lab-architecture',
       name: 'Architecture Machine',
       model: 'architectureMachine',
-      at: { a: 232, r: 13.5 },
+      at: { a: 218, r: 13.5 },
       panel: { kind: 'sage', id: 'architecture' },
       hint: 'Explore architecture',
     },
@@ -224,7 +224,7 @@ const lab: ZoneDef = {
       id: 'lab-identity',
       name: 'Identity Gate',
       model: 'identityGate',
-      at: { a: 275, r: 13.5 },
+      at: { a: 252, r: 13.5 },
       panel: { kind: 'sage', id: 'identity' },
       hint: 'Explore identity & access',
     },
@@ -232,30 +232,32 @@ const lab: ZoneDef = {
       id: 'lab-cloud',
       name: 'Cloud-Agnostic Gateway',
       model: 'cloudGateway',
-      at: { a: 318, r: 13.5 },
+      at: { a: 332, r: 13.5 },
       panel: { kind: 'sage', id: 'cloud' },
       hint: 'Explore cloud approach',
     },
     { id: 'lab-sign', name: 'Innovation Lab', model: 'labSign', at: { a: 58, r: 15 } },
     { id: 'lab-display-1', name: 'Data Display', model: 'dataDisplay', at: { a: 100, r: 17.5 } },
-    { id: 'lab-display-2', name: 'Data Display', model: 'dataDisplay', at: { a: 296, r: 17.5 } },
+    { id: 'lab-display-2', name: 'Data Display', model: 'dataDisplay', at: { a: 275, r: 17.5 } },
     { id: 'lab-tube-1', name: 'Energy Tube', model: 'energyTube', at: { a: 136, r: 17 } },
-    { id: 'lab-tube-2', name: 'Energy Tube', model: 'energyTube', at: { a: 250, r: 16.5 } },
-    { id: 'lab-tube-3', name: 'Energy Tube', model: 'energyTube', at: { a: 345, r: 16.5 } },
+    { id: 'lab-tube-2', name: 'Energy Tube', model: 'energyTube', at: { a: 236, r: 17 } },
+    { id: 'lab-tube-3', name: 'Energy Tube', model: 'energyTube', at: { a: 348, r: 17.5 } },
   ],
   seeds: [{ id: 'seed-agents', at: { a: 30, r: 16 } }],
   overviewPanel: { kind: 'sage', id: 'core' },
   primaryLandmark: 'lab-core',
+  projects: ['sage'],
 };
 
 const park: ZoneDef = {
   id: 'park',
   name: 'Project Park',
   section: 'Key Projects',
-  description: 'Exhibits for SAGE, Excellence Hub and TA Portal.',
+  description:
+    'Every project in one place: exhibits for the Sysco LABS work, and a gateway to each personal project island.',
   kind: 'island',
-  center: [64, 8],
-  elevation: 1,
+  center: [-112, -20],
+  elevation: 1.6,
   radius: 22,
   palette: { top: '#9BDB8E', rim: '#7CC872', rock: '#A4929E', accent: palette.coral },
   glyph: '★',
@@ -270,8 +272,8 @@ const park: ZoneDef = {
       id: 'park-kiosk',
       name: 'Park Directory',
       model: 'kiosk',
-      at: { a: 318, r: 12 },
-      panel: { kind: 'projects', category: 'corporate' },
+      at: { a: 345, r: 12 },
+      panel: { kind: 'projects' },
       hint: 'Browse all projects',
     },
     {
@@ -279,7 +281,7 @@ const park: ZoneDef = {
       name: 'Sculpture',
       model: 'sculpture',
       props: { seed: 1 },
-      at: { a: 300, r: 18 },
+      at: { a: 185, r: 18 },
     },
     {
       id: 'park-sculpture-2',
@@ -288,11 +290,11 @@ const park: ZoneDef = {
       props: { seed: 2 },
       at: { a: 22, r: 18 },
     },
-    { id: 'park-bench-1', name: 'Bench', model: 'bench', at: { a: 107, r: 10 } },
-    { id: 'park-bench-2', name: 'Bench', model: 'bench', at: { a: 215, r: 10 } },
+    { id: 'park-bench-1', name: 'Bench', model: 'bench', at: { a: 235, r: 8.8 } },
+    { id: 'park-bench-2', name: 'Bench', model: 'bench', at: { a: 290, r: 8.8 } },
   ],
-  seeds: [{ id: 'seed-alfred', at: { a: 250, r: 18 } }],
-  overviewPanel: { kind: 'projects', category: 'corporate' },
+  seeds: [{ id: 'seed-alfred', at: { a: 330, r: 18 } }],
+  overviewPanel: { kind: 'projects' },
   primaryLandmark: 'park-kiosk',
 };
 
@@ -639,12 +641,13 @@ const tala: ZoneDef = {
       name: 'Tala Workshop',
       model: 'islandSign',
       props: { label: 'TALA WORKSHOP', color: '#7FE7D9' },
-      at: { a: 335, r: 14.5 },
+      at: { a: 120, r: 14.5 },
     },
   ],
   seeds: [{ id: 'seed-tala', at: { a: 220, r: 15.5 } }],
   overviewPanel: { kind: 'project', id: 'tala' },
   primaryLandmark: 'tala-terminal',
+  projects: ['tala'],
 };
 
 const skillup: ZoneDef = {
@@ -724,6 +727,7 @@ const skillup: ZoneDef = {
   seeds: [{ id: 'seed-skillup', at: { a: 210, r: 14.5 } }],
   overviewPanel: { kind: 'project', id: 'skill-up' },
   primaryLandmark: 'skillup-hall',
+  projects: ['skill-up'],
 };
 
 const myspend: ZoneDef = {
@@ -819,6 +823,7 @@ const myspend: ZoneDef = {
   seeds: [{ id: 'seed-myspend', at: { a: 108, r: 14.4 } }],
   overviewPanel: { kind: 'project', id: 'myspend' },
   primaryLandmark: 'myspend-piggy',
+  projects: ['myspend'],
 };
 
 const unity: ZoneDef = {
@@ -903,6 +908,7 @@ const unity: ZoneDef = {
   seeds: [{ id: 'seed-openai-unity', at: { a: 70, r: 14.5 } }],
   overviewPanel: { kind: 'project', id: 'openai-unity' },
   primaryLandmark: 'unity-package',
+  projects: ['openai-unity'],
 };
 
 export const zones: readonly ZoneDef[] = [
@@ -928,15 +934,16 @@ export const zoneLinks: readonly ZoneLink[] = [
   { a: 'mentorship', b: 'forest' },
   { a: 'home', b: 'peak' },
   { a: 'home', b: 'lab' },
-  { a: 'home', b: 'park' },
   { a: 'home', b: 'horizon' },
   { a: 'lab', b: 'career' },
-  { a: 'park', b: 'forest' },
+  // Sysco LABS district: SAGE (Innovation Lab) belongs to Sysco LABS (Career City) and is a project (Project Park)
+  { a: 'lab', b: 'park' },
+  { a: 'career', b: 'park' },
+  { a: 'park', b: 'tala' },
   // Makers' Row: a southern arc of personal project islands
   { a: 'lab', b: 'tala' },
   { a: 'tala', b: 'skillup' },
   { a: 'skillup', b: 'horizon' },
   { a: 'horizon', b: 'unity' },
   { a: 'unity', b: 'myspend' },
-  { a: 'myspend', b: 'park' },
 ];

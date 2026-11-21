@@ -95,25 +95,40 @@ export const sections: readonly Section[] = [
   },
 ];
 
+/** Where a project lives in the world: the island that explains it, and the landmark to guide visitors to. */
+export interface ProjectIsland {
+  readonly zoneId: ZoneId;
+  readonly landmarkId: string;
+}
+
 /**
- * One entry per personal project (ADR-005), derived from content + zone config: the island landmark that
- * opens the project. Projects without an island landmark are skipped here and flagged by the world tests.
+ * Island for each project, from `ZoneDef.projects` (ADR-005). Project panels use it to offer "Guide me" and
+ * "Travel". Corporate projects without an island (Excellence Hub, TA Portal) simply have no entry.
+ */
+export const projectIslands: ReadonlyMap<string, ProjectIsland> = new Map(
+  zones.flatMap((zone) =>
+    (zone.projects ?? []).map((id): [string, ProjectIsland] => [
+      id,
+      { zoneId: zone.id, landmarkId: zone.primaryLandmark },
+    ]),
+  ),
+);
+
+/**
+ * One entry per personal project, derived from content + zone config. Projects without an island are skipped
+ * here and flagged by the world tests.
  */
 export const personalSections: readonly Section[] = projectsByCategory('personal').flatMap((project) => {
-  for (const zone of zones) {
-    const landmark = zone.landmarks.find((l) => l.panel?.kind === 'project' && l.panel.id === project.id);
-    if (landmark) {
-      return [
-        {
-          id: project.id,
-          label: project.name,
-          zoneId: zone.id,
-          landmarkId: landmark.id,
-          panel: { kind: 'project', id: project.id } as PanelRef,
-          description: project.tagline,
-        },
-      ];
-    }
-  }
-  return [];
+  const island = projectIslands.get(project.id);
+  if (!island) return [];
+  return [
+    {
+      id: project.id,
+      label: project.name,
+      zoneId: island.zoneId,
+      landmarkId: island.landmarkId,
+      panel: { kind: 'project', id: project.id } as PanelRef,
+      description: project.tagline,
+    },
+  ];
 });

@@ -19,7 +19,7 @@ import {
   ideaSeeds,
 } from '@/content';
 import { buildWorld, segmentWalkable } from './build';
-import { personalSections, sections } from './sections';
+import { personalSections, projectIslands, sections } from './sections';
 import type { PanelRef } from './types';
 import { zoneLinks, zones } from './zones';
 
@@ -212,5 +212,48 @@ describe('personal project islands (ADR-005)', () => {
       const hub = world.zone(s.zoneId).hubNodeId;
       expect(world.nav.findPath(homeHub, hub), s.id).not.toBeNull();
     }
+  });
+});
+
+describe('project connections', () => {
+  const linked = (a: string, b: string) =>
+    world.bridges.some((br) => (br.a === a && br.b === b) || (br.a === b && br.b === a));
+
+  it('bridges the Innovation Lab (SAGE) to Career City (Sysco LABS) and to Project Park', () => {
+    expect(linked('lab', 'career')).toBe(true);
+    expect(linked('lab', 'park')).toBe(true);
+  });
+
+  it('keeps Project Park connected to Career City and to the personal project islands', () => {
+    expect(linked('career', 'park')).toBe(true);
+    expect(linked('park', 'tala')).toBe(true);
+  });
+
+  it('puts a gateway in Project Park for every personal project, opening that project', () => {
+    for (const p of projectsByCategory('personal')) {
+      const gateway = world.landmark(`park-gateway-${p.id}`);
+      expect(gateway?.zoneId, p.id).toBe('park');
+      expect(gateway?.panel, p.id).toEqual({ kind: 'project', id: p.id });
+    }
+  });
+
+  it('tells every project panel where its island is (SAGE and all personal projects)', () => {
+    expect(projectIslands.get('sage')?.zoneId).toBe('lab');
+    for (const p of projectsByCategory('personal')) {
+      const island = projectIslands.get(p.id);
+      expect(island, p.id).toBeDefined();
+      expect(world.landmark(island!.landmarkId)?.zoneId, p.id).toBe(island!.zoneId);
+      expect(world.nav.findPath(homeHub, world.zone(island!.zoneId).hubNodeId), p.id).not.toBeNull();
+    }
+  });
+
+  it('keeps the Sysco LABS district close together', () => {
+    const dist = (a: string, b: string) => {
+      const za = world.zone(a as never);
+      const zb = world.zone(b as never);
+      return Math.hypot(za.x - zb.x, za.z - zb.z);
+    };
+    expect(dist('lab', 'park')).toBeLessThan(70);
+    expect(dist('career', 'park')).toBeLessThan(70);
   });
 });

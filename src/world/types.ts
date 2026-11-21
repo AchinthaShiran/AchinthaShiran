@@ -147,6 +147,8 @@ export interface ZoneDef {
   readonly overviewPanel: PanelRef;
   /** Landmark the guide targets for this zone. */
   readonly primaryLandmark: string;
+  /** Projects explained on this island (their panels offer to guide or travel here). */
+  readonly projects?: readonly string[];
 }
 
 export interface ZoneLink {

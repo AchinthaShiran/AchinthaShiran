@@ -849,3 +849,30 @@ export function arcadeCabinet(props: ModelProps): Object3D {
     box(1.4, 0.4, 0.2, glowMat(palette.sunshine, 0.8), { p: [0, 2.75, 0.45] }),
   ]);
 }
+
+/** Project Park gateway: a portal arch to a project's island. Props: `label`, `color`. */
+export function projectGateway(props: ModelProps): Object3D {
+  const color = text(props.color, palette.sky);
+  const plate = signPlane(text(props.label, ''), 2.2, 0.5, palette.cream, palette.ink);
+  plate.position.set(0, 3.55, 0.12);
+  const islet = ico(0.3, mat(palette.meadow), { p: [0, 2.3, 0], s: [1.3, 0.5, 1.3] }, 1);
+  const veil = cylinder(0.95, 0.95, 0.04, 16, glowMat(color, 0.8, { opacity: 0.5 }), {
+    p: [0, 1.75, 0],
+    r: [Math.PI / 2, 0, 0],
+  });
+  const g = group([
+    box(0.4, 3.0, 0.5, palette.stone, { p: [-1.15, 1.5, 0] }),
+    box(0.4, 3.0, 0.5, palette.stone, { p: [1.15, 1.5, 0] }),
+    torus(1.15, 0.2, color, { p: [0, 3.0, 0] }, Math.PI, 5, 14),
+    box(0.9, 0.35, 0.9, palette.stone, { p: [-1.15, 0.18, 0] }),
+    box(0.9, 0.35, 0.9, palette.stone, { p: [1.15, 0.18, 0] }),
+    box(2.7, 0.9, 0.12, palette.cream, { p: [0, 3.55, 0] }),
+    plate,
+    veil,
+    islet,
+  ]);
+  return animate(g, (t) => {
+    islet.position.y = 2.1 + Math.sin(t * 1.8) * 0.15;
+    islet.rotation.y = t * 0.8;
+  });
+}

@@ -399,7 +399,16 @@ function TechChips({ ids, nav }: { ids: readonly string[]; nav: Nav }) {
   );
 }
 
-export function ProjectDetails({ project, nav }: { project: Project; nav: Nav }) {
+export function ProjectDetails({
+  project,
+  nav,
+  extra,
+}: {
+  project: Project;
+  nav: Nav;
+  /** Extra content from the host (e.g. world actions); never rendered in Classic mode. */
+  extra?: ReactNode;
+}) {
   const org = project.organizationId ? getOrganization(project.organizationId) : undefined;
   const recognitions = awardsForProject(project.id);
   const linkedRoles = rolesForProject(project.id);
@@ -484,6 +493,7 @@ export function ProjectDetails({ project, nav }: { project: Project; nav: Nav })
           {project.demoVideoUrl && <ExternalLink href={project.demoVideoUrl}>Demo video</ExternalLink>}
         </div>
       )}
+      {extra}
       {linkedRoles.length > 0 && (
         <div className="actions">
           {linkedRoles.map((r) => (

@@ -45,6 +45,7 @@ import {
   Welcome,
 } from '../content/blocks';
 import { Controls } from './Controls';
+import { IslandActions } from './IslandActions';
 
 export interface PanelView {
   eyebrow: string;
@@ -143,7 +144,7 @@ export function describePanel(ref: PanelRef): PanelView {
       const project = getProject(ref.id);
       return project
         ? view(project.category === 'personal' ? 'Personal project' : 'Project', project.name, (nav) => (
-            <ProjectDetails project={project} nav={nav} />
+            <ProjectDetails project={project} nav={nav} extra={<IslandActions projectId={project.id} />} />
           ))
         : missing;
     }

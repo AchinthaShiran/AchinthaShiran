@@ -68,6 +68,7 @@ import { castle, flag, peakSign, trophy } from './models/peak';
 import {
   approvalGate,
   arcadeCabinet,
+  projectGateway,
   budgetGauge,
   coinStack,
   companionBot,
@@ -232,6 +233,8 @@ export const manifest = {
   npcTalker: proc(npcTalker, circle(1.4), 4.4),
   functionMachine: proc(functionMachine, rect(3.4, 2.0), 4.2),
   arcadeCabinet: proc(arcadeCabinet, rect(1.5, 1.2), 3.2),
+  // Project Park gateways to the personal project islands
+  projectGateway: proc(projectGateway, rect(2.6, 0.9), 4.2),
 
   // Collectibles & fallbacks
   ideaSeed: proc(ideaSeed, null, 1.6),
