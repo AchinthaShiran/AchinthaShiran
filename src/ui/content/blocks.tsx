@@ -22,6 +22,7 @@ import {
   mentoring,
   profile,
   projects,
+  projectsByCategory,
   projectsUsingSkill,
   roles,
   rolesForOrganization,
@@ -34,6 +35,8 @@ import {
   type ContactKind,
   type MentoringActivity,
   type Project,
+  type ProjectCategory,
+  type ProjectTopic,
   type Role,
   type SageTopic,
   type Skill,
@@ -45,6 +48,7 @@ export type Nav = ((panel: PanelRef) => void) | undefined;
 
 const ANCHORS: Partial<Record<PanelRef['kind'], string>> = {
   project: 'projects',
+  'project-topic': 'projects',
   projects: 'projects',
   role: 'experience',
   'career-timeline': 'experience',
@@ -61,6 +65,14 @@ const ANCHORS: Partial<Record<PanelRef['kind'], string>> = {
   cv: 'contact',
   about: 'about',
 };
+
+/** Classic-mode section for a panel reference. Personal projects live in their own section. */
+function classicAnchor(to: PanelRef): string | undefined {
+  if (to.kind === 'project' && getProject(to.id)?.category === 'personal') return 'personal';
+  if (to.kind === 'project-topic' && getProject(to.project)?.category === 'personal') return 'personal';
+  if (to.kind === 'projects' && to.category === 'personal') return 'personal';
+  return ANCHORS[to.kind];
+}
 
 export function NavChip({
   label,
@@ -82,7 +94,7 @@ export function NavChip({
       </button>
     );
   }
-  const anchor = ANCHORS[to.kind];
+  const anchor = classicAnchor(to);
   return anchor ? (
     <a className="chip chip--link" href={`#/classic/${anchor}`}>
       {dot}
@@ -148,7 +160,8 @@ export function Welcome({ nav }: { nav: Nav }) {
       <p className="muted">{profile.headline}</p>
       <div className="actions">
         <NavChip label="About me" to={{ kind: 'about' }} nav={nav} />
-        <NavChip label="Key projects" to={{ kind: 'projects' }} nav={nav} />
+        <NavChip label="Key projects" to={{ kind: 'projects', category: 'corporate' }} nav={nav} />
+        <NavChip label="Personal projects" to={{ kind: 'projects', category: 'personal' }} nav={nav} />
         <NavChip label="Contact" to={{ kind: 'contact' }} nav={nav} />
       </div>
     </>
@@ -182,6 +195,7 @@ export function About({ nav }: { nav: Nav }) {
       <CvAction />
       <div className="actions">
         <NavChip label="Career timeline" to={{ kind: 'career-timeline' }} nav={nav} />
+        <NavChip label="Personal projects" to={{ kind: 'projects', category: 'personal' }} nav={nav} />
         <NavChip label="Skills" to={{ kind: 'skills' }} nav={nav} />
       </div>
     </>
@@ -393,6 +407,7 @@ export function ProjectDetails({ project, nav }: { project: Project; nav: Nav })
     <>
       <p>
         {org && <span className="badge">{org.name}</span>}{' '}
+        {project.category === 'personal' && <span className="badge badge--coral">Personal project</span>}{' '}
         <span className="badge badge--sun">{project.role}</span>
       </p>
       <p className="lead">{project.tagline}</p>
@@ -407,6 +422,7 @@ export function ProjectDetails({ project, nav }: { project: Project; nav: Nav })
       <Section title="Key capabilities">
         <Bullets items={project.capabilities} />
       </Section>
+      {project.topics.length > 0 && <ProjectTopics project={project} nav={nav} />}
       <Section title="Achintha's role & contributions">
         <Bullets items={project.contributions} />
       </Section>
@@ -446,14 +462,24 @@ export function ProjectDetails({ project, nav }: { project: Project; nav: Nav })
           </ul>
         </Section>
       )}
-      <TechChips ids={project.technologies} nav={nav} />
-      <p className="note">
-        Technologies are those listed for the project in the resume; not every technology is used in every
-        component.
-      </p>
-      {(project.liveUrl || project.repoUrl || project.demoVideoUrl) && (
+      {project.technologies.length > 0 && (
+        <>
+          <TechChips ids={project.technologies} nav={nav} />
+          <p className="note">
+            {project.category === 'corporate'
+              ? 'Technologies are those listed for the project in the resume; not every technology is used in every component.'
+              : "Technologies are those stated in the project's public sources."}
+          </p>
+        </>
+      )}
+      {(project.liveUrl || project.repoUrl || project.demoVideoUrl || project.links.length > 0) && (
         <div className="actions">
           {project.liveUrl && <ExternalLink href={project.liveUrl}>Live application</ExternalLink>}
+          {project.links.map((l) => (
+            <ExternalLink key={l.url} href={l.url}>
+              {l.label}
+            </ExternalLink>
+          ))}
           {project.repoUrl && <ExternalLink href={project.repoUrl}>Source repository</ExternalLink>}
           {project.demoVideoUrl && <ExternalLink href={project.demoVideoUrl}>Demo video</ExternalLink>}
         </div>
@@ -472,32 +498,110 @@ export function ProjectDetails({ project, nav }: { project: Project; nav: Nav })
   );
 }
 
-export function ProjectList({ nav }: { nav: Nav }) {
+/** One feature of a project: chips that open its topic panel in the world, or full cards in Classic mode. */
+function ProjectTopics({ project, nav }: { project: Project; nav: Nav }) {
+  if (nav) {
+    return (
+      <Section title="Features">
+        <div className="chips">
+          {project.topics.map((t) => (
+            <NavChip
+              key={t.id}
+              label={t.title}
+              to={{ kind: 'project-topic', project: project.id, id: t.id }}
+              nav={nav}
+            />
+          ))}
+        </div>
+      </Section>
+    );
+  }
+  return (
+    <Section title="Features">
+      {project.topics.map((t) => (
+        <div key={t.id} className="card">
+          <h3>{t.title}</h3>
+          <p>{t.summary}</p>
+          <Bullets items={t.points} />
+        </div>
+      ))}
+    </Section>
+  );
+}
+
+export function ProjectTopicDetails({
+  project,
+  topic,
+  nav,
+}: {
+  project: Project;
+  topic: ProjectTopic;
+  nav: Nav;
+}) {
+  const others = project.topics.filter((t) => t.id !== topic.id);
   return (
     <>
-      {projects.map((p) =>
-        nav ? (
-          <button
-            key={p.id}
-            type="button"
-            className="card card--link"
-            onClick={() => nav({ kind: 'project', id: p.id })}
-          >
-            <h3>{p.name}</h3>
-            <p className="muted" style={{ margin: 0 }}>
-              {p.tagline}
-            </p>
-          </button>
-        ) : (
-          <article key={p.id} className="card">
-            <h3>{p.name}</h3>
-            <ProjectDetails project={p} nav={undefined} />
-          </article>
-        ),
+      <p className="lead">{topic.summary}</p>
+      <Bullets items={topic.points} />
+      {others.length > 0 && (
+        <Section title={`More from ${project.shortName}`}>
+          <div className="chips">
+            {others.map((t) => (
+              <NavChip
+                key={t.id}
+                label={t.title}
+                to={{ kind: 'project-topic', project: project.id, id: t.id }}
+                nav={nav}
+              />
+            ))}
+          </div>
+        </Section>
       )}
-      <p className="note">
-        More personal and game-development projects will join the park once their details are confirmed.
-      </p>
+      <div className="actions">
+        <NavChip label={`About ${project.shortName}`} to={{ kind: 'project', id: project.id }} nav={nav} />
+      </div>
+    </>
+  );
+}
+
+const PROJECT_GROUPS: { category: ProjectCategory; title: string }[] = [
+  { category: 'corporate', title: 'At Sysco LABS' },
+  { category: 'personal', title: 'Personal projects' },
+];
+
+/** Projects grouped by category; pass `category` to show a single group. */
+export function ProjectList({ nav, category }: { nav: Nav; category?: ProjectCategory }) {
+  return (
+    <>
+      {PROJECT_GROUPS.filter((g) => !category || g.category === category).map((group) => {
+        const list = projectsByCategory(group.category);
+        if (list.length === 0) return null;
+        return (
+          <div key={group.category}>
+            {!category && <h3 className="section-title">{group.title}</h3>}
+            {list.map((p) =>
+              nav ? (
+                <button
+                  key={p.id}
+                  type="button"
+                  className="card card--link"
+                  onClick={() => nav({ kind: 'project', id: p.id })}
+                >
+                  <h3>{p.name}</h3>
+                  <p className="muted" style={{ margin: 0 }}>
+                    {p.tagline}
+                  </p>
+                </button>
+              ) : (
+                <article key={p.id} className="card">
+                  <h3>{p.name}</h3>
+                  <ProjectDetails project={p} nav={undefined} />
+                </article>
+              ),
+            )}
+          </div>
+        );
+      })}
     </>
   );
 }
@@ -508,7 +612,8 @@ export function SkillsOverview({ nav }: { nav: Nav }) {
   return (
     <>
       <p>
-        Technologies listed in the resume, grouped by area. Each one links to the projects where it appears.
+        Technologies from the resume and from personal projects, grouped by area. Each one links to the
+        projects where it appears.
       </p>
       {skillCategories.map((c) => {
         const list = skillsInCategory(c.id);
@@ -556,7 +661,9 @@ export function SkillDetails({ skill, nav }: { skill: Skill; nav: Nav }) {
       <p className="muted">
         {skill.source === 'resume-skills'
           ? 'Listed in the resume skills.'
-          : 'Listed under specific projects in the resume.'}
+          : skill.source === 'personal-project'
+            ? 'Used in personal projects, as stated in their public sources.'
+            : 'Listed under specific projects in the resume.'}
       </p>
       {used.length > 0 && (
         <Section title="Appears in">

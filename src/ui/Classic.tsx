@@ -19,6 +19,7 @@ const SECTIONS = [
   { id: 'experience', label: 'Experience' },
   { id: 'sage', label: 'SAGE / Agentic AI' },
   { id: 'projects', label: 'Projects' },
+  { id: 'personal', label: 'Personal projects' },
   { id: 'skills', label: 'Skills' },
   { id: 'education', label: 'Education' },
   { id: 'awards', label: 'Awards' },
@@ -100,8 +101,12 @@ export function Classic({ section, webgl }: { section: string | null; webgl: boo
           <SageOverview nav={undefined} />
         </section>
         <section id="projects" className="classic-section">
-          <h2>Key projects</h2>
-          <ProjectList nav={undefined} />
+          <h2>Key projects at Sysco LABS</h2>
+          <ProjectList nav={undefined} category="corporate" />
+        </section>
+        <section id="personal" className="classic-section">
+          <h2>Personal projects</h2>
+          <ProjectList nav={undefined} category="personal" />
         </section>
         <section id="skills" className="classic-section">
           <h2>Skills</h2>
