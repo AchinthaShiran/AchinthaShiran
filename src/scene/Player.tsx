@@ -158,8 +158,8 @@ export function Player() {
     }
 
     // 5. Facing + animation
-    if (camera.locked && useGameStats.getState().mode) {
-      // Aiming with the mouse captured: face where the crosshair points, strafing relative to it.
+    if (useGameStats.getState().mode) {
+      // Gun out: face where the crosshair points, strafing relative to it.
       player.yaw += angleDelta(player.yaw, camera.yaw + Math.PI) * damp(14, dt);
     } else if (player.speed > 0.3) {
       const targetYaw = Math.atan2(vel.current.x, vel.current.z);

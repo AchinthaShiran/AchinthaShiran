@@ -18,10 +18,9 @@ export function MouseHint() {
   );
 }
 
-/** Centre crosshair while aiming the paintball gun with the mouse captured. */
+/** Centre crosshair whenever the paintball gun is out: shots go where it points. */
 export function Crosshair() {
-  const locked = useUi((s) => s.locked);
   const mode = useGameStats((s) => s.mode);
-  if (!locked || !mode) return null;
+  if (!mode) return null;
   return <div className="crosshair" aria-hidden="true" />;
 }

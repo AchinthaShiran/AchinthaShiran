@@ -1,11 +1,7 @@
 import type { Object3D } from 'three';
-import { animate, box, cone, cylinder, group, ico } from '../builders';
+import { animate, box, cone, cylinder, gableRoof, group, ico } from '../builders';
 import { glowMat, mat } from '../materials';
 import { palette } from '../palette';
-
-/** Triangular prism roof: a 3-sided cylinder lying on its side. */
-const roofPrism = (w: number, h: number, d: number, color: string, y: number) =>
-  cylinder(h, h, d, 3, color, { p: [0, y, 0], r: [Math.PI / 2, 0, Math.PI / 2], s: [w / (h * 1.73), 1, 1] });
 
 export function cozyHouse(): Object3D {
   const window = glowMat(palette.glow, 0.5);
@@ -14,7 +10,7 @@ export function cozyHouse(): Object3D {
   const g = group([
     box(5.2, 0.4, 4.4, palette.stone, { p: [0, 0.2, 0] }),
     box(4.8, 3.0, 4.0, palette.cream, { p: [0, 1.9, 0] }),
-    roofPrism(5.8, 1.5, 4.8, palette.roof, 4.05),
+    gableRoof(5.0, 2.25, 5.4, palette.roof, 3.3),
     box(1.0, 1.8, 0.12, palette.woodDark, { p: [0, 1.3, 2.02] }),
     ico(0.07, palette.sunshine, { p: [0.32, 1.3, 2.1] }),
     box(0.9, 0.9, 0.1, window, { p: [-1.5, 2.2, 2.02] }),

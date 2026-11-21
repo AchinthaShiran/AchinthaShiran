@@ -1,7 +1,10 @@
 import { useRef } from 'react';
 import { requestJump, setJoystick } from '@/engine/input';
 import { interactNearby, world } from '@/game/actions';
+import { fireCenter, togglePaintMode } from '@/game/paint/controller';
+import { useGameStats } from '@/state/paint';
 import { useUi } from '@/state/ui';
+import { Icon } from './Icon';
 
 const RADIUS = 52;
 
@@ -10,6 +13,7 @@ export function TouchControls() {
   const knob = useRef<HTMLDivElement>(null);
   const origin = useRef<{ x: number; y: number; id: number } | null>(null);
   const nearbyId = useUi((s) => s.nearbyId);
+  const paintMode = useGameStats((s) => s.mode);
   const blocked = useUi((s) => s.panels.length > 0 || s.overlay !== null || s.phase !== 'play');
   if (blocked) return null;
 
@@ -57,6 +61,30 @@ export function TouchControls() {
             {lm.def.hint ?? 'Open'}
           </button>
         )}
+        {paintMode && (
+          <button
+            type="button"
+            className="touch-btn touch-btn--fire"
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              fireCenter();
+            }}
+            aria-label="Fire paintball"
+          >
+            <Icon name="fire" />
+            <span>Fire</span>
+          </button>
+        )}
+        <button
+          type="button"
+          className={`touch-btn touch-btn--gun ${paintMode ? 'is-on' : ''}`}
+          onClick={togglePaintMode}
+          aria-pressed={paintMode}
+          aria-label={paintMode ? 'Put the paintball gun away' : 'Take out the paintball gun'}
+        >
+          <Icon name="paint" />
+          <span>{paintMode ? 'Stow' : 'Paint gun'}</span>
+        </button>
         <button type="button" className="touch-btn" onPointerDown={() => requestJump()} aria-label="Jump">
           Jump
         </button>

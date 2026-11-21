@@ -3,7 +3,7 @@
  * described in the project's public sources - nothing is decoration without a meaning.
  */
 import type { Object3D } from 'three';
-import { animate, box, cone, cylinder, group, ico, octa, torus } from '../builders';
+import { animate, box, cone, cylinder, gableRoof, group, ico, octa, torus } from '../builders';
 import { glowMat, mat } from '../materials';
 import { palette } from '../palette';
 import type { ModelProps } from '../types';
@@ -30,10 +30,6 @@ function bubble(color: string, w: number, h: number): Object3D {
     cone(0.18, 0.3, 3, color, { p: [-w * 0.25, -h / 2 - 0.12, 0], r: [0, 0, Math.PI] }),
   ]);
 }
-
-/** Gabled roof prism (same construction as the cosy house). */
-const roofPrism = (w: number, h: number, d: number, color: string, y: number) =>
-  cylinder(h, h, d, 3, color, { p: [0, y, 0], r: [Math.PI / 2, 0, Math.PI / 2], s: [w / (h * 1.73), 1, 1] });
 
 /** Generic island sign: props `label`, `color`, `ink`. */
 export function islandSign(props: ModelProps): Object3D {
@@ -282,7 +278,7 @@ export function learningHall(): Object3D {
   const g = group([
     box(6.4, 0.4, 4.6, palette.stone, { p: [0, 0.2, 0] }),
     box(6, 3.2, 4, palette.cream, { p: [0, 2, 0] }),
-    roofPrism(6.6, 1.5, 4.8, palette.roof, 4.25),
+    gableRoof(5.0, 2.25, 6.6, palette.roof, 3.5),
     ...posts.map(([x, z]) => cylinder(0.08, 0.08, 1.6, 5, palette.woodDark, { p: [x, 6.0, z] })),
     cone(1.0, 1.2, 4, palette.roof, { p: [0, 7.4, 0], r: [0, Math.PI / 4, 0] }),
     bellPivot,

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { profile } from '@/content';
+import { isTouch } from '@/engine/device';
 import { player } from '@/engine/playerState';
 import { camera as camState } from '@/engine/playerState';
 import { clearGuide, interactNearby, world } from '@/game/actions';
@@ -36,10 +37,12 @@ function ZoneBanner() {
   );
 }
 
+/** Keyboard prompt (E). Touch devices have their own on-screen action button instead. */
 function InteractPrompt() {
   const nearbyId = useUi((s) => s.nearbyId);
   const blocked = useUi((s) => s.panels.length > 0 || s.overlay !== null || s.phase !== 'play');
-  if (!nearbyId || blocked) return null;
+  const [touch] = useState(isTouch);
+  if (!nearbyId || blocked || touch) return null;
   const lm = world.landmark(nearbyId);
   if (!lm) return null;
   return (
