@@ -29,6 +29,7 @@ const home: ZoneDef = {
     { id: 'home-board', name: 'Notice Board — Current Role', model: 'noticeBoard', at: { a: 205, r: 10 }, panel: { kind: 'current-role' }, hint: 'Read current role' },
     { id: 'home-tree', name: 'Giant Tree — Growth', model: 'giantTree', at: { a: 238, r: 12 }, panel: { kind: 'growth' }, hint: 'View growth timeline' },
     { id: 'home-windmill', name: 'Windmill', model: 'windmill', at: { a: 288, r: 14 } },
+    { id: 'home-signpost', name: 'Signpost', model: 'signpostPost', at: { a: 22, r: 3.4 }, scale: 1.4 },
   ],
   seeds: [{ id: 'seed-game-dev', at: { a: 135, r: 16.4 } }],
   overviewPanel: { kind: 'about' },
