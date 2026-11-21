@@ -534,14 +534,6 @@ const horizon: ZoneDef = {
       hint: 'LinkedIn profile',
     },
     {
-      id: 'horizon-phone',
-      name: 'Telephone Booth - Phone',
-      model: 'phoneBooth',
-      at: { a: 262, r: 11.5 },
-      panel: { kind: 'contact-channel', id: 'phone' },
-      hint: 'Call',
-    },
-    {
       id: 'horizon-telescope',
       name: 'Telescope - Profiles',
       model: 'telescope',

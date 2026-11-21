@@ -83,7 +83,7 @@ export const sections: readonly Section[] = [
     zoneId: 'horizon',
     landmarkId: 'horizon-arch',
     panel: { kind: 'contact' },
-    description: 'Email, phone and profiles.',
+    description: 'Email and profiles.',
   },
   {
     id: 'cv',

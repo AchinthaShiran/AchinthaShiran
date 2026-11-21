@@ -52,7 +52,6 @@ Professional themes
 - Game development as a personal passion.
 Contact details from the resume
 - Email: achinthabandara1@gmail.com
-- Phone: +94 71 776 10 31
 - LinkedIn profile label: achinthabandara
 The actual LinkedIn URL and GitHub URL were not provided in the resume. Keep those as configurable placeholders until supplied. Do not invent profile URLs.
 3. World Concept
@@ -419,7 +418,6 @@ A peaceful floating island at the edge of the world, featuring a lighthouse, woo
 Interactive landmarks:
 - Lighthouse: LinkedIn profile, using the supplied profile label achinthabandara until the exact URL is confirmed.
 - Message in a Bottle: Email achinthabandara1@gmail.com.
-- Telephone Booth or Signal Post: Phone +94 71 776 10 31.
 - Notice Board: Download CV.
 - Telescope: Other verified online profiles or personal website links, once supplied.
 The GitHub URL was not present in the resume. Keep it as a configurable placeholder until provided. Do not invent profile URLs.

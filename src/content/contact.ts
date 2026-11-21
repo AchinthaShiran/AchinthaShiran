@@ -11,7 +11,6 @@ export const contacts: readonly ContactChannel[] = [
     display: 'achinthabandara1@gmail.com',
     href: 'mailto:achinthabandara1@gmail.com',
   },
-  { id: 'phone', label: 'Phone', display: '+94 71 776 10 31', href: 'tel:+94717761031' },
   { id: 'linkedin', label: 'LinkedIn', display: 'achinthabandara', href: null },
   { id: 'github', label: 'GitHub', display: 'GitHub profile', href: null },
 ];
