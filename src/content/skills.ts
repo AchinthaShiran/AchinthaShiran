@@ -18,7 +18,7 @@ export const skillCategories: readonly SkillCategory[] = [
     id: 'ai',
     name: 'AI & Agents',
     color: '#4FC9B8',
-    description: 'Frameworks and runtimes used in the personal AI assistant project, Tala.',
+    description: 'Frameworks and runtimes used in the personal AI assistant project, TALA.',
   },
   { id: 'cloud', name: 'Cloud', color: '#F5A35C', description: 'Cloud platforms used for delivery.' },
   {
